@@ -3,10 +3,12 @@ package com.stal111.forbidden_arcanus.common.item.mundabitur;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.pattern.BlockPattern;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -47,10 +49,20 @@ public abstract class TransformPatternInteraction implements MundabiturInteracti
         level.setBlockAndUpdate(pos, state);
     }
 
-    public record TransformPatternContext(Level level, BlockPos pos, InteractionHand hand, Direction clickedFace) implements Context {
+    public record TransformPatternContext(Level level, @Nullable Player player, BlockPos pos, InteractionHand hand, Direction clickedFace) implements Context {
 
-        public static TransformPatternInteraction.TransformPatternContext of(Level level, BlockPos pos, InteractionHand hand, Direction clickedFace) {
-            return new TransformPatternInteraction.TransformPatternContext(level, pos, hand, clickedFace);
+        public static TransformPatternContext of(Level level, @Nullable Player player, BlockPos pos, InteractionHand hand, Direction clickedFace) {
+            return new TransformPatternContext(level, player, pos, hand, clickedFace);
+        }
+
+        @Override
+        public Level getLevel() {
+            return this.level;
+        }
+
+        @Override
+        public @Nullable Player getPlayer() {
+            return this.player;
         }
 
         @Override

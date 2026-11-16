@@ -3,6 +3,9 @@ package com.stal111.forbidden_arcanus.common.item.mundabitur;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
@@ -25,10 +28,20 @@ public abstract class EntityInteraction implements MundabiturInteraction<EntityI
 
     protected abstract void interact(EntityInteractionContext context);
 
-    public record EntityInteractionContext(LivingEntity entity, InteractionHand hand) implements Context {
+    public record EntityInteractionContext(@Nullable Player player, LivingEntity entity, InteractionHand hand) implements Context {
 
-        public static EntityInteractionContext of(LivingEntity entity, InteractionHand hand) {
-            return new EntityInteractionContext(entity, hand);
+        public static EntityInteractionContext of(@Nullable Player player, LivingEntity entity, InteractionHand hand) {
+            return new EntityInteractionContext(player, entity, hand);
+        }
+
+        @Override
+        public Level getLevel() {
+            return this.entity.level();
+        }
+
+        @Override
+        public @Nullable Player getPlayer() {
+            return this.player;
         }
 
         @Override

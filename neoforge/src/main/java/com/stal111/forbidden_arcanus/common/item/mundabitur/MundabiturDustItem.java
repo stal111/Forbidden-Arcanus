@@ -3,6 +3,7 @@ package com.stal111.forbidden_arcanus.common.item.mundabitur;
 import com.stal111.forbidden_arcanus.core.init.ModSounds;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
@@ -24,23 +25,28 @@ public class MundabiturDustItem extends Item {
 
     @Override
     public @NotNull InteractionResult useOn(UseOnContext context) {
-        Level level = context.getLevel();
-        Player player = context.getPlayer();
-        ItemStack stack = context.getItemInHand();
+        var transformContext = TransformPatternInteraction.TransformPatternContext.of(
+                context.getLevel(),
+                context.getPlayer(),
+                context.getClickedPos(),
+                context.getHand(),
+                context.getClickedFace()
+        );
 
-        var transformContext = TransformPatternInteraction.TransformPatternContext.of(level, context.getClickedPos(), context.getHand(), context.getClickedFace());
-
-        return this.tryInteract(player, stack, TransformPatternInteraction.class, transformContext);
+        return this.tryInteract(context.getItemInHand(), TransformPatternInteraction.class, transformContext);
     }
 
     @Override
     public @NotNull InteractionResult interactLivingEntity(@NotNull ItemStack stack, @NotNull Player player, @NotNull LivingEntity target, @NotNull InteractionHand hand) {
-        var context = EntityInteraction.EntityInteractionContext.of(target, hand);
+        var context = EntityInteraction.EntityInteractionContext.of(player, target, hand);
 
-        return this.tryInteract(player, stack, EntityInteraction.class, context);
+        return this.tryInteract(stack, EntityInteraction.class, context);
     }
 
-    private <T extends MundabiturInteraction.Context> InteractionResult tryInteract(Player player, ItemStack stack, Class<? extends MundabiturInteraction<T>> clazz, T context) {
+    private <T extends MundabiturInteraction.Context> InteractionResult tryInteract(ItemStack stack, Class<? extends MundabiturInteraction<T>> clazz, T context) {
+        Level level = context.getLevel();
+        Player player = context.getPlayer();
+
         for (MundabiturInteraction<?> interaction : FARegistries.MUNDABITUR_INTERACTION_REGISTRY) {
             if (!clazz.isInstance(interaction)) {
                 continue;
@@ -49,11 +55,15 @@ public class MundabiturDustItem extends Item {
             var prepared = clazz.cast(interaction).prepare(context);
 
             if (prepared.isPresent()) {
-                Level level = player.level();
+                if (!level.isClientSide()) {
+                    prepared.get().run();
 
-                prepared.get().run();
+                    stack.consume(1, player);
 
-                stack.consume(1, player);
+                    if (player != null) {
+                        player.awardStat(Stats.ITEM_USED.get(this));
+                    }
+                }
 
                 level.playSound(player, context.getPos(), ModSounds.MUNDABITUR_DUST_USE.get(), SoundSource.PLAYERS, 1.0F, level.getRandom().nextFloat() * 0.15F + 0.9F);
 

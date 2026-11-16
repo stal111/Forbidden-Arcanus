@@ -1,6 +1,9 @@
 package com.stal111.forbidden_arcanus.common.item.mundabitur;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
@@ -17,6 +20,11 @@ public interface MundabiturInteraction<T extends MundabiturInteraction.Context> 
     Optional<Runnable> prepare(T context);
 
     interface Context {
+        Level getLevel();
+
+        @Nullable
+        Player getPlayer();
+
         BlockPos getPos();
     }
 }
