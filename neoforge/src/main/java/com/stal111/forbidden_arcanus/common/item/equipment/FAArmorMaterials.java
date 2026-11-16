@@ -1,8 +1,13 @@
 package com.stal111.forbidden_arcanus.common.item.equipment;
 
+import com.stal111.forbidden_arcanus.ForbiddenArcanus;
+import com.stal111.forbidden_arcanus.common.entity.attribute.FAAttributes;
 import com.stal111.forbidden_arcanus.util.ModTags;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Util;
+import net.minecraft.world.entity.EquipmentSlotGroup;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.item.equipment.ArmorMaterial;
 import net.minecraft.world.item.equipment.ArmorType;
 
@@ -15,17 +20,31 @@ import java.util.EnumMap;
 public class FAArmorMaterials {
 
     //TODO: tags for repair ingredients
-    public static final ArmorMaterial DRACO_ARCANUS = new ArmorMaterial(40, Util.make(new EnumMap<>(ArmorType.class), map ->  {
+    public static final ArmorMaterial DRACO_ARCANUS = new ArmorMaterial(40, Util.make(new EnumMap<>(ArmorType.class), map -> {
         map.put(ArmorType.BOOTS, 6);
         map.put(ArmorType.LEGGINGS, 8);
         map.put(ArmorType.CHESTPLATE, 10);
         map.put(ArmorType.HELMET, 6);
     }), 15, SoundEvents.ARMOR_EQUIP_GENERIC, 2.0F, 0.0F, ModTags.Items.REPAIRS_DRACO_ARCANUS_ARMOR, FAEquipmentAssets.DRACO_ARCANUS);
 
-    public static final ArmorMaterial TYR = new ArmorMaterial(42, Util.make(new EnumMap<>(ArmorType.class), map ->  {
+    public static final ArmorMaterial TYR = new ArmorMaterial(42, Util.make(new EnumMap<>(ArmorType.class), map -> {
         map.put(ArmorType.BOOTS, 7);
         map.put(ArmorType.LEGGINGS, 10);
         map.put(ArmorType.CHESTPLATE, 12);
         map.put(ArmorType.HELMET, 8);
     }), 15, SoundEvents.ARMOR_EQUIP_GENERIC, 3.0F, 0.1F, ModTags.Items.REPAIRS_TYR_ARMOR, FAEquipmentAssets.TYR);
+
+    public static ItemAttributeModifiers createAttributes(ArmorMaterial material, ArmorType type, double aurealRegeneration) {
+        ItemAttributeModifiers modifiers = material.createAttributes(type);
+
+        if (aurealRegeneration > 0.0) {
+            modifiers = modifiers.withModifierAdded(
+                    FAAttributes.AUREAL_REGENERATION,
+                    new AttributeModifier(ForbiddenArcanus.identifier("armor." + type.getName()), aurealRegeneration, AttributeModifier.Operation.ADD_VALUE),
+                    EquipmentSlotGroup.bySlot(type.getSlot())
+            );
+        }
+
+        return modifiers;
+    }
 }

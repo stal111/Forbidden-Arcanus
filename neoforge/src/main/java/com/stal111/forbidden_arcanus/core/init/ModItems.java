@@ -23,6 +23,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Unit;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.equipment.ArmorMaterial;
 import net.minecraft.world.item.equipment.ArmorType;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.material.Fluids;
@@ -111,7 +112,7 @@ public class ModItems implements RegistryClass {
     public static final ItemRegistryEntry<Item> IRON_BLACKSMITH_GAVEL = HELPER.register("iron_blacksmith_gavel", Item::new, () -> new Item.Properties().pickaxe(ToolMaterial.IRON, 1.0F, -2.8F).stacksTo(1).component(ModDataComponents.RITUAL_STARTER, RitualStarter.BLACKSMITH_GAVEL));
     public static final ItemRegistryEntry<Item> DIAMOND_BLACKSMITH_GAVEL = HELPER.register("diamond_blacksmith_gavel", Item::new, () -> new Item.Properties().pickaxe(ToolMaterial.DIAMOND, 1.0F, -2.8F).stacksTo(1).component(ModDataComponents.RITUAL_STARTER, RitualStarter.BLACKSMITH_GAVEL));
     public static final ItemRegistryEntry<Item> NETHERITE_BLACKSMITH_GAVEL = HELPER.register("netherite_blacksmith_gavel", Item::new, () -> new Item.Properties().pickaxe(ToolMaterial.NETHERITE, 1.0F, -2.8F).stacksTo(1).fireResistant().component(ModDataComponents.RITUAL_STARTER, RitualStarter.BLACKSMITH_GAVEL));
-//    public static final ItemRegistryEntry<PickaxeItem> REINFORCED_DEORUM_BLACKSMITH_GAVEL = HELPER.register("reinforced_deorum_blacksmith_gavel", () -> new PickaxeItem(FAToolMaterials.REINFORCED_DEORUM, new Item.Properties().stacksTo(1).component(ModDataComponents.RITUAL_STARTER, RitualStarter.BLACKSMITH_GAVEL)));
+    //    public static final ItemRegistryEntry<PickaxeItem> REINFORCED_DEORUM_BLACKSMITH_GAVEL = HELPER.register("reinforced_deorum_blacksmith_gavel", () -> new PickaxeItem(FAToolMaterials.REINFORCED_DEORUM, new Item.Properties().stacksTo(1).component(ModDataComponents.RITUAL_STARTER, RitualStarter.BLACKSMITH_GAVEL)));
     public static final ItemRegistryEntry<Item> STELLARITE_PIECE = HELPER.register("stellarite_piece", Item::new, () -> new Item.Properties().delayedHolderComponent(ModDataComponents.PROVIDES_WAND_MATERIAL.get(), BuiltinWandMaterials.STELLARITE));
     public static final ItemRegistryEntry<Item> DARK_NETHER_STAR = HELPER.register("dark_nether_star", Item::new, () -> new Item.Properties().rarity(Rarity.RARE).component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true));
     public static final ItemRegistryEntry<Item> TERRASTOMP_PRISM = HELPER.register("terrastomp_prism", Item::new, Item.Properties::new);
@@ -152,28 +153,29 @@ public class ModItems implements RegistryClass {
     public static final ItemRegistryEntry<MagicWandItem> AURUM_WAND = HELPER.register("aurum_wand", MagicWandItem::new, () -> new Item.Properties().stacksTo(1).requiredFeatures(ForbiddenArcanus.PREVIEW).component(ModDataComponents.SHOWS_AUREAL_METER, Unit.INSTANCE).component(ModDataComponents.ESSENCE_COST, EssenceCosts.WAND));
     public static final ItemRegistryEntry<MagicWandItem> EDELWOOD_WAND = HELPER.register("edelwood_wand", MagicWandItem::new, () -> new Item.Properties().stacksTo(1).requiredFeatures(ForbiddenArcanus.PREVIEW).component(ModDataComponents.SHOWS_AUREAL_METER, Unit.INSTANCE).component(ModDataComponents.ESSENCE_COST, EssenceCosts.WAND));
     public static final ItemRegistryEntry<Item> DRACO_ARCANUS_STAFF = HELPER.register("draco_arcanus_staff", Item::new, () -> new Item.Properties().stacksTo(1));
-//    public static final ItemRegistryEntry<Item> DRACO_ARCANUS_SWORD = HELPER.register("draco_arcanus_sword", () -> new SwordItem(FAToolMaterials.DRACO_ARCANUS, new Item.Properties()));
+    //    public static final ItemRegistryEntry<Item> DRACO_ARCANUS_SWORD = HELPER.register("draco_arcanus_sword", () -> new SwordItem(FAToolMaterials.DRACO_ARCANUS, new Item.Properties()));
 //    public static final ItemRegistryEntry<Item> DRACO_ARCANUS_SHOVEL = HELPER.register("draco_arcanus_shovel", () -> new ShovelItem(FAToolMaterials.DRACO_ARCANUS, new Item.Properties()));
 //    public static final ItemRegistryEntry<Item> DRACO_ARCANUS_PICKAXE = HELPER.register("draco_arcanus_pickaxe", () -> new PickaxeItem(FAToolMaterials.DRACO_ARCANUS, new Item.Properties()));
 //    public static final ItemRegistryEntry<Item> DRACO_ARCANUS_AXE = HELPER.register("draco_arcanus_axe", () -> new AxeItem(FAToolMaterials.DRACO_ARCANUS, new Item.Properties()));
 //    public static final ItemRegistryEntry<Item> DRACO_ARCANUS_HOE = HELPER.register("draco_arcanus_hoe", () -> new HoeItem(FAToolMaterials.DRACO_ARCANUS, new Item.Properties()));
     public static final ItemRegistryEntry<Item> DRACO_ARCANUS_SCEPTER = HELPER.register("draco_arcanus_scepter", DracoArcanusScepterItem::new, () -> new Item.Properties().stacksTo(1));
-//    public static final ItemRegistryEntry<Item> REINFORCED_DEORUM_SWORD = HELPER.register("reinforced_deorum_sword", () -> new SwordItem(FAToolMaterials.REINFORCED_DEORUM, new Item.Properties()));
+    //    public static final ItemRegistryEntry<Item> REINFORCED_DEORUM_SWORD = HELPER.register("reinforced_deorum_sword", () -> new SwordItem(FAToolMaterials.REINFORCED_DEORUM, new Item.Properties()));
 //    public static final ItemRegistryEntry<Item> REINFORCED_DEORUM_SHOVEL = HELPER.register("reinforced_deorum_shovel", () -> new ShovelItem(FAToolMaterials.REINFORCED_DEORUM, new Item.Properties()));
 //    public static final ItemRegistryEntry<Item> REINFORCED_DEORUM_PICKAXE = HELPER.register("reinforced_deorum_pickaxe", () -> new PickaxeItem(FAToolMaterials.REINFORCED_DEORUM, new Item.Properties()));
 //    public static final ItemRegistryEntry<Item> REINFORCED_DEORUM_AXE = HELPER.register("reinforced_deorum_axe", () -> new AxeItem(FAToolMaterials.REINFORCED_DEORUM, new Item.Properties()));
 //    public static final ItemRegistryEntry<Item> REINFORCED_DEORUM_HOE = HELPER.register("reinforced_deorum_hoe", () -> new HoeItem(FAToolMaterials.REINFORCED_DEORUM, new Item.Properties()));
-    public static final ItemRegistryEntry<Item> DRACO_ARCANUS_HELMET = HELPER.register("draco_arcanus_helmet", Item::new, () -> new Item.Properties().humanoidArmor(FAArmorMaterials.DRACO_ARCANUS, ArmorType.HELMET));
-    public static final ItemRegistryEntry<Item> DRACO_ARCANUS_CHESTPLATE = HELPER.register("draco_arcanus_chestplate", Item::new, () -> new Item.Properties().humanoidArmor(FAArmorMaterials.DRACO_ARCANUS, ArmorType.CHESTPLATE));
-    public static final ItemRegistryEntry<Item> DRACO_ARCANUS_LEGGINGS = HELPER.register("draco_arcanus_leggings", Item::new, () -> new Item.Properties().humanoidArmor(FAArmorMaterials.DRACO_ARCANUS, ArmorType.LEGGINGS));
-    public static final ItemRegistryEntry<Item> DRACO_ARCANUS_BOOTS = HELPER.register("draco_arcanus_boots", Item::new, () -> new Item.Properties().humanoidArmor(FAArmorMaterials.DRACO_ARCANUS, ArmorType.BOOTS));
-    public static final ItemRegistryEntry<Item> TYR_HELMET = HELPER.register("tyr_helmet", Item::new, () -> new Item.Properties().humanoidArmor(FAArmorMaterials.TYR, ArmorType.HELMET));
-    public static final ItemRegistryEntry<Item> TYR_CHESTPLATE = HELPER.register("tyr_chestplate", Item::new, () -> new Item.Properties().humanoidArmor(FAArmorMaterials.TYR, ArmorType.CHESTPLATE));
-    public static final ItemRegistryEntry<Item> TYR_LEGGINGS = HELPER.register("tyr_leggings", Item::new, () -> new Item.Properties().humanoidArmor(FAArmorMaterials.TYR, ArmorType.LEGGINGS));
-    public static final ItemRegistryEntry<Item> TYR_BOOTS = HELPER.register("tyr_boots", Item::new, () -> new Item.Properties().humanoidArmor(FAArmorMaterials.TYR, ArmorType.BOOTS));
-//    public static final ItemRegistryEntry<Item> MORTEM_HELMET = HELPER.register("mortem_helmet", () -> new ArmorItem(FAArmorMaterials.MORTEM, ArmorType.HELMET, new Item.Properties()));
-//    public static final ItemRegistryEntry<Item> MORTEM_CHESTPLATE = HELPER.register("mortem_chestplate", () -> new ArmorItem(FAArmorMaterials.MORTEM, ArmorType.CHESTPLATE, new Item.Properties()));
-//    public static final ItemRegistryEntry<Item> MORTEM_LEGGINGS = HELPER.register("mortem_leggings", () -> new ArmorItem(FAArmorMaterials.MORTEM, ArmorType.LEGGINGS, new Item.Properties()));
-//    public static final ItemRegistryEntry<Item> MORTEM_BOOTS = HELPER.register("mortem_boots", () -> new ArmorItem(FAArmorMaterials.MORTEM, ArmorType.BOOTS, new Item.Properties()));
+    public static final ItemRegistryEntry<Item> DRACO_ARCANUS_HELMET = registerArmor("draco_arcanus_helmet", FAArmorMaterials.DRACO_ARCANUS, ArmorType.HELMET, 1.0);
+    public static final ItemRegistryEntry<Item> DRACO_ARCANUS_CHESTPLATE = registerArmor("draco_arcanus_chestplate", FAArmorMaterials.DRACO_ARCANUS, ArmorType.CHESTPLATE, 2.0);
+    public static final ItemRegistryEntry<Item> DRACO_ARCANUS_LEGGINGS = registerArmor("draco_arcanus_leggings", FAArmorMaterials.DRACO_ARCANUS, ArmorType.LEGGINGS, 1.0);
+    public static final ItemRegistryEntry<Item> DRACO_ARCANUS_BOOTS = registerArmor("draco_arcanus_boots", FAArmorMaterials.DRACO_ARCANUS, ArmorType.BOOTS, 1.0);
+    public static final ItemRegistryEntry<Item> TYR_HELMET = registerArmor("tyr_helmet", FAArmorMaterials.TYR, ArmorType.HELMET, 2.0);
+    public static final ItemRegistryEntry<Item> TYR_CHESTPLATE = registerArmor("tyr_chestplate", FAArmorMaterials.TYR, ArmorType.CHESTPLATE, 3.0);
+    public static final ItemRegistryEntry<Item> TYR_LEGGINGS = registerArmor("tyr_leggings", FAArmorMaterials.TYR, ArmorType.LEGGINGS, 3.0);
+    public static final ItemRegistryEntry<Item> TYR_BOOTS = registerArmor("tyr_boots", FAArmorMaterials.TYR, ArmorType.BOOTS, 2.0);
 
+    private static ItemRegistryEntry<Item> registerArmor(String name, ArmorMaterial material, ArmorType type, double aurealRegeneration) {
+        return HELPER.register(name, Item::new, () -> new Item.Properties()
+                .humanoidArmor(material, type)
+                .attributes(FAArmorMaterials.createAttributes(material, type, aurealRegeneration)));
+    }
 }
