@@ -1,6 +1,5 @@
 package com.stal111.forbidden_arcanus.common.block;
 
-import com.stal111.forbidden_arcanus.common.block.pattern.UpwardsBlockPattern;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.util.ModTags;
 import net.minecraft.world.level.block.Blocks;
@@ -8,6 +7,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.pattern.BlockPattern;
 import net.minecraft.world.level.block.state.predicate.BlockPredicate;
 import net.minecraft.world.level.block.state.predicate.BlockStatePredicate;
+import net.valhelsia.valhelsia_core.api.common.block.pattern.UpwardsBlockPattern;
 
 /**
  * Mod Block Patterns <br>
