@@ -5,9 +5,7 @@ import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import com.stal111.forbidden_arcanus.util.ModTags;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.block.state.pattern.BlockInWorld;
 import net.minecraft.world.level.block.state.pattern.BlockPattern;
-import net.minecraft.world.level.block.state.pattern.BlockPatternBuilder;
 import net.minecraft.world.level.block.state.predicate.BlockPredicate;
 import net.minecraft.world.level.block.state.predicate.BlockStatePredicate;
 
@@ -20,7 +18,7 @@ import net.minecraft.world.level.block.state.predicate.BlockStatePredicate;
  */
 public class ModBlockPatterns {
 
-    public static final BlockPattern HEPHAESTUS_PATTERN = UpwardsBlockPattern.builder(BlockPatternBuilder.start()
+    public static final BlockPattern HEPHAESTUS_PATTERN = UpwardsBlockPattern.builder()
             .aisle("   ~~~   ", "   PPP   ")
             .aisle(" ~~~#~~~ ", " PPPAPPP ")
             .aisle(" ~#~~~#~ ", " PAPPPAP ")
@@ -30,15 +28,15 @@ public class ModBlockPatterns {
             .aisle(" ~#~~~#~ ", " PAPPPAP ")
             .aisle(" ~~~#~~~ ", " PPPAPPP ")
             .aisle("   ~~~   ", "   PPP   ")
-            .where('^', BlockInWorld.hasState(BlockStatePredicate.forBlock(Blocks.SMITHING_TABLE)))
-            .where('A', BlockInWorld.hasState(BlockStatePredicate.forBlock(ModBlocks.GILDED_CHISELED_POLISHED_DARKSTONE.get())))
-            .where('C', BlockInWorld.hasState(BlockStatePredicate.forBlock(ModBlocks.CHISELED_ARCANE_POLISHED_DARKSTONE.get())))
-            .where('P', BlockInWorld.hasState(BlockStatePredicate.forBlock(ModBlocks.POLISHED_DARKSTONE.get())))
-            .where('~', BlockInWorld.hasState(BlockBehaviour.BlockStateBase::isAir))
-            .where('#', BlockInWorld.hasState(state -> state.is(ModTags.Blocks.PEDESTALS) || state.isAir()))
-    ).anchor(4, 0, 4).symmetric().build();
+            .where('^', BlockStatePredicate.forBlock(Blocks.SMITHING_TABLE))
+            .where('A', BlockStatePredicate.forBlock(ModBlocks.GILDED_CHISELED_POLISHED_DARKSTONE.get()))
+            .where('C', BlockStatePredicate.forBlock(ModBlocks.CHISELED_ARCANE_POLISHED_DARKSTONE.get()))
+            .where('P', BlockStatePredicate.forBlock(ModBlocks.POLISHED_DARKSTONE.get()))
+            .where('~', BlockBehaviour.BlockStateBase::isAir)
+            .where('#', state -> state.is(ModTags.Blocks.PEDESTALS) || state.isAir())
+            .anchor(4, 0, 4).symmetric().build();
 
-    public static final BlockPattern BASE_HEPHAESTUS_PATTERN = UpwardsBlockPattern.builder(BlockPatternBuilder.start()
+    public static final UpwardsBlockPattern BASE_HEPHAESTUS_PATTERN = UpwardsBlockPattern.builder()
             .aisle("   PPP   ")
             .aisle(" PPPAPPP ")
             .aisle(" PAPPPAP ")
@@ -48,35 +46,35 @@ public class ModBlockPatterns {
             .aisle(" PAPPPAP ")
             .aisle(" PPPAPPP ")
             .aisle("   PPP   ")
-            .where('A', BlockInWorld.hasState(BlockStatePredicate.forBlock(ModBlocks.GILDED_CHISELED_POLISHED_DARKSTONE.get())))
-            .where('C', BlockInWorld.hasState(BlockStatePredicate.forBlock(ModBlocks.CHISELED_ARCANE_POLISHED_DARKSTONE.get())))
-            .where('P', BlockInWorld.hasState(BlockStatePredicate.forBlock(ModBlocks.POLISHED_DARKSTONE.get())))
-    ).anchor(4, 0, 4).symmetric().build();
+            .where('A', BlockStatePredicate.forBlock(ModBlocks.GILDED_CHISELED_POLISHED_DARKSTONE.get()))
+            .where('C', BlockStatePredicate.forBlock(ModBlocks.CHISELED_ARCANE_POLISHED_DARKSTONE.get()))
+            .where('P', BlockStatePredicate.forBlock(ModBlocks.POLISHED_DARKSTONE.get()))
+            .anchor(4, 0, 4).symmetric().build();
 
-    public static final BlockPattern ARCANE_CRYSTAL_OBELISK_PATTERN = UpwardsBlockPattern.builder(BlockPatternBuilder.start()
+    public static final BlockPattern ARCANE_CRYSTAL_OBELISK_PATTERN = UpwardsBlockPattern.builder()
             .aisle("#", "#", "X")
-            .where('#', BlockInWorld.hasState(BlockStatePredicate.forBlock(ModBlocks.ARCANE_CRYSTAL_BLOCK.get())))
-            .where('X', BlockInWorld.hasState(BlockStatePredicate.forBlock(ModBlocks.ARCANE_POLISHED_DARKSTONE.get())))
-    ).anchor(0, 0, 0).anchor(0, 1, 0).anchor(0, 2, 0).symmetric().build();
+            .where('#', BlockStatePredicate.forBlock(ModBlocks.ARCANE_CRYSTAL_BLOCK.get()))
+            .where('X', BlockStatePredicate.forBlock(ModBlocks.ARCANE_POLISHED_DARKSTONE.get()))
+            .anchor(0, 0, 0).anchor(0, 1, 0).anchor(0, 2, 0).symmetric().build();
 
-    public static final BlockPattern CLIBANO_COMBUSTION_BASE = UpwardsBlockPattern.builder(BlockPatternBuilder.start()
+    public static final BlockPattern CLIBANO_COMBUSTION_BASE = UpwardsBlockPattern.builder()
             .aisle("PBP", "BBB", "PBP")
             .aisle("BBB", "BAB", "BBB")
             .aisle("PBP", "BCB", "PBP")
-            .where('P', BlockInWorld.hasState(BlockStatePredicate.forBlock(ModBlocks.POLISHED_DARKSTONE.get())))
-            .where('B', BlockInWorld.hasState(BlockStatePredicate.forBlock(ModBlocks.POLISHED_DARKSTONE_BRICKS.get())))
-            .where('C', BlockInWorld.hasState(BlockStatePredicate.forBlock(ModBlocks.CLIBANO_CORE.get())))
-            .where('A', blockInWorld -> blockInWorld.getState().isAir())
-    ).anchor(1, 1, 2).build();
+            .where('P', BlockStatePredicate.forBlock(ModBlocks.POLISHED_DARKSTONE.get()))
+            .where('B', BlockStatePredicate.forBlock(ModBlocks.POLISHED_DARKSTONE_BRICKS.get()))
+            .where('C', BlockStatePredicate.forBlock(ModBlocks.CLIBANO_CORE.get()))
+            .where('A', BlockBehaviour.BlockStateBase::isAir)
+            .anchor(1, 1, 2).build();
 
-    public static final BlockPattern CLIBANO_COMBUSTION = UpwardsBlockPattern.builder(BlockPatternBuilder.start()
+    public static final BlockPattern CLIBANO_COMBUSTION = UpwardsBlockPattern.builder()
             .aisle("CVC", "HXH", "CVC")
             .aisle("VXV", "XMX", "VXV")
             .aisle("CVC", "HXH", "CVC")
-            .where('C', BlockInWorld.hasState(BlockPredicate.forBlock(ModBlocks.CLIBANO_CORNER.get())))
-            .where('V', BlockInWorld.hasState(BlockPredicate.forBlock(ModBlocks.CLIBANO_SIDE_VERTICAL.get())))
-            .where('H', BlockInWorld.hasState(BlockPredicate.forBlock(ModBlocks.CLIBANO_SIDE_HORIZONTAL.get())))
-            .where('M', BlockInWorld.hasState(BlockPredicate.forBlock(ModBlocks.CLIBANO_MAIN_PART.get())))
-            .where('X', BlockInWorld.hasState(BlockPredicate.forBlock(ModBlocks.CLIBANO_CENTER.get())))
-    ).symmetric().build();
+            .where('C', BlockPredicate.forBlock(ModBlocks.CLIBANO_CORNER.get()))
+            .where('V', BlockPredicate.forBlock(ModBlocks.CLIBANO_SIDE_VERTICAL.get()))
+            .where('H', BlockPredicate.forBlock(ModBlocks.CLIBANO_SIDE_HORIZONTAL.get()))
+            .where('M', BlockPredicate.forBlock(ModBlocks.CLIBANO_MAIN_PART.get()))
+            .where('X', BlockPredicate.forBlock(ModBlocks.CLIBANO_CENTER.get()))
+            .symmetric().build();
 }

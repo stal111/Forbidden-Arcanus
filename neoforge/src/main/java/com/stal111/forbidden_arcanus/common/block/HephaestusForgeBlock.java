@@ -131,7 +131,7 @@ public class HephaestusForgeBlock extends Block implements SimpleWaterloggedBloc
 
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult result) {
-        this.updateState(state, level, pos);
+        state = this.updateState(state, level, pos);
 
         if (state.getValue(ACTIVATED)) {
             if (!level.isClientSide() && level.getBlockEntity(pos) instanceof HephaestusForgeBlockEntity blockEntity) {
@@ -146,7 +146,7 @@ public class HephaestusForgeBlock extends Block implements SimpleWaterloggedBloc
 
     @Override
     protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
-        this.updateState(state, level, pos);
+        state = this.updateState(state, level, pos);
 
         RitualStarter ritualStarter = stack.get(ModDataComponents.RITUAL_STARTER);
 
@@ -163,16 +163,20 @@ public class HephaestusForgeBlock extends Block implements SimpleWaterloggedBloc
         return super.useItemOn(stack, state, level, pos, player, hand, result);
     }
 
-    public void updateState(BlockState state, Level level, BlockPos pos) {
-        BlockPattern.BlockPatternMatch patternHelper = ModBlockPatterns.BASE_HEPHAESTUS_PATTERN.find(level, pos.below());
-
-        if (patternHelper == null) {
-            if (state.getValue(ACTIVATED)) {
-                level.setBlockAndUpdate(pos, state.setValue(ACTIVATED, false));
-            }
-        } else if (!state.getValue(ACTIVATED)) {
-            level.setBlockAndUpdate(pos, state.setValue(ACTIVATED, true));
+    public BlockState updateState(BlockState state, Level level, BlockPos pos) {
+        if (level.isClientSide()) {
+            return state;
         }
+
+        boolean matches = ModBlockPatterns.BASE_HEPHAESTUS_PATTERN.matches(level, pos.below());
+
+        if (state.getValue(ACTIVATED) != matches) {
+            BlockState updated = state.setValue(ACTIVATED, matches);
+            level.setBlockAndUpdate(pos, updated);
+            return updated;
+        }
+
+        return state;
     }
 
     @Nullable
