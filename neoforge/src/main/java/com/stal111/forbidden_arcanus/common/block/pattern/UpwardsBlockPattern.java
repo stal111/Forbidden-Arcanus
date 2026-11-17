@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.common.block.pattern;
 
+import com.google.common.base.Predicates;
 import com.google.common.cache.LoadingCache;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -68,19 +69,23 @@ public class UpwardsBlockPattern extends BlockPattern {
 
         Map<Direction, CellCheck[]> map = new EnumMap<>(Direction.class);
         for (Direction direction : directions) {
-            CellCheck[] cells = new CellCheck[totalCells];
-            int index = 0;
+            List<CellCheck> cells = new ArrayList<>(totalCells);
 
             for (int x = 0; x < width; x++) {
                 for (int y = 0; y < height; y++) {
                     for (int z = 0; z < depth; z++) {
+                        Predicate<BlockInWorld> predicate = pattern[z][y][x];
+                        if (predicate.equals(Predicates.alwaysTrue())) {
+                            continue;
+                        }
+
                         BlockPos offset = translateAndRotate(BlockPos.ZERO, direction, Direction.UP, x, y, z);
-                        cells[index++] = new CellCheck(offset.getX(), offset.getY(), offset.getZ(), pattern[z][y][x]);
+                        cells.add(new CellCheck(offset.getX(), offset.getY(), offset.getZ(), predicate));
                     }
                 }
             }
 
-            map.put(direction, cells);
+            map.put(direction, cells.toArray(CellCheck[]::new));
         }
 
         return map;
