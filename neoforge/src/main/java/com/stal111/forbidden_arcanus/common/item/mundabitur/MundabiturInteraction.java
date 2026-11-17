@@ -10,8 +10,8 @@ import java.util.Optional;
 /**
  * An interaction that can be done with {@link MundabiturDustItem}.
  *
- * @see com.stal111.forbidden_arcanus.common.item.mundabitur.EntityInteraction
- * @see com.stal111.forbidden_arcanus.common.item.mundabitur.TransformPatternInteraction
+ * @see EntityInteraction
+ * @see TransformPatternInteraction
  * @author stal111
  * @since 05.11.2023
  */
