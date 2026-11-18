@@ -78,12 +78,25 @@ public abstract class EssenceStorageBlockEntity extends BlockEntity implements S
     }
 
     public int addEssence(int amount) {
-        int oldAmount = this.getEssenceStorage().amount();
-        this.setEssenceStorage(this.getEssenceStorage().addEssence(amount));
+        EssenceStorage current = this.getEssenceStorage();
+        EssenceStorage updated = current.addEssence(amount);
+        int delta = updated.amount() - current.amount();
 
-        this.setChanged();
+        if (delta == 0) {
+            return 0;
+        }
 
-        return this.getEssenceStorage().amount() - oldAmount;
+        this.setEssenceStorage(updated);
+
+        if (!this.isRemoved()) {
+            this.setChanged();
+
+            if (this.level != null && !this.level.isClientSide()) {
+                this.level.sendBlockUpdated(this.worldPosition, this.getBlockState(), this.getBlockState(), Block.UPDATE_ALL);
+            }
+        }
+
+        return delta;
     }
 
     @Override

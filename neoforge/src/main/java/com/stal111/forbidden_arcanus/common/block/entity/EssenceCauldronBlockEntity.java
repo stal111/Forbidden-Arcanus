@@ -46,13 +46,7 @@ public class EssenceCauldronBlockEntity extends EssenceStorageBlockEntity {
             return;
         }
 
-        var input = new EssenceTransformInput(stack, essenceValue, value -> {
-            this.addEssence(-value);
-
-            if (!this.isRemoved()) {
-                level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), Block.UPDATE_ALL);
-            }
-        });
+        var input = new EssenceTransformInput(stack, essenceValue, value -> this.addEssence(-value));
 
         this.quickCheck.getRecipeFor(input, level)
                 .map(RecipeHolder::value)
