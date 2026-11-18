@@ -18,12 +18,9 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityTicker;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
@@ -92,18 +89,13 @@ public class EssenceCauldronBlock extends Block implements EntityBlock {
 
     @Override
     protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity, InsideBlockEffectApplier effectApplier, boolean isPrecise) {
-        if (level instanceof ServerLevel serverLevel && entity instanceof ItemEntity itemEntity && itemEntity.verticalCollisionBelow) {
+        if (level instanceof ServerLevel serverLevel && entity instanceof ItemEntity itemEntity && itemEntity.verticalCollisionBelow && itemEntity.tickCount % 4 == 0) {
             level.getBlockEntity(pos, ModBlockEntities.ESSENCE_CAULDRON.get()).ifPresent(blockEntity -> {
                 blockEntity.tryTransformItem(serverLevel, itemEntity.getItem());
             });
         }
 
         super.entityInside(state, level, pos, entity, effectApplier, isPrecise);
-    }
-
-    @Override
-    public <T extends BlockEntity> @org.jetbrains.annotations.Nullable BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
-        return level.isClientSide() ? null : BaseEntityBlock.createTickerHelper(blockEntityType, ModBlockEntities.ESSENCE_CAULDRON.get(), EssenceCauldronBlockEntity::serverTick);
     }
 
     @Override

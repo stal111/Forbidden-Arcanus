@@ -4,6 +4,7 @@ import com.stal111.forbidden_arcanus.client.particle.EssenceDropParticleOption;
 import com.stal111.forbidden_arcanus.common.block.EssenceCauldronBlock;
 import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.essence.EssenceValue;
+import com.stal111.forbidden_arcanus.common.item.crafting.EssenceTransformRecipe;
 import com.stal111.forbidden_arcanus.common.item.crafting.input.EssenceTransformInput;
 import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.core.init.ModRecipeTypes;
@@ -16,6 +17,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -27,19 +29,32 @@ public class EssenceCauldronBlockEntity extends EssenceStorageBlockEntity {
     public static final AABB ESSENCE_RENDER_BOUNDS = EssenceCauldronBlock.SHAPE_INSIDE.bounds().contract(0.0, 1.0 / 16.0, 0.0);
     public static final int DEFAULT_CAPACITY = 3000;
 
+    private final RecipeManager.CachedCheck<EssenceTransformInput, EssenceTransformRecipe> quickCheck = RecipeManager.createCheck(ModRecipeTypes.ESSENCE_TRANSFORM.get());
+
     public EssenceCauldronBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.ESSENCE_CAULDRON.get(), pos, state);
     }
 
     public void tryTransformItem(ServerLevel level, ItemStack stack) {
+        if (stack.isEmpty()) {
+            return;
+        }
+
         EssenceValue essenceValue = this.getEssenceStorage().getEssenceValue();
+
+        if (essenceValue.amount() <= 0) {
+            return;
+        }
 
         var input = new EssenceTransformInput(stack, essenceValue, value -> {
             this.addEssence(-value);
-            level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), Block.UPDATE_ALL);
+
+            if (!this.isRemoved()) {
+                level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), Block.UPDATE_ALL);
+            }
         });
 
-        level.recipeAccess().getRecipeFor(ModRecipeTypes.ESSENCE_TRANSFORM.get(), input, level)
+        this.quickCheck.getRecipeFor(input, level)
                 .map(RecipeHolder::value)
                 .map(recipe -> recipe.assemble(input))
                 .ifPresent(result -> {

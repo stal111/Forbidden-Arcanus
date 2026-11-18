@@ -2,6 +2,7 @@ package com.stal111.forbidden_arcanus.client.gui.label;
 
 import com.stal111.forbidden_arcanus.common.block.entity.EssenceCauldronBlockEntity;
 import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorage;
+import com.stal111.forbidden_arcanus.common.item.crafting.EssenceTransformRecipe;
 import com.stal111.forbidden_arcanus.common.item.crafting.cache.ClientRecipeCache;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
@@ -27,13 +28,14 @@ public class EssenceCauldronFlyingLabel implements BlockFlyingLabel {
                 return;
             }
 
-            ClientRecipeCache.transformRecipes.stream()
-                    .map(RecipeHolder::value)
-                    .filter(recipe -> recipe.input().test(stack) && recipe.essenceCost().value().type() == storage.type())
-                    .findFirst()
-                    .ifPresent(recipe -> {
-                        adder.accept(recipe.essenceCost().asFormattedComponent(storage.getEssenceValue()));
-                    });
+            for (RecipeHolder<EssenceTransformRecipe> holder : ClientRecipeCache.transformRecipes) {
+                EssenceTransformRecipe recipe = holder.value();
+
+                if (recipe.input().test(stack) && recipe.essenceCost().value().type() == storage.type()) {
+                    adder.accept(recipe.essenceCost().asFormattedComponent(storage.getEssenceValue()));
+                    break;
+                }
+            }
         }
     }
 }

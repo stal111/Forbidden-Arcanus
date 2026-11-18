@@ -40,13 +40,6 @@ public abstract class EssenceStorageBlockEntity extends BlockEntity implements S
 
     public abstract int getDefaultStorageCapacity();
 
-    public static void serverTick(Level level, BlockPos pos, BlockState state, EssenceStorageBlockEntity blockEntity) {
-        if (blockEntity.getEssenceStorage().isEmpty()) {
-            level.setBlockAndUpdate(pos, blockEntity.getEmptyReplacementBlock().withPropertiesOf(state));
-            blockEntity.setRemoved();
-        }
-    }
-
     public ItemStack getAsItem() {
         return ItemStack.EMPTY;
     }
@@ -100,6 +93,11 @@ public abstract class EssenceStorageBlockEntity extends BlockEntity implements S
 
     @Override
     public void setEssenceStorage(EssenceStorage essenceStorage) {
+        if (essenceStorage.isEmpty() && this.level != null && !this.level.isClientSide()) {
+            this.level.setBlockAndUpdate(this.worldPosition, this.getEmptyReplacementBlock().withPropertiesOf(this.getBlockState()));
+            return;
+        }
+
         this.setComponents(DataComponentMap.builder().addAll(this.components()).set(ModDataComponents.ESSENCE_STORAGE, essenceStorage).build());
     }
 

@@ -18,11 +18,29 @@ public interface EssenceSource {
     Codec<Holder<EssenceSource>> HOLDER_CODEC = FARegistries.ESSENCE_SOURCE_REGISTRY.holderByNameCodec();
     StreamCodec<RegistryFriendlyByteBuf, Holder<EssenceSource>> HOLDER_STREAM_CODEC = ByteBufCodecs.holderRegistry(FARegistries.ESSENCE_SOURCE);
 
+    record Match(EssenceSource source, EssenceType type) {
+    }
+
+    static Optional<Match> findValidSource(ItemStack stack) {
+        for (EssenceSource source : FARegistries.ESSENCE_SOURCE_REGISTRY) {
+            EssenceValue value = source.getEssence(stack);
+
+            if (value != null && value.amount() > 0) {
+                return Optional.of(new Match(source, value.type()));
+            }
+        }
+
+        return Optional.empty();
+    }
+
     static Optional<EssenceSource> findValidSource(ItemStack stack, EssenceType type) {
-        return FARegistries.ESSENCE_SOURCE_REGISTRY.listElements()
-                .map(Holder::value)
-                .filter(source -> source.isValidSource(stack, type))
-                .findFirst();
+        for (EssenceSource source : FARegistries.ESSENCE_SOURCE_REGISTRY) {
+            if (source.isValidSource(stack, type)) {
+                return Optional.of(source);
+            }
+        }
+
+        return Optional.empty();
     }
 
     @Nullable

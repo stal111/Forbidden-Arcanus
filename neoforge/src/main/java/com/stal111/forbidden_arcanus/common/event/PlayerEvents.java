@@ -88,19 +88,17 @@ public class PlayerEvents {
         BlockState state = level.getBlockState(pos);
 
         if (state.is(Blocks.CAULDRON)) {
-            for (EssenceType type : EssenceType.values()) {
-                EssenceSource.findValidSource(event.getItemStack(), type).ifPresent(source -> {
-                    if (!level.isClientSide()) {
-                        level.setBlockAndUpdate(pos, ModBlocks.ESSENCE_CAULDRON.get().defaultBlockState().setValue(ModBlockStateProperties.ESSENCE_TYPE, type));
+            EssenceSource.findValidSource(event.getItemStack()).ifPresent(match -> {
+                if (!level.isClientSide()) {
+                    level.setBlockAndUpdate(pos, ModBlocks.ESSENCE_CAULDRON.get().defaultBlockState().setValue(ModBlockStateProperties.ESSENCE_TYPE, match.type()));
 
-                        if (level.getBlockEntity(pos) instanceof EssenceStorageBlockEntity blockEntity) {
-                            blockEntity.tryFillWithEssence(source, event.getItemStack(), event.getPlayer(), event.getHand());
-                        }
+                    if (level.getBlockEntity(pos) instanceof EssenceStorageBlockEntity blockEntity) {
+                        blockEntity.tryFillWithEssence(match.source(), event.getItemStack(), event.getPlayer(), event.getHand());
                     }
+                }
 
-                    event.cancelWithResult(InteractionResult.SUCCESS);
-                });
-            }
+                event.cancelWithResult(InteractionResult.SUCCESS);
+            });
         }
 
         if (!event.isCanceled() && event.getUsePhase() == UseItemOnBlockEvent.UsePhase.ITEM_AFTER_BLOCK) {

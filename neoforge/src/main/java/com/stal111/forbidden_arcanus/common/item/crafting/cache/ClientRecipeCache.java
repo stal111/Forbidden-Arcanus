@@ -13,12 +13,13 @@ import net.neoforged.neoforge.client.event.RecipesReceivedEvent;
 import net.neoforged.neoforge.event.OnDatapackSyncEvent;
 
 import java.util.Collection;
+import java.util.List;
 
 public final class ClientRecipeCache {
 
-    public static Collection<RecipeHolder<ClibanoMeltingRecipe>> meltingRecipes;
-    public static Collection<RecipeHolder<ClibanoAlloyingRecipe>> alloyingRecipes;
-    public static Collection<RecipeHolder<EssenceTransformRecipe>> transformRecipes;
+    public static Collection<RecipeHolder<ClibanoMeltingRecipe>> meltingRecipes = List.of();
+    public static Collection<RecipeHolder<ClibanoAlloyingRecipe>> alloyingRecipes = List.of();
+    public static Collection<RecipeHolder<EssenceTransformRecipe>> transformRecipes = List.of();
 
     @EventBusSubscriber(modid = ForbiddenArcanus.MOD_ID)
     public static class ServerRecipeSync {
