@@ -90,6 +90,7 @@ public class BlackHoleBlockEntity extends BlockEntity implements BlockEntityAgeA
         if (blockEntity.storedExperience >= 91) {
             blockEntity.throwOutItemStack(level, new ItemStack(ModItems.CONDENSED_EXPERIENCE.get()), pos.getCenter());
             blockEntity.storedExperience -= 91;
+            blockEntity.setChanged();
         }
 
         blockEntity.thrownOutItems.removeIf(itemEntity -> !itemEntity.isAlive());
@@ -160,7 +161,7 @@ public class BlackHoleBlockEntity extends BlockEntity implements BlockEntityAgeA
     @Override
     protected void saveAdditional(ValueOutput output) {
         super.saveAdditional(output);
-        output.putDouble("stored_experience", this.storedExperience);
+        output.putInt("stored_experience", this.storedExperience);
     }
 
     @Override
