@@ -7,7 +7,7 @@ import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.item.ObsidianSkullItem;
 import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import com.stal111.forbidden_arcanus.core.init.ModSounds;
-import net.minecraft.resources.Identifier;
+import net.minecraft.core.ClientAsset;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -21,26 +21,34 @@ import org.jetbrains.annotations.NotNull;
  * @since 10.09.2023
  */
 public enum ObsidianSkullType implements SkullBlock.Type {
-    DEFAULT("obsidian_skull", TickFunctions.DEFAULT),
-    CRACKED("cracked_obsidian_skull", TickFunctions.DEFAULT),
-    FRAGMENTED("fragmented_obsidian_skull", TickFunctions.DEFAULT),
-    FADING("fading_obsidian_skull", TickFunctions.DEFAULT),
-    AUREALIC("aurealic_obsidian_skull", TickFunctions.AUREALIC),
-    ETERNAL("eternal_obsidian_skull", TickFunctions.EMPTY);
+    DEFAULT("obsidian_skull", false, TickFunctions.DEFAULT),
+    CRACKED("cracked_obsidian_skull", false, TickFunctions.DEFAULT),
+    FRAGMENTED("fragmented_obsidian_skull", false, TickFunctions.DEFAULT),
+    FADING("fading_obsidian_skull", false, TickFunctions.DEFAULT),
+    AUREALIC("aurealic_obsidian_skull", true, TickFunctions.AUREALIC),
+    ETERNAL("eternal_obsidian_skull", true, TickFunctions.EMPTY);
 
     public static final Codec<ObsidianSkullType> CODEC = StringRepresentable.fromValues(ObsidianSkullType::values);
 
     private final String name;
+    private final ClientAsset.ResourceTexture texture;
+    private final boolean detailedModel;
     private final TickFunction tickFunction;
 
-    ObsidianSkullType(String name, TickFunction tickFunction) {
+    ObsidianSkullType(String name, boolean detailedModel, TickFunction tickFunction) {
         this.name = name;
+        this.texture = ForbiddenArcanus.clientAsset("block/obsidian_skull/" + name);
+        this.detailedModel = detailedModel;
         this.tickFunction = tickFunction;
         TYPES.put(name, this);
     }
 
-    public Identifier getTextureLocation() {
-        return ForbiddenArcanus.identifier("textures/block/obsidian_skull/" + this.getSerializedName() + ".png");
+    public ClientAsset.ResourceTexture getTexture() {
+        return this.texture;
+    }
+
+    public boolean hasDetailedModel() {
+        return this.detailedModel;
     }
 
     @Override

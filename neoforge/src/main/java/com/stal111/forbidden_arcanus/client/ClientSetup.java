@@ -81,12 +81,9 @@ public class ClientSetup {
         helper.registerEntityRenderer(ModEntities.DARK_TRADER, DarkTraderRenderer::new);
         helper.registerEntityRenderer(ModEntities.AUREAL_MISSILE, AurealMissileRenderer::new);
 
-        helper.registerSkullModel(ObsidianSkullType.DEFAULT, (modelSet) -> new SkullModel(modelSet.bakeLayer(OBSIDIAN_SKULL)), ObsidianSkullType.DEFAULT.getTextureLocation());
-        helper.registerSkullModel(ObsidianSkullType.CRACKED, (modelSet) -> new SkullModel(modelSet.bakeLayer(OBSIDIAN_SKULL)), ObsidianSkullType.CRACKED.getTextureLocation());
-        helper.registerSkullModel(ObsidianSkullType.FRAGMENTED, (modelSet) -> new SkullModel(modelSet.bakeLayer(OBSIDIAN_SKULL)), ObsidianSkullType.FRAGMENTED.getTextureLocation());
-        helper.registerSkullModel(ObsidianSkullType.FADING, (modelSet) -> new SkullModel(modelSet.bakeLayer(OBSIDIAN_SKULL)), ObsidianSkullType.FADING.getTextureLocation());
-        helper.registerSkullModel(ObsidianSkullType.AUREALIC, (modelSet) -> new SkullModel(modelSet.bakeLayer(DETAILED_OBSIDIAN_SKULL)), ObsidianSkullType.AUREALIC.getTextureLocation());
-        helper.registerSkullModel(ObsidianSkullType.ETERNAL, (modelSet) -> new SkullModel(modelSet.bakeLayer(DETAILED_OBSIDIAN_SKULL)), ObsidianSkullType.ETERNAL.getTextureLocation());
+        for (ObsidianSkullType type : ObsidianSkullType.values()) {
+            helper.registerSkullModel(type, (modelSet) -> new SkullModel(modelSet.bakeLayer(type.hasDetailedModel() ? DETAILED_OBSIDIAN_SKULL : OBSIDIAN_SKULL)), type.getTexture().texturePath());
+        }
 
         helper.registerScreen(ModMenuTypes.HEPHAESTUS_FORGE, HephaestusForgeScreen::new);
         helper.registerScreen(ModMenuTypes.CLIBANO, ClibanoScreen::new);
