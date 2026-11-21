@@ -1,6 +1,7 @@
 package com.stal111.forbidden_arcanus.common.advancements.critereon;
 
 import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
 import com.stal111.forbidden_arcanus.common.essence.EssenceValue;
 import net.minecraft.advancements.criterion.EntitySubPredicate;
@@ -11,7 +12,9 @@ import org.jetbrains.annotations.Nullable;
 
 public record EssenceValueEntityPredicate(EssenceValue essenceValue) implements EntitySubPredicate {
 
-    public static final MapCodec<EssenceValueEntityPredicate> MAP_CODEC = EssenceValue.MAP_CODEC.xmap(EssenceValueEntityPredicate::new, EssenceValueEntityPredicate::essenceValue);
+    public static final MapCodec<EssenceValueEntityPredicate> MAP_CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+            EssenceValue.CODEC.fieldOf("essence").forGetter(EssenceValueEntityPredicate::essenceValue)
+    ).apply(instance, EssenceValueEntityPredicate::new));
 
     @Override
     public MapCodec<? extends EntitySubPredicate> codec() {

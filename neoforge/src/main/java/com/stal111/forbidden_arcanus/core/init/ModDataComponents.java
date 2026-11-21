@@ -21,8 +21,6 @@ import net.minecraft.world.item.Item;
 import net.valhelsia.valhelsia_core.api.common.registry.RegistryEntry;
 import net.valhelsia.valhelsia_core.api.common.registry.helper.MappedRegistryHelper;
 
-import java.util.List;
-
 /**
  * @author stal111
  * @since 26.04.2024
@@ -46,7 +44,7 @@ public class ModDataComponents {
     public static final RegistryEntry<DataComponentType<?>, DataComponentType<Unit>> SHOWS_AUREAL_METER = HELPER.register("shows_aureal_meter", () -> DataComponentType.<Unit>builder().persistent(Unit.CODEC).networkSynchronized(StreamCodec.unit(Unit.INSTANCE)).build());
     public static final RegistryEntry<DataComponentType<?>, DataComponentType<RitualStarter>> RITUAL_STARTER = HELPER.register("ritual_starter", () -> DataComponentType.<RitualStarter>builder().persistent(RitualStarter.CODEC).build());
     public static final RegistryEntry<DataComponentType<?>, DataComponentType<ObsidianSkullType>> OBSIDIAN_SKULL_TYPE = HELPER.register("obsidian_skull_type", () -> DataComponentType.<ObsidianSkullType>builder().persistent(ObsidianSkullType.CODEC).build());
-    public static final RegistryEntry<DataComponentType<?>, DataComponentType<List<EffectGrantingRule>>> GRANTS_EFFECTS = HELPER.register("grants_effects", () -> DataComponentType.<List<EffectGrantingRule>>builder().persistent(EffectGrantingRule.CODEC.listOf()).build());
+    public static final RegistryEntry<DataComponentType<?>, DataComponentType<PreventsDamage>> PREVENTS_DAMAGE = HELPER.register("prevents_damage", () -> DataComponentType.<PreventsDamage>builder().persistent(PreventsDamage.CODEC).cacheEncoding().build());
     public static final RegistryEntry<DataComponentType<?>, DataComponentType<WandParts>> WAND_PARTS = HELPER.register("wand_parts", () -> DataComponentType.<WandParts>builder().persistent(WandParts.CODEC).build());
     public static final RegistryEntry<DataComponentType<?>, DataComponentType<EssenceCost>> ESSENCE_COST = HELPER.register("essence_cost", () -> DataComponentType.<EssenceCost>builder().persistent(EssenceCost.CODEC).networkSynchronized(EssenceCost.STREAM_CODEC).build());
     public static final RegistryEntry<DataComponentType<?>, DataComponentType<Holder<WandMaterial>>> PROVIDES_WAND_MATERIAL = HELPER.register("provides_wand_material", () -> DataComponentType.<Holder<WandMaterial>>builder().persistent(WandMaterial.CODEC).build());
