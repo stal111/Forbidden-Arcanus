@@ -35,7 +35,7 @@ class ModItemTagsProvider(context: DataProviderContext.Server) : DataForgeItemTa
         this.tag(ModTags.Items.DEORUM_NUGGETS).add(ModItems.DEORUM_NUGGET.get())
         this.tag(ModTags.Items.STYGIAN_STEEL_INGOTS).add(ModItems.STYGIAN_STEEL_INGOT.get())
         this.tag(ModTags.Items.MAGICAL_FARMLAND_BLACKLISTED)
-            .add(Items.WHEAT_SEEDS, Items.BEETROOT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS)
+            .add(Items.WHEAT_SEEDS, Items.BEETROOT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS, Items.TORCHFLOWER_SEEDS, Items.PITCHER_POD)
         this.tag(Tags.Items.INGOTS).addTags(ModTags.Items.DEORUM_INGOTS, ModTags.Items.STYGIAN_STEEL_INGOTS)
         //        this.tag(ItemTags.PICKAXES).add(ModItems.DRACO_ARCANUS_PICKAXE.get(), ModItems.REINFORCED_DEORUM_PICKAXE.get());
         this.tag(ItemTags.ARROWS).add(ModItems.BOOM_ARROW.get(), ModItems.DRACO_ARCANUS_ARROW.get())

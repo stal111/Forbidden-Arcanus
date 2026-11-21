@@ -1,6 +1,5 @@
 package com.stal111.forbidden_arcanus.common.loot;
 
-import com.google.common.base.Suppliers;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
@@ -20,7 +19,6 @@ import net.neoforged.neoforge.common.loot.IGlobalLootModifier;
 import net.neoforged.neoforge.common.loot.LootModifier;
 
 import javax.annotation.Nonnull;
-import java.util.function.Supplier;
 
 /**
  * @author stal111
@@ -28,13 +26,8 @@ import java.util.function.Supplier;
  */
 public class MagicalFarmlandLootModifier extends LootModifier {
 
-    public static final Supplier<MapCodec<MagicalFarmlandLootModifier>> CODEC = Suppliers.memoize(() -> RecordCodecBuilder.mapCodec(instance -> codecStart(instance).apply(instance, MagicalFarmlandLootModifier::new)));
+    public static final MapCodec<MagicalFarmlandLootModifier> CODEC = RecordCodecBuilder.mapCodec(instance -> codecStart(instance).apply(instance, MagicalFarmlandLootModifier::new));
 
-    /**
-     * Constructs a LootModifier.
-     *
-     * @param conditions the ILootConditions that need to be matched before the loot is modified.
-     */
     public MagicalFarmlandLootModifier(LootItemCondition[] conditions, int priority) {
         super(conditions, priority);
     }
@@ -42,25 +35,39 @@ public class MagicalFarmlandLootModifier extends LootModifier {
     @Nonnull
     @Override
     protected ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
+        if (generatedLoot.isEmpty()) {
+            return generatedLoot;
+        }
+
         BlockState state = context.getOptionalParameter(LootContextParams.BLOCK_STATE);
         Vec3 pos = context.getOptionalParameter(LootContextParams.ORIGIN);
-        Level level = context.getLevel();
 
         if (state == null || pos == null || !state.is(BlockTags.CROPS) || state.is(ModTags.Blocks.MAGICAL_FARMLAND_BLACKLISTED)) {
             return generatedLoot;
         }
 
-        if (level.getBlockState(BlockPos.containing(pos).below()).is(ModBlocks.MAGICAL_FARMLAND.get())) {
-            if (state.getBlock() instanceof CropBlock crop && !crop.isMaxAge(state)) {
-                return generatedLoot;
-            }
-            generatedLoot.addAll(generatedLoot.stream().filter(stack -> !stack.is(ModTags.Items.MAGICAL_FARMLAND_BLACKLISTED)).toList());
+        if (state.getBlock() instanceof CropBlock crop && !crop.isMaxAge(state)) {
+            return generatedLoot;
         }
+
+        Level level = context.getLevel();
+
+
+        if (level.getBlockState(BlockPos.containing(pos).below()).is(ModBlocks.MAGICAL_FARMLAND.get())) {
+            for (int i = 0; i < generatedLoot.size(); i++) {
+                ItemStack stack = generatedLoot.get(i);
+
+                if (!stack.is(ModTags.Items.MAGICAL_FARMLAND_BLACKLISTED)) {
+                    generatedLoot.add(stack.copy());
+                }
+            }
+        }
+
         return generatedLoot;
     }
 
     @Override
     public MapCodec<? extends IGlobalLootModifier> codec() {
-        return CODEC.get();
+        return CODEC;
     }
 }

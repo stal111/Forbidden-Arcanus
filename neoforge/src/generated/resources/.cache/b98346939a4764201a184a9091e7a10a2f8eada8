@@ -1,4 +1,4 @@
-// 26.1.2	2026-09-27T18:38:41.3516905	Tags for minecraft:item mod id forbidden_arcanus
+// 26.1.2	2026-11-21T23:45:21.4275612	Tags for minecraft:item mod id forbidden_arcanus
 046c8cf89176d259e937e2ca72a2e472ce0d6849 data/c/tags/item/dusts.json
 674c4d49375c33863d4287f65537171eb637a826 data/c/tags/item/dusts/arcane_crystal.json
 e67ea6dd08228468b13e36125dd5d27a821264e7 data/c/tags/item/dusts/corrupti.json
@@ -39,7 +39,7 @@ a99ca1225ca875195951c545dd4772c174f902b5 data/forbidden_arcanus/tags/item/essenc
 19e11fe166c340dfa85d5cf6fb216048895a9af1 data/forbidden_arcanus/tags/item/essence_transform/fungyss_ingredient.json
 961919e8fd37dfb34ac15ef614f6ea6457e8ecb6 data/forbidden_arcanus/tags/item/essence_transform/growing_edelwood_ingredient.json
 26ca19a64b7305b1587e6eab631becb52fb1ed25 data/forbidden_arcanus/tags/item/fungyss_stems.json
-22309e53a04c10ace1e4db7b4ff71b52960c0ad6 data/forbidden_arcanus/tags/item/magical_farmland_blacklisted.json
+95ee4f67ec2dc6b6e91fb0de82c1621a7631f761 data/forbidden_arcanus/tags/item/magical_farmland_blacklisted.json
 35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/forbidden_arcanus/tags/item/modifier/aquatic_incompatible.json
 35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/forbidden_arcanus/tags/item/modifier/demolishing_incompatible.json
 e6a557e0f0c7023bf91eaaf1ba66fadae53fd806 data/forbidden_arcanus/tags/item/modifier/eternal_incompatible.json

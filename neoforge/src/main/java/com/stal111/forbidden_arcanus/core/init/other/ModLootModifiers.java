@@ -21,5 +21,5 @@ public class ModLootModifiers implements RegistryClass {
 
     public static final RegistryEntry<MapCodec<? extends IGlobalLootModifier>, MapCodec<BlacksmithGavelLootModifier>> BLACKSMITH_GAVEL = HELPER.register("blacksmith_gavel", () -> BlacksmithGavelLootModifier.CODEC);
     public static final RegistryEntry<MapCodec<? extends IGlobalLootModifier>, MapCodec<FieryLootModifier>> FIERY = HELPER.register("fiery", () -> FieryLootModifier.CODEC);
-    public static final RegistryEntry<MapCodec<? extends IGlobalLootModifier>, MapCodec<MagicalFarmlandLootModifier>> MAGICAL_FARMLAND = HELPER.register("magical_farmland", MagicalFarmlandLootModifier.CODEC);
+    public static final RegistryEntry<MapCodec<? extends IGlobalLootModifier>, MapCodec<MagicalFarmlandLootModifier>> MAGICAL_FARMLAND = HELPER.register("magical_farmland", () -> MagicalFarmlandLootModifier.CODEC);
 }
