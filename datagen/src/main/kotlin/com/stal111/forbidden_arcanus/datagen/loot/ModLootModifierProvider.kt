@@ -15,13 +15,15 @@ import net.minecraft.core.component.DataComponentExactPredicate
 import net.minecraft.core.component.predicates.DataComponentPredicates
 import net.minecraft.core.component.predicates.EnchantmentsPredicate
 import net.minecraft.core.registries.Registries
+import net.minecraft.resources.ResourceKey
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.item.enchantment.Enchantments
 import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.storage.loot.BuiltInLootTables
+import net.minecraft.world.level.storage.loot.LootTable
 import net.minecraft.world.level.storage.loot.predicates.AnyOfCondition
-import net.minecraft.world.level.storage.loot.predicates.InvertedLootItemCondition
-import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition
+import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition.randomChance
 import net.minecraft.world.level.storage.loot.predicates.MatchTool
 import net.neoforged.neoforge.common.data.GlobalLootModifierProvider
 import net.neoforged.neoforge.common.loot.AddTableLootModifier
@@ -34,129 +36,105 @@ class ModLootModifierProvider(
 ) : GlobalLootModifierProvider(context.packOutput, context.lookupProvider, ForbiddenArcanus.MOD_ID) {
     override fun start() {
         val itemGetter = this.registries.lookupOrThrow(Registries.ITEM)
-        val enchantmentGetter = this.registries.lookupOrThrow(Registries.ENCHANTMENT)
 
         // Entities
-        this.add(
-            "spawner_additions",
-            AddTableLootModifier(
-                arrayOf(
-                    InvertedLootItemCondition.invert(
-                        MatchTool.toolMatches(
-                            ItemPredicate.Builder.item().withComponents(
-                                DataComponentMatchers.Builder.components().partial(
-                                    DataComponentPredicates.ENCHANTMENTS,
-                                    EnchantmentsPredicate.enchantments(
-                                        listOf(
-                                            EnchantmentPredicate(
-                                                enchantmentGetter.getOrThrow(Enchantments.SILK_TOUCH),
-                                                MinMaxBounds.Ints.atLeast(1)
-                                            )
-                                        )
-                                    )
-                                ).build()
-                            )
-                        )
-                    ).build(), LootTableIdCondition.builder(Blocks.SPAWNER.lootTable.orElseThrow().identifier()).build()
-                ), IGlobalLootModifier.DEFAULT_PRIORITY, ModBlockLootAdditions.SPAWNER_SCRAP_ADDITION
+        addTable(
+            name = "spawner_additions",
+            lootTable = ModBlockLootAdditions.SPAWNER_SCRAP_ADDITION,
+            conditions = arrayOf(
+                lootTableId(Blocks.SPAWNER.lootTable.orElseThrow()),
+                doesNotHaveSilkTouch()
             )
         )
-        this.add(
-            "enderman_additions",
-            AddTableLootModifier(
-                arrayOf(
-                    LootTableIdCondition.builder(
-                        EntityType.ENDERMAN.defaultLootTable.orElseThrow().identifier()
-                    ).build()
-                ), IGlobalLootModifier.DEFAULT_PRIORITY, ModEntityLootAdditions.ENDER_PEARL_FRAGMENT_ADDITION
+
+        addTable(
+            name = "enderman_additions",
+            lootTable = ModEntityLootAdditions.ENDER_PEARL_FRAGMENT_ADDITION,
+            conditions = arrayOf(
+                lootTableId(EntityType.ENDERMAN)
             )
         )
-        this.add(
-            "bat_additions",
-            AddTableLootModifier(
-                arrayOf(
-                    LootTableIdCondition.builder(
-                        EntityType.BAT.defaultLootTable.orElseThrow().identifier()
-                    ).build()
-                ), IGlobalLootModifier.DEFAULT_PRIORITY, ModEntityLootAdditions.BAT_WING_ADDITION
+
+        addTable(
+            name = "bat_additions",
+            lootTable = ModEntityLootAdditions.BAT_WING_ADDITION,
+            conditions = arrayOf(
+                lootTableId(EntityType.BAT)
             )
         )
-        this.add(
-            "squid_additions",
-            AddTableLootModifier(
-                arrayOf(
-                    LootItemRandomChanceCondition.randomChance(0.7f).build(),
-                    LootTableIdCondition.builder(EntityType.SQUID.defaultLootTable.orElseThrow().identifier()).build()
-                ), IGlobalLootModifier.DEFAULT_PRIORITY, ModEntityLootAdditions.TENTACLE_ADDITION
+
+        addTable(
+            name = "squid_additions",
+            lootTable = ModEntityLootAdditions.TENTACLE_ADDITION,
+            conditions = arrayOf(
+                lootTableId(EntityType.SQUID),
+                randomChance(0.7f)
             )
         )
-        this.add(
-            "ender_dragon_additions",
-            AddTableLootModifier(
-                arrayOf(
-                    LootTableIdCondition.builder(
-                        EntityType.ENDER_DRAGON.defaultLootTable.orElseThrow().identifier()
-                    ).build()
-                ), IGlobalLootModifier.DEFAULT_PRIORITY, ModEntityLootAdditions.DRAGON_SCALE_ADDITION
+
+        addTable(
+            name = "ender_dragon_additions",
+            lootTable = ModEntityLootAdditions.DRAGON_SCALE_ADDITION,
+            conditions = arrayOf(
+                lootTableId(EntityType.ENDER_DRAGON)
             )
         )
 
         // Chests
-        this.add(
-            "simple_dungeon_additions",
-            AddTableLootModifier(
-                arrayOf(
-                    LootTableIdCondition.builder(BuiltInLootTables.SIMPLE_DUNGEON.identifier()).build()
-                ), IGlobalLootModifier.DEFAULT_PRIORITY, ModChestLootAdditions.AUREAL_BOTTLE_ADDITION
+        addTable(
+            name = "simple_dungeon_additions",
+            lootTable = ModChestLootAdditions.AUREAL_BOTTLE_ADDITION,
+            conditions = arrayOf(
+                lootTableId(BuiltInLootTables.SIMPLE_DUNGEON)
             )
         )
-        this.add(
-            "end_city_treasure_additions",
-            AddTableLootModifier(
-                arrayOf(
-                    LootTableIdCondition.builder(BuiltInLootTables.END_CITY_TREASURE.identifier()).build()
-                ), IGlobalLootModifier.DEFAULT_PRIORITY, ModChestLootAdditions.DRAGON_SCALE_ADDITION
+
+        addTable(
+            name = "end_city_treasure_additions",
+            lootTable = ModChestLootAdditions.DRAGON_SCALE_ADDITION,
+            conditions = arrayOf(
+                lootTableId(BuiltInLootTables.END_CITY_TREASURE)
             )
         )
-        this.add(
-            "artisan_relic_addition",
-            AddTableLootModifier(
-                arrayOf(
-                    AnyOfCondition.anyOf(
-                        LootTableIdCondition.builder(BuiltInLootTables.VILLAGE_ARMORER.identifier()),
-                        LootTableIdCondition.builder(BuiltInLootTables.VILLAGE_TOOLSMITH.identifier()),
-                        LootTableIdCondition.builder(BuiltInLootTables.VILLAGE_WEAPONSMITH.identifier())
-                    ).build()
-                ), IGlobalLootModifier.DEFAULT_PRIORITY, ModChestLootAdditions.ARTISAN_RELIC_ADDITION
+
+        addTable(
+            name = "artisan_relic_additions",
+            lootTable = ModChestLootAdditions.ARTISAN_RELIC_ADDITION,
+            conditions = arrayOf(
+                anyLootTableId(
+                    BuiltInLootTables.VILLAGE_ARMORER,
+                    BuiltInLootTables.VILLAGE_TOOLSMITH,
+                    BuiltInLootTables.VILLAGE_WEAPONSMITH
+                )
             )
         )
-        this.add(
-            "crimson_stone_addition",
-            AddTableLootModifier(
-                arrayOf(
-                    LootTableIdCondition.builder(BuiltInLootTables.PILLAGER_OUTPOST.identifier()).build()
-                ), IGlobalLootModifier.DEFAULT_PRIORITY, ModChestLootAdditions.CRIMSON_STONE_ADDITION
+
+        addTable(
+            name = "crimson_stone_addition",
+            lootTable = ModChestLootAdditions.CRIMSON_STONE_ADDITION,
+            conditions = arrayOf(
+                lootTableId(BuiltInLootTables.PILLAGER_OUTPOST)
             )
         )
-        this.add(
-            "elementarium_addition",
-            AddTableLootModifier(
-                arrayOf(
-                    AnyOfCondition.anyOf(
-                        LootTableIdCondition.builder(BuiltInLootTables.JUNGLE_TEMPLE.identifier()),
-                        LootTableIdCondition.builder(BuiltInLootTables.DESERT_PYRAMID.identifier()),
-                        LootTableIdCondition.builder(BuiltInLootTables.UNDERWATER_RUIN_SMALL.identifier()),
-                        LootTableIdCondition.builder(BuiltInLootTables.UNDERWATER_RUIN_BIG.identifier())
-                    ).build()
-                ), IGlobalLootModifier.DEFAULT_PRIORITY, ModChestLootAdditions.ELEMENTARIUM_ADDITION
+
+        addTable(
+            name = "elementarium_addition",
+            lootTable = ModChestLootAdditions.ELEMENTARIUM_ADDITION,
+            conditions = arrayOf(
+                anyLootTableId(
+                    BuiltInLootTables.JUNGLE_TEMPLE,
+                    BuiltInLootTables.DESERT_PYRAMID,
+                    BuiltInLootTables.UNDERWATER_RUIN_SMALL,
+                    BuiltInLootTables.UNDERWATER_RUIN_BIG
+                )
             )
         )
-        this.add(
-            "maledictus_pact",
-            AddTableLootModifier(
-                arrayOf(
-                    LootTableIdCondition.builder(BuiltInLootTables.BASTION_TREASURE.identifier()).build()
-                ), IGlobalLootModifier.DEFAULT_PRIORITY, ModChestLootAdditions.MALEDICTUS_PACT_ADDITION
+
+        addTable(
+            name = "maledictus_pact_addition",
+            lootTable = ModChestLootAdditions.MALEDICTUS_PACT_ADDITION,
+            conditions = arrayOf(
+                lootTableId(BuiltInLootTables.BASTION_TREASURE)
             )
         )
 
@@ -182,26 +160,11 @@ class ModLootModifierProvider(
             "blacksmith_gavel_ore_doubling",
             BlacksmithGavelLootModifier(
                 arrayOf(
-                    MatchTool.toolMatches(ItemPredicate.Builder.item().of(itemGetter, ModTags.Items.BLACKSMITH_GAVEL))
-                        .build(),
-                    InvertedLootItemCondition.invert(
-                        MatchTool.toolMatches(
-                            ItemPredicate.Builder.item().withComponents(
-                                DataComponentMatchers.Builder.components().partial(
-                                    DataComponentPredicates.ENCHANTMENTS,
-                                    EnchantmentsPredicate.enchantments(
-                                        listOf(
-                                            EnchantmentPredicate(
-                                                enchantmentGetter.getOrThrow(Enchantments.SILK_TOUCH),
-                                                MinMaxBounds.Ints.atLeast(1)
-                                            )
-                                        )
-                                    )
-                                ).build()
-                            )
-                        )
+                    MatchTool.toolMatches(
+                        ItemPredicate.Builder.item().of(itemGetter, ModTags.Items.BLACKSMITH_GAVEL)
                     ).build(),
-                    LootItemRandomChanceCondition.randomChance(0.3f).build()
+                    doesNotHaveSilkTouch().build(),
+                    randomChance(0.3f).build()
                 ),
                 IGlobalLootModifier.DEFAULT_PRIORITY
             )
@@ -212,5 +175,47 @@ class ModLootModifierProvider(
             "magical_farmland_crop_doubling",
             MagicalFarmlandLootModifier(arrayOf(), IGlobalLootModifier.DEFAULT_PRIORITY)
         )
+    }
+
+    private fun addTable(
+        name: String,
+        lootTable: ResourceKey<LootTable>,
+        vararg conditions: LootItemCondition.Builder
+    ) = this.add(
+        name,
+        AddTableLootModifier(
+            conditions.map { it.build() }.toTypedArray(),
+            IGlobalLootModifier.DEFAULT_PRIORITY,
+            lootTable
+        )
+    )
+
+    private fun lootTableId(lootTable: ResourceKey<LootTable>): LootItemCondition.Builder =
+        LootTableIdCondition.builder(lootTable.identifier())
+
+    private fun lootTableId(entityType: EntityType<*>): LootItemCondition.Builder =
+        this.lootTableId(entityType.defaultLootTable.orElseThrow())
+
+    private fun anyLootTableId(vararg lootTables: ResourceKey<LootTable>): AnyOfCondition.Builder =
+        AnyOfCondition.anyOf(*lootTables.map { this.lootTableId(it) }.toTypedArray())
+
+    private fun doesNotHaveSilkTouch(): LootItemCondition.Builder {
+        val enchantmentGetter = this.registries.lookupOrThrow(Registries.ENCHANTMENT)
+
+        return MatchTool.toolMatches(
+            ItemPredicate.Builder.item().withComponents(
+                DataComponentMatchers.Builder.components().partial(
+                    DataComponentPredicates.ENCHANTMENTS,
+                    EnchantmentsPredicate.enchantments(
+                        listOf(
+                            EnchantmentPredicate(
+                                enchantmentGetter.getOrThrow(Enchantments.SILK_TOUCH),
+                                MinMaxBounds.Ints.atLeast(1)
+                            )
+                        )
+                    )
+                ).build()
+            )
+        ).invert()
     }
 }

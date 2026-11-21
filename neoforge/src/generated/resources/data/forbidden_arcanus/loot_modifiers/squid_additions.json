@@ -2,12 +2,12 @@
   "type": "neoforge:add_table",
   "conditions": [
     {
-      "chance": 0.7,
-      "condition": "minecraft:random_chance"
-    },
-    {
       "condition": "neoforge:loot_table_id",
       "loot_table_id": "minecraft:entities/squid"
+    },
+    {
+      "chance": 0.7,
+      "condition": "minecraft:random_chance"
     }
   ],
   "table": "forbidden_arcanus:entities/additions/tentacle_addition"

@@ -2,6 +2,10 @@
   "type": "neoforge:add_table",
   "conditions": [
     {
+      "condition": "neoforge:loot_table_id",
+      "loot_table_id": "minecraft:blocks/spawner"
+    },
+    {
       "condition": "minecraft:inverted",
       "term": {
         "condition": "minecraft:match_tool",
@@ -18,10 +22,6 @@
           }
         }
       }
-    },
-    {
-      "condition": "neoforge:loot_table_id",
-      "loot_table_id": "minecraft:blocks/spawner"
     }
   ],
   "table": "forbidden_arcanus:blocks/additions/spawner_scrap_addition"
