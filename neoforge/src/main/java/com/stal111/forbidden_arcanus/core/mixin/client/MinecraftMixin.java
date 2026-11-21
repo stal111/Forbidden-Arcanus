@@ -5,6 +5,7 @@ import com.stal111.forbidden_arcanus.util.ModTags;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -25,6 +26,7 @@ public class MinecraftMixin {
     @Inject(method = "shouldEntityAppearGlowing", at = @At("HEAD"), cancellable = true)
     private void forbiddenArcanus_shouldEntityAppearGlowing$handleSpectralEyeAmulet(Entity entity, CallbackInfoReturnable<Boolean> callback) {
         if (this.player != null
+                && entity instanceof LivingEntity
                 && entity != this.player
                 && this.player.hasEffect(ModMobEffects.SPECTRAL_VISION)
                 && entity.distanceToSqr(this.player) <= SPECTRAL_VISION_RANGE_SQR
