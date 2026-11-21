@@ -68,7 +68,7 @@ public enum ObsidianSkullType implements SkullBlock.Type {
         };
 
         public static final TickFunction DEFAULT = (type, stack, player) -> {
-            int remainingTicks = stack.getOrDefault(ModDataComponents.TICKS_TILL_NEXT_STAGE, STAGE_DURATION.sample(player.getRandom()) * 20);
+            int remainingTicks = stack.getOrDefault(ModDataComponents.SECONDS_TILL_NEXT_STAGE, STAGE_DURATION.sample(player.getRandom()) * 20);
 
             remainingTicks--;
 
@@ -80,7 +80,7 @@ public enum ObsidianSkullType implements SkullBlock.Type {
                 return;
             }
 
-            stack.set(ModDataComponents.TICKS_TILL_NEXT_STAGE, remainingTicks);
+            stack.set(ModDataComponents.SECONDS_TILL_NEXT_STAGE, remainingTicks);
         };
 
         public static final TickFunction AUREALIC = (type, stack, player) -> {

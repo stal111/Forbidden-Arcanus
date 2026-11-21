@@ -10,6 +10,7 @@ import com.stal111.forbidden_arcanus.common.block.pedestal.PedestalBlock;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.common.block.skull.ObsidianSkullType;
 import com.stal111.forbidden_arcanus.common.item.ObsidianSkullItem;
+import com.stal111.forbidden_arcanus.common.item.component.FireDegradation;
 import com.stal111.forbidden_arcanus.common.item.component.PreventsDamage;
 import com.stal111.forbidden_arcanus.core.init.other.ModWoodTypes;
 import net.minecraft.core.BlockPos;
@@ -21,6 +22,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.*;
@@ -34,6 +36,7 @@ import net.valhelsia.valhelsia_core.api.common.registry.RegistryClass;
 import net.valhelsia.valhelsia_core.api.common.registry.helper.block.*;
 
 import java.util.Optional;
+import java.util.function.Supplier;
 
 /**
  * Mod Blocks <br>
@@ -218,11 +221,47 @@ public class ModBlocks implements RegistryClass {
 
     private static class BlockItems {
 
-        public static final SkullRegistryEntry.SkullItemFactory OBSIDIAN_SKULL_ITEM = (skull, wallSkull) -> new ObsidianSkullItem(skull, wallSkull, new Item.Properties().stacksTo(1).setId(ResourceKey.create(Registries.ITEM, OBSIDIAN_SKULL.skull().getKey().identifier())).equippableUnswappable(EquipmentSlot.HEAD).fireResistant().delayedComponent(ModDataComponents.PREVENTS_DAMAGE.get(), context -> PreventsDamage.fire(context, EquipmentSlotGroup.HEAD)));
-        public static final SkullRegistryEntry.SkullItemFactory CRACKED_OBSIDIAN_SKULL_ITEM = (skull, wallSkull) -> new ObsidianSkullItem(skull, wallSkull, new Item.Properties().stacksTo(1).setId(ResourceKey.create(Registries.ITEM, CRACKED_OBSIDIAN_SKULL.skull().getKey().identifier())).equippableUnswappable(EquipmentSlot.HEAD).fireResistant().delayedComponent(ModDataComponents.PREVENTS_DAMAGE.get(), context -> PreventsDamage.fire(context, EquipmentSlotGroup.HEAD)));
-        public static final SkullRegistryEntry.SkullItemFactory FRAGMENTED_OBSIDIAN_SKULL_ITEM = (skull, wallSkull) -> new ObsidianSkullItem(skull, wallSkull, new Item.Properties().stacksTo(1).setId(ResourceKey.create(Registries.ITEM, FRAGMENTED_OBSIDIAN_SKULL.skull().getKey().identifier())).equippableUnswappable(EquipmentSlot.HEAD).fireResistant().delayedComponent(ModDataComponents.PREVENTS_DAMAGE.get(), context -> PreventsDamage.fire(context, EquipmentSlotGroup.HEAD)));
-        public static final SkullRegistryEntry.SkullItemFactory FADING_OBSIDIAN_SKULL_ITEM = (skull, wallSkull) -> new ObsidianSkullItem(skull, wallSkull, new Item.Properties().stacksTo(1).setId(ResourceKey.create(Registries.ITEM, FADING_OBSIDIAN_SKULL.skull().getKey().identifier())).equippableUnswappable(EquipmentSlot.HEAD).fireResistant().delayedComponent(ModDataComponents.PREVENTS_DAMAGE.get(), context -> PreventsDamage.fire(context, EquipmentSlotGroup.HEAD)));
-        public static final SkullRegistryEntry.SkullItemFactory AUREALIC_OBSIDIAN_SKULL_ITEM = (skull, wallSkull) -> new ObsidianSkullItem(skull, wallSkull, new Item.Properties().stacksTo(1).setId(ResourceKey.create(Registries.ITEM, AUREALIC_OBSIDIAN_SKULL.skull().getKey().identifier())).equippableUnswappable(EquipmentSlot.HEAD).rarity(Rarity.UNCOMMON).fireResistant().delayedComponent(ModDataComponents.PREVENTS_DAMAGE.get(), context -> PreventsDamage.fire(context, EquipmentSlotGroup.HEAD, PreventsDamage.HAS_AUREAL_PREDICATE)));
-        public static final SkullRegistryEntry.SkullItemFactory ETERNAL_OBSIDIAN_SKULL_ITEM = (skull, wallSkull) -> new ObsidianSkullItem(skull, wallSkull, new Item.Properties().stacksTo(1).setId(ResourceKey.create(Registries.ITEM, ETERNAL_OBSIDIAN_SKULL.skull().getKey().identifier())).equippableUnswappable(EquipmentSlot.HEAD).rarity(Rarity.RARE).fireResistant().delayedComponent(ModDataComponents.PREVENTS_DAMAGE.get(), context -> PreventsDamage.fire(context, EquipmentSlotGroup.HEAD)));
+        public static final SkullRegistryEntry.SkullItemFactory OBSIDIAN_SKULL_ITEM = degradingSkull(() -> OBSIDIAN_SKULL, () -> CRACKED_OBSIDIAN_SKULL);
+        public static final SkullRegistryEntry.SkullItemFactory CRACKED_OBSIDIAN_SKULL_ITEM = degradingSkull(() -> CRACKED_OBSIDIAN_SKULL, () -> FRAGMENTED_OBSIDIAN_SKULL);
+        public static final SkullRegistryEntry.SkullItemFactory FRAGMENTED_OBSIDIAN_SKULL_ITEM = degradingSkull(() -> FRAGMENTED_OBSIDIAN_SKULL, () -> FADING_OBSIDIAN_SKULL);
+        public static final SkullRegistryEntry.SkullItemFactory FADING_OBSIDIAN_SKULL_ITEM = degradingSkull(() -> FADING_OBSIDIAN_SKULL, Items.SKELETON_SKULL.builtInRegistryHolder().key());
+        public static final SkullRegistryEntry.SkullItemFactory AUREALIC_OBSIDIAN_SKULL_ITEM = (skull, wallSkull) ->
+                new ObsidianSkullItem(skull, wallSkull, baseSkullProperties(AUREALIC_OBSIDIAN_SKULL)
+                        .rarity(Rarity.UNCOMMON)
+                        .delayedComponent(ModDataComponents.PREVENTS_DAMAGE.get(), context -> PreventsDamage.fire(context, EquipmentSlotGroup.HEAD, PreventsDamage.HAS_AUREAL_PREDICATE)));
+        public static final SkullRegistryEntry.SkullItemFactory ETERNAL_OBSIDIAN_SKULL_ITEM = (skull, wallSkull) ->
+                new ObsidianSkullItem(skull, wallSkull, baseSkullProperties(ETERNAL_OBSIDIAN_SKULL)
+                        .rarity(Rarity.RARE)
+                        .delayedComponent(ModDataComponents.PREVENTS_DAMAGE.get(), context -> PreventsDamage.fire(context, EquipmentSlotGroup.HEAD)));
+
+        private static SkullRegistryEntry.SkullItemFactory degradingSkull(
+                Supplier<SkullRegistryEntry<?, ?>> entry,
+                Supplier<SkullRegistryEntry<?, ?>> next
+        ) {
+            return (skull, wallSkull) -> new ObsidianSkullItem(skull, wallSkull, baseSkullProperties(entry.get())
+                    .delayedComponent(ModDataComponents.FIRE_DEGRADATION.get(), context -> FireDegradation.obsidianSkull(context, itemKey(next.get())))
+                    .delayedComponent(ModDataComponents.PREVENTS_DAMAGE.get(), context -> PreventsDamage.fire(context, EquipmentSlotGroup.HEAD)));
+        }
+
+        private static SkullRegistryEntry.SkullItemFactory degradingSkull(
+                Supplier<SkullRegistryEntry<?, ?>> entry,
+                ResourceKey<Item> nextItem
+        ) {
+            return (skull, wallSkull) -> new ObsidianSkullItem(skull, wallSkull, baseSkullProperties(entry.get())
+                    .delayedComponent(ModDataComponents.FIRE_DEGRADATION.get(), context -> FireDegradation.obsidianSkull(context, nextItem))
+                    .delayedComponent(ModDataComponents.PREVENTS_DAMAGE.get(), context -> PreventsDamage.fire(context, EquipmentSlotGroup.HEAD)));
+        }
+
+        private static Item.Properties baseSkullProperties(SkullRegistryEntry<?, ?> entry) {
+            return new Item.Properties()
+                    .stacksTo(1)
+                    .setId(itemKey(entry))
+                    .equippableUnswappable(EquipmentSlot.HEAD)
+                    .fireResistant();
+        }
+
+        private static ResourceKey<Item> itemKey(SkullRegistryEntry<?, ?> entry) {
+            return ResourceKey.create(Registries.ITEM, entry.skull().getKey().identifier());
+        }
     }
 }
