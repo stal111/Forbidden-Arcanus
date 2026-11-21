@@ -6,6 +6,7 @@ import com.stal111.forbidden_arcanus.common.loot.BlacksmithGavelLootModifier
 import com.stal111.forbidden_arcanus.common.loot.FieryLootModifier
 import com.stal111.forbidden_arcanus.common.loot.MagicalFarmlandLootModifier
 import com.stal111.forbidden_arcanus.core.init.ModDataComponents
+import com.stal111.forbidden_arcanus.util.ModTags
 import net.minecraft.advancements.criterion.DataComponentMatchers
 import net.minecraft.advancements.criterion.EnchantmentPredicate
 import net.minecraft.advancements.criterion.ItemPredicate
@@ -32,6 +33,9 @@ class ModLootModifierProvider(
     context: DataProviderContext.Server
 ) : GlobalLootModifierProvider(context.packOutput, context.lookupProvider, ForbiddenArcanus.MOD_ID) {
     override fun start() {
+        val itemGetter = this.registries.lookupOrThrow(Registries.ITEM)
+        val enchantmentGetter = this.registries.lookupOrThrow(Registries.ENCHANTMENT)
+
         // Entities
         this.add(
             "spawner_additions",
@@ -45,9 +49,8 @@ class ModLootModifierProvider(
                                     EnchantmentsPredicate.enchantments(
                                         listOf(
                                             EnchantmentPredicate(
-                                                this.registries.lookupOrThrow(
-                                                    Registries.ENCHANTMENT
-                                                ).getOrThrow(Enchantments.SILK_TOUCH), MinMaxBounds.Ints.atLeast(1)
+                                                enchantmentGetter.getOrThrow(Enchantments.SILK_TOUCH),
+                                                MinMaxBounds.Ints.atLeast(1)
                                             )
                                         )
                                     )
@@ -177,10 +180,37 @@ class ModLootModifierProvider(
         )
         this.add(
             "blacksmith_gavel_ore_doubling",
-            BlacksmithGavelLootModifier(arrayOf(LootItemRandomChanceCondition.randomChance(0.3f).build()), IGlobalLootModifier.DEFAULT_PRIORITY)
+            BlacksmithGavelLootModifier(
+                arrayOf(
+                    MatchTool.toolMatches(ItemPredicate.Builder.item().of(itemGetter, ModTags.Items.BLACKSMITH_GAVEL))
+                        .build(),
+                    InvertedLootItemCondition.invert(
+                        MatchTool.toolMatches(
+                            ItemPredicate.Builder.item().withComponents(
+                                DataComponentMatchers.Builder.components().partial(
+                                    DataComponentPredicates.ENCHANTMENTS,
+                                    EnchantmentsPredicate.enchantments(
+                                        listOf(
+                                            EnchantmentPredicate(
+                                                enchantmentGetter.getOrThrow(Enchantments.SILK_TOUCH),
+                                                MinMaxBounds.Ints.atLeast(1)
+                                            )
+                                        )
+                                    )
+                                ).build()
+                            )
+                        )
+                    ).build(),
+                    LootItemRandomChanceCondition.randomChance(0.3f).build()
+                ),
+                IGlobalLootModifier.DEFAULT_PRIORITY
+            )
         )
 
         // Blocks
-        this.add("magical_farmland_crop_doubling", MagicalFarmlandLootModifier(arrayOf(), IGlobalLootModifier.DEFAULT_PRIORITY))
+        this.add(
+            "magical_farmland_crop_doubling",
+            MagicalFarmlandLootModifier(arrayOf(), IGlobalLootModifier.DEFAULT_PRIORITY)
+        )
     }
 }

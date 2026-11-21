@@ -2,6 +2,30 @@
   "type": "forbidden_arcanus:blacksmith_gavel",
   "conditions": [
     {
+      "condition": "minecraft:match_tool",
+      "predicate": {
+        "items": "#forbidden_arcanus:blacksmith_gavel"
+      }
+    },
+    {
+      "condition": "minecraft:inverted",
+      "term": {
+        "condition": "minecraft:match_tool",
+        "predicate": {
+          "predicates": {
+            "minecraft:enchantments": [
+              {
+                "enchantments": "minecraft:silk_touch",
+                "levels": {
+                  "min": 1
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
       "chance": 0.3,
       "condition": "minecraft:random_chance"
     }

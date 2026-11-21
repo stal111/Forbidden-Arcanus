@@ -19,7 +19,7 @@ public class ModLootModifiers implements RegistryClass {
 
     public static final MappedRegistryHelper<MapCodec<? extends IGlobalLootModifier>> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(NeoForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS);
 
-    public static final RegistryEntry<MapCodec<? extends IGlobalLootModifier>, MapCodec<BlacksmithGavelLootModifier>> BLACKSMITH_GAVEL = HELPER.register("blacksmith_gavel", BlacksmithGavelLootModifier.CODEC);
-    public static final RegistryEntry<MapCodec<? extends IGlobalLootModifier>, MapCodec<FieryLootModifier>> FIERY = HELPER.register("fiery", FieryLootModifier.CODEC);
+    public static final RegistryEntry<MapCodec<? extends IGlobalLootModifier>, MapCodec<BlacksmithGavelLootModifier>> BLACKSMITH_GAVEL = HELPER.register("blacksmith_gavel", () -> BlacksmithGavelLootModifier.CODEC);
+    public static final RegistryEntry<MapCodec<? extends IGlobalLootModifier>, MapCodec<FieryLootModifier>> FIERY = HELPER.register("fiery", () -> FieryLootModifier.CODEC);
     public static final RegistryEntry<MapCodec<? extends IGlobalLootModifier>, MapCodec<MagicalFarmlandLootModifier>> MAGICAL_FARMLAND = HELPER.register("magical_farmland", MagicalFarmlandLootModifier.CODEC);
 }
