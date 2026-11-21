@@ -19,7 +19,7 @@ public class ToggleableActive implements ConditionalItemModelProperty {
 
     @Override
     public boolean get(ItemStack stack, @Nullable ClientLevel level, @Nullable LivingEntity entity, int seed, ItemDisplayContext displayContext) {
-        return stack.getOrDefault(ModDataComponents.TOGGLEABLE_STATE, ToggleableState.DEFAULT).active();
+        return stack.getOrDefault(ModDataComponents.TOGGLEABLE_STATE, ToggleableState.ACTIVE).active();
     }
 
     @Override

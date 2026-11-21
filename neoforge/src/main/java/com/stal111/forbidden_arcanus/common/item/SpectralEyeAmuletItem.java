@@ -42,7 +42,7 @@ public class SpectralEyeAmuletItem extends Item {
 	public InteractionResult use(Level level, Player player, InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
 
-		stack.update(ModDataComponents.TOGGLEABLE_STATE, ToggleableState.DEFAULT, ToggleableState::toggle);
+		stack.update(ModDataComponents.TOGGLEABLE_STATE, ToggleableState.ACTIVE, ToggleableState::toggle);
 
 		if (!level.isClientSide() && !isActive(stack)) {
 			player.removeEffect(ModMobEffects.SPECTRAL_VISION);
@@ -57,6 +57,6 @@ public class SpectralEyeAmuletItem extends Item {
     }
 
 	public static boolean isActive(ItemStack stack) {
-		return stack.getOrDefault(ModDataComponents.TOGGLEABLE_STATE, ToggleableState.DEFAULT).active();
+		return stack.getOrDefault(ModDataComponents.TOGGLEABLE_STATE, ToggleableState.ACTIVE).active();
 	}
 }
