@@ -15,6 +15,7 @@ import com.stal111.forbidden_arcanus.client.renderer.block.*;
 import com.stal111.forbidden_arcanus.client.renderer.entity.*;
 import com.stal111.forbidden_arcanus.client.renderer.item.WandItemModel;
 import com.stal111.forbidden_arcanus.client.renderer.item.properties.EssenceFillPercentage;
+import com.stal111.forbidden_arcanus.client.renderer.item.properties.ToggleableActive;
 import com.stal111.forbidden_arcanus.client.renderer.special.EctoBlasterSpecialRenderer;
 import com.stal111.forbidden_arcanus.client.renderer.special.EssenceUtremJarSpecialRenderer;
 import com.stal111.forbidden_arcanus.client.tooltip.CapacityBucketTooltip;
@@ -99,6 +100,7 @@ public class ClientSetup {
         modEventBus.addListener(this::onRegisterParticleProviders);
         modEventBus.addListener(this::registerSpecialRenderers);
         modEventBus.addListener(this::registerRangeProperties);
+        modEventBus.addListener(this::registerConditionalProperties);
         modEventBus.addListener(this::registerItemModels);
 
         if (ModList.get().isLoaded("ponder")) {
@@ -117,7 +119,6 @@ public class ClientSetup {
 
             //TODO
             //ItemProperties.register(ModItems.FORBIDDENMICON.get(), new ResourceLocation("open"), (stack, world, entity) -> entity != null && ForbiddenmiconItem.isOpen(stack) ? 1.0F : 0.0F);
-//            ItemProperties.register(ModItems.SPECTRAL_EYE_AMULET.get(), ForbiddenArcanus.location("deactivated"), (stack, level, entity, seed) -> entity != null && SpectralEyeAmuletItem.isActive(stack) ? 0.0F : 1.0F);
 //
 //            ItemProperties.register(ModItems.AUREAL_TANK.get(), ForbiddenArcanus.location("amount"), ESSENCE_AMOUNT_PROPERTY_FUNCTION);
 //            ItemProperties.register(ModItems.AUREAL_TANK.get(), ForbiddenArcanus.location("max"), (stack, level, entity, seed) -> {
@@ -145,6 +146,11 @@ public class ClientSetup {
     @SubscribeEvent
     public void registerRangeProperties(RegisterRangeSelectItemModelPropertyEvent event) {
         event.register(ForbiddenArcanus.identifier("essence_fill_percentage"), EssenceFillPercentage.MAP_CODEC);
+    }
+
+    @SubscribeEvent
+    public void registerConditionalProperties(RegisterConditionalItemModelPropertyEvent event) {
+        event.register(ForbiddenArcanus.identifier("toggleable_active"), ToggleableActive.MAP_CODEC);
     }
 
     @SubscribeEvent

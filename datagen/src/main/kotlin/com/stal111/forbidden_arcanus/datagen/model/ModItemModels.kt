@@ -2,6 +2,7 @@ package com.stal111.forbidden_arcanus.datagen.model
 
 import com.stal111.forbidden_arcanus.client.renderer.item.WandItemModel
 import com.stal111.forbidden_arcanus.client.renderer.item.properties.EssenceFillPercentage
+import com.stal111.forbidden_arcanus.client.renderer.item.properties.ToggleableActive
 import com.stal111.forbidden_arcanus.client.renderer.special.EctoBlasterSpecialRenderer
 import com.stal111.forbidden_arcanus.core.init.ModItems
 import com.stal111.forbidden_arcanus.datagen.model.ModTextureMapping.quantumCatcher
@@ -127,7 +128,14 @@ class ModItemModels(val generators: ItemModelGenerators) : ItemModelGenerator(ge
         this.generateWandItem(ModItems.AURUM_WAND)
         this.generateWandItem(ModItems.EDELWOOD_WAND)
 
-        generators.declareCustomModelItem(ModItems.SPECTRAL_EYE_AMULET.get())
+        output.accept(
+            ModItems.SPECTRAL_EYE_AMULET.get(),
+            ItemModelUtils.conditional(
+                ToggleableActive(),
+                ItemModelUtils.plainModel(ModelLocationUtils.getModelLocation(ModItems.SPECTRAL_EYE_AMULET.get())),
+                ItemModelUtils.plainModel(ModelLocationUtils.getModelLocation(ModItems.SPECTRAL_EYE_AMULET.get(), "_deactivated"))
+            )
+        )
 
         generateEctoBlaster()
 

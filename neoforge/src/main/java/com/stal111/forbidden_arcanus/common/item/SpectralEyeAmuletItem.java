@@ -3,7 +3,6 @@ package com.stal111.forbidden_arcanus.common.item;
 import com.stal111.forbidden_arcanus.common.item.component.ToggleableState;
 import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import com.stal111.forbidden_arcanus.core.init.ModMobEffects;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
@@ -31,9 +30,12 @@ public class SpectralEyeAmuletItem extends Item {
     @Override
     public void inventoryTick(ItemStack stack, ServerLevel level, Entity entity, @Nullable EquipmentSlot slot) {
         if (isActive(stack) && entity instanceof LivingEntity livingEntity) {
-            livingEntity.addEffect(new MobEffectInstance(BuiltInRegistries.MOB_EFFECT.wrapAsHolder(ModMobEffects.SPECTRAL_VISION.get()), 80, 0, false, false, true));
+            MobEffectInstance existing = livingEntity.getEffect(ModMobEffects.SPECTRAL_VISION);
+            if (existing == null || existing.getDuration() <= 25) {
+                livingEntity.addEffect(new MobEffectInstance(ModMobEffects.SPECTRAL_VISION, 80, 0, false, false, true));
+            }
         }
-        super.inventoryTick( stack, level, entity, slot);
+        super.inventoryTick(stack, level, entity, slot);
     }
 
 	@Override
@@ -41,6 +43,10 @@ public class SpectralEyeAmuletItem extends Item {
 		ItemStack stack = player.getItemInHand(hand);
 
 		stack.update(ModDataComponents.TOGGLEABLE_STATE, ToggleableState.DEFAULT, ToggleableState::toggle);
+
+		if (!level.isClientSide() && !isActive(stack)) {
+			player.removeEffect(ModMobEffects.SPECTRAL_VISION);
+		}
 
 		return InteractionResult.SUCCESS;
 	}

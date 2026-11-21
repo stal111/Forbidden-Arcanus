@@ -1,4 +1,4 @@
-// 26.1.2	2026-07-27T22:29:50.4895306	Model Definitions - forbidden_arcanus
+// 26.1.2	2026-11-17T23:45:06.5616429	Model Definitions - forbidden_arcanus
 34ad95938d26fabd02ada3d848eea405894667d7 assets/forbidden_arcanus/blockstates/arcane_crystal_block.json
 5c7ff49b4565c2b9aa7e79629685cfdad6a408aa assets/forbidden_arcanus/blockstates/arcane_crystal_obelisk.json
 1a89b2964d08308be3317bac20e12091320695d5 assets/forbidden_arcanus/blockstates/arcane_crystal_ore.json
@@ -360,7 +360,7 @@ fbc9402949add3b6b9a628b97e9f1e92f50fb09a assets/forbidden_arcanus/items/soulless
 0849952bd88ec1d8aa4583e7b2f4c5989d9cff92 assets/forbidden_arcanus/items/soul_binding_crystal.json
 83f47404cf28f6a3f96f14ccb28219b3050ad206 assets/forbidden_arcanus/items/soul_crimson_stone.json
 d23aecede8201a64497734abba2bc02827fb7f3d assets/forbidden_arcanus/items/spawner_scrap.json
-4eb047c2d7719f702605dd98a644110456330f01 assets/forbidden_arcanus/items/spectral_eye_amulet.json
+909b2b83a81a6c2e1032ea6285809224f1217af7 assets/forbidden_arcanus/items/spectral_eye_amulet.json
 2c589822a520347973cc421b3ac1fb516668754c assets/forbidden_arcanus/items/splash_aureal_bottle.json
 898c5176e99a97ee28d6bab3454db7c4d3b66552 assets/forbidden_arcanus/items/spruce_wand.json
 05d4b55ee200418061e18e13d0af79d59a15777b assets/forbidden_arcanus/items/stellarite_block.json

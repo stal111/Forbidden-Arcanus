@@ -1,6 +1,14 @@
 {
   "model": {
-    "type": "minecraft:model",
-    "model": "forbidden_arcanus:item/spectral_eye_amulet"
+    "type": "minecraft:condition",
+    "on_false": {
+      "type": "minecraft:model",
+      "model": "forbidden_arcanus:item/spectral_eye_amulet_deactivated"
+    },
+    "on_true": {
+      "type": "minecraft:model",
+      "model": "forbidden_arcanus:item/spectral_eye_amulet"
+    },
+    "property": "forbidden_arcanus:toggleable_active"
   }
 }

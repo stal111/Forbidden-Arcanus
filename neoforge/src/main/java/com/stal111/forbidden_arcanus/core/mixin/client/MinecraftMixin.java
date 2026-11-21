@@ -8,6 +8,7 @@ import net.minecraft.world.entity.Entity;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -15,12 +16,19 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(Minecraft.class)
 public class MinecraftMixin {
 
+    @Unique
+    private static final double SPECTRAL_VISION_RANGE_SQR = 64.0 * 64.0;
+
     @Shadow @Nullable
     public LocalPlayer player;
 
     @Inject(method = "shouldEntityAppearGlowing", at = @At("HEAD"), cancellable = true)
     private void forbiddenArcanus_shouldEntityAppearGlowing$handleSpectralEyeAmulet(Entity entity, CallbackInfoReturnable<Boolean> callback) {
-        if (this.player != null && this.player.hasEffect(ModMobEffects.SPECTRAL_VISION) && !entity.is(ModTags.EntityTypes.SPECTRAL_VISION_UNAFFECTED)) {
+        if (this.player != null
+                && entity != this.player
+                && this.player.hasEffect(ModMobEffects.SPECTRAL_VISION)
+                && entity.distanceToSqr(this.player) <= SPECTRAL_VISION_RANGE_SQR
+                && !entity.is(ModTags.EntityTypes.SPECTRAL_VISION_UNAFFECTED)) {
             callback.setReturnValue(true);
         }
     }
