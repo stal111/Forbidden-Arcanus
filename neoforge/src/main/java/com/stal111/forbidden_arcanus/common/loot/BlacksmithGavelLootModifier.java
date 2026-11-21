@@ -35,7 +35,9 @@ public class BlacksmithGavelLootModifier extends LootModifier {
         BlockState state = context.getOptionalParameter(LootContextParams.BLOCK_STATE);
 
         if (state != null && state.is(Tags.Blocks.ORES) && !state.is(ModTags.Blocks.BLACKSMITH_GAVEL_UNAFFECTED)) {
-            for (int i = 0; i < generatedLoot.size(); i++) {
+            int size = generatedLoot.size();
+
+            for (int i = 0; i < size; i++) {
                 generatedLoot.add(generatedLoot.get(i).copy());
             }
         }

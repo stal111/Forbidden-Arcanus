@@ -54,7 +54,9 @@ public class MagicalFarmlandLootModifier extends LootModifier {
 
 
         if (level.getBlockState(BlockPos.containing(pos).below()).is(ModBlocks.MAGICAL_FARMLAND.get())) {
-            for (int i = 0; i < generatedLoot.size(); i++) {
+            int size = generatedLoot.size();
+
+            for (int i = 0; i < size; i++) {
                 ItemStack stack = generatedLoot.get(i);
 
                 if (!stack.is(ModTags.Items.MAGICAL_FARMLAND_BLACKLISTED)) {
