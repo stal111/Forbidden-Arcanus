@@ -1,6 +1,5 @@
 package com.stal111.forbidden_arcanus.common.entity.projectile;
 
-import com.stal111.forbidden_arcanus.common.aureal.AurealHelper;
 import com.stal111.forbidden_arcanus.common.entity.lostsoul.AbstractLostSoul;
 import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
 import com.stal111.forbidden_arcanus.common.essence.EssenceType;
@@ -77,10 +76,6 @@ public class ThrownAurealBottle extends ThrowableItemProjectile {
             if (distance < 16.0D) {
                 if (entity instanceof ServerPlayer player) {
                     EssenceHelper.addEssence(player, EssenceType.AUREAL, 30);
-                }
-
-                if (AurealHelper.canEntityBeAureal(entity) && !entity.getPersistentData().getBooleanOr("aureal", false)) {
-                    entity.getPersistentData().putBoolean("aureal", true);
                 }
 
                 if (entity instanceof AbstractLostSoul lostSoul) {
