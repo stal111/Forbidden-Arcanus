@@ -3,13 +3,19 @@ package com.stal111.forbidden_arcanus.common.essence;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.ComponentSerialization;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipProvider;
 
-public record EssenceCost(EssenceValue value, Component description) {
+import java.util.function.Consumer;
+
+public record EssenceCost(EssenceValue value, Component description) implements TooltipProvider {
 
     private static final String COST_FORMAT = "tooltip.forbidden_arcanus.essence.cost_format";
     private static final String DESCRIPTION_FORMAT = "tooltip.forbidden_arcanus.essence.cost_description";
@@ -57,5 +63,10 @@ public record EssenceCost(EssenceValue value, Component description) {
 
     public Component asFormattedComponent(EssenceValue availableEssence) {
         return this.asFormattedComponent(this.hasEnough(availableEssence) ? ChatFormatting.WHITE : ChatFormatting.RED);
+    }
+
+    @Override
+    public void addToTooltip(Item.TooltipContext context, Consumer<Component> consumer, TooltipFlag flag, DataComponentGetter components) {
+        consumer.accept(this.asFormattedComponent(ChatFormatting.WHITE));
     }
 }

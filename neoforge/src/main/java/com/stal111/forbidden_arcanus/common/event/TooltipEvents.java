@@ -41,6 +41,7 @@ public class TooltipEvents {
         stack.addToTooltip(ModDataComponents.ESSENCE_VALUE, event.getContext(), tooltipDisplay, component -> this.expandTooltip(advanced, tooltip, component), event.getFlags());
         stack.addToTooltip(ModDataComponents.ESSENCE_STORAGE, event.getContext(), tooltipDisplay, component -> this.expandTooltip(advanced, tooltip, component), event.getFlags());
         stack.addToTooltip(ModDataComponents.STORED_ENTITY, event.getContext(), tooltipDisplay, component -> this.expandTooltip(advanced, tooltip, component), event.getFlags());
+        stack.addToTooltip(ModDataComponents.ESSENCE_COST, event.getContext(), tooltipDisplay, component -> this.expandTooltip(advanced, tooltip, component), event.getFlags());
 
         Holder<WandMaterial> materialHolder = stack.get(ModDataComponents.PROVIDES_WAND_MATERIAL);
 
