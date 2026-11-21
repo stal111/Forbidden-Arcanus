@@ -20,10 +20,12 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
+import org.jspecify.annotations.Nullable;
 
 public class EctoplasmExtractorItem extends Item {
 
     private static final int USE_DURATION = 35;
+    private static final int ECTOPLASM_AMOUNT = 21;
 
     public EctoplasmExtractorItem(Properties properties) {
         super(properties);
@@ -33,17 +35,17 @@ public class EctoplasmExtractorItem extends Item {
     public InteractionResult useOn(UseOnContext context) {
         Player player = context.getPlayer();
 
-        if (player == null) {
-            return super.useOn(context);
+        if (player == null || !this.canExtract(context.getItemInHand())) {
+            return InteractionResult.PASS;
         }
 
-        HitResult hitResult = this.calculateHitResult(player);
-
-        if (hitResult.getType() == HitResult.Type.BLOCK && hitResult instanceof BlockHitResult blockHitResult && this.isValidBlock(context.getLevel(), blockHitResult.getBlockPos(), player)) {
+        if (this.isValidBlock(context.getLevel(), context.getClickedPos(), player)) {
             player.startUsingItem(context.getHand());
+
+            return InteractionResult.CONSUME;
         }
 
-        return InteractionResult.CONSUME;
+        return InteractionResult.PASS;
     }
 
     @Override
@@ -58,16 +60,18 @@ public class EctoplasmExtractorItem extends Item {
 
     @Override
     public void onUseTick(Level level, LivingEntity livingEntity, ItemStack stack, int remainingUseDuration) {
-        HitResult hitResult = this.calculateHitResult(livingEntity);
+        BlockPos pos = this.getTargetedValidBlock(level, livingEntity);
 
-        if (hitResult.getType() == HitResult.Type.BLOCK && hitResult instanceof BlockHitResult blockHitResult && this.isValidBlock(level, blockHitResult.getBlockPos(), livingEntity)) {
-            int i = this.getUseDuration(stack, livingEntity) - remainingUseDuration + 1;
-
-            if (i % 10 == 5) {
-                level.levelEvent(livingEntity, 2001, blockHitResult.getBlockPos(), Block.getId(level.getBlockState(blockHitResult.getBlockPos())));
-            }
-        } else {
+        if (pos == null || !this.canExtract(stack)) {
             livingEntity.stopUsingItem();
+
+            return;
+        }
+
+        int elapsedTicks = USE_DURATION - remainingUseDuration + 1;
+
+        if (elapsedTicks % 10 == 5) {
+            level.levelEvent(livingEntity, 2001, pos, Block.getId(Blocks.SOUL_SAND.defaultBlockState()));
         }
 
         super.onUseTick(level, livingEntity, stack, remainingUseDuration);
@@ -75,29 +79,45 @@ public class EctoplasmExtractorItem extends Item {
 
     @Override
     public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity livingEntity) {
-        HitResult hitResult = this.calculateHitResult(livingEntity);
+        BlockPos pos = this.getTargetedValidBlock(level, livingEntity);
 
-        if (hitResult.getType() == HitResult.Type.BLOCK && hitResult instanceof BlockHitResult blockHitResult && this.isValidBlock(level, blockHitResult.getBlockPos(), livingEntity)) {
-            BlockPos pos = blockHitResult.getBlockPos();
-
+        if (pos != null && this.canExtract(stack)) {
             for (int i = 0; i < 4; i++) {
                 level.addParticle(ModParticles.SOUL.get(), pos.getX() + level.getRandom().nextFloat(), pos.getY() + 1, pos.getZ() + level.getRandom().nextFloat(), 1, 1, 1);
             }
 
-            EssenceHelper.addEssence(stack, 21);
+            EssenceHelper.addEssence(stack, ECTOPLASM_AMOUNT);
 
-            if (!level.isClientSide() && livingEntity instanceof Player player) {
-                player.awardStat(Stats.ITEM_USED.get(this));
+            if (!level.isClientSide()) {
+                level.setBlockAndUpdate(pos, ModBlocks.SOULLESS_SAND.get().defaultBlockState());
+
+                if (livingEntity instanceof Player player) {
+                    player.awardStat(Stats.ITEM_USED.get(this));
+                }
             }
-
-            level.setBlockAndUpdate(pos, ModBlocks.SOULLESS_SAND.get().defaultBlockState());
         }
 
         return super.finishUsingItem(stack, level, livingEntity);
     }
 
-    private HitResult calculateHitResult(LivingEntity livingEntity) {
-        return ProjectileUtil.getHitResultOnViewVector(livingEntity, EntitySelector.CAN_BE_PICKED, livingEntity.getAttributeValue(Attributes.BLOCK_INTERACTION_RANGE));
+    private boolean canExtract(ItemStack stack) {
+        return EssenceHelper.getEssenceStorage(stack)
+                .map(storage -> !storage.isFull())
+                .orElse(false);
+    }
+
+    private @Nullable BlockPos getTargetedValidBlock(Level level, LivingEntity livingEntity) {
+        HitResult hitResult = ProjectileUtil.getHitResultOnViewVector(livingEntity, EntitySelector.CAN_BE_PICKED, livingEntity.getAttributeValue(Attributes.BLOCK_INTERACTION_RANGE));
+
+        if (hitResult.getType() == HitResult.Type.BLOCK && hitResult instanceof BlockHitResult blockHitResult) {
+            BlockPos pos = blockHitResult.getBlockPos();
+
+            if (this.isValidBlock(level, pos, livingEntity)) {
+                return pos;
+            }
+        }
+
+        return null;
     }
 
     private boolean isValidBlock(Level level, BlockPos pos, LivingEntity livingEntity) {
