@@ -11,14 +11,6 @@ import net.minecraft.world.level.Level;
 
 import java.util.List;
 
-/**
- * Dark Matter Item <br>
- * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.item.DarkMatterItem
- *
- * @author stal111
- * @version 2.0.0
- * @since 2021-08-03
- */
 public class DarkMatterItem extends Item {
 
     public DarkMatterItem(Properties properties) {
@@ -28,18 +20,30 @@ public class DarkMatterItem extends Item {
     @Override
     public boolean onEntityItemUpdate(ItemStack stack, ItemEntity entity) {
         Level level = entity.level();
+
+        if (level.isClientSide() || entity.tickCount % 5 != 0) {
+            return false;
+        }
+
         BlockPos pos = entity.blockPosition();
 
-        List<ItemEntity> itemEntities = level.getEntitiesOfClass(ItemEntity.class, new AABB(pos).inflate(0.5));
-
-        for (ItemEntity itemEntity : itemEntities) {
-            if (itemEntity.getItem().is(ModItems.CORRUPTI_DUST.get()) && level.getBlockState(pos).isAir()) {
-                entity.getItem().shrink(1);
-                itemEntity.getItem().shrink(1);
-
-                level.setBlockAndUpdate(pos, ModBlocks.BLACK_HOLE.get().defaultBlockState());
-            }
+        if (!level.getBlockState(pos).isAir()) {
+            return false;
         }
+
+        List<ItemEntity> itemEntities = level.getEntitiesOfClass(
+                ItemEntity.class,
+                new AABB(pos).inflate(0.5),
+                e -> e.getItem().is(ModItems.CORRUPTI_DUST.get())
+        );
+
+        if (!itemEntities.isEmpty()) {
+            stack.shrink(1);
+            itemEntities.getFirst().getItem().shrink(1);
+
+            level.setBlockAndUpdate(pos, ModBlocks.BLACK_HOLE.get().defaultBlockState());
+        }
+
         return false;
     }
 }
