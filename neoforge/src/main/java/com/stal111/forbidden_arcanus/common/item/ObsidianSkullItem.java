@@ -2,7 +2,6 @@ package com.stal111.forbidden_arcanus.common.item;
 
 import com.stal111.forbidden_arcanus.common.block.skull.ObsidianSkullType;
 import com.stal111.forbidden_arcanus.core.init.ModBlocks;
-import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Util;
@@ -52,10 +51,5 @@ public class ObsidianSkullItem extends StandingAndWallBlockItem {
 //        }
 //
 //        this.getType(stack).tick(stack, player);
-    }
-
-
-    public ObsidianSkullType getType(ItemStack stack) {
-        return stack.getOrDefault(ModDataComponents.OBSIDIAN_SKULL_TYPE, ObsidianSkullType.DEFAULT);
     }
 }

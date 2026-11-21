@@ -1,7 +1,6 @@
 package com.stal111.forbidden_arcanus.core.init;
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
-import com.stal111.forbidden_arcanus.common.block.skull.ObsidianSkullType;
 import com.stal111.forbidden_arcanus.common.essence.EssenceCost;
 import com.stal111.forbidden_arcanus.common.essence.EssenceValue;
 import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorage;
@@ -43,7 +42,6 @@ public class ModDataComponents {
     public static final RegistryEntry<DataComponentType<?>, DataComponentType<ToggleableState>> TOGGLEABLE_STATE = HELPER.register("toggleable_state", () -> DataComponentType.<ToggleableState>builder().persistent(ToggleableState.CODEC).networkSynchronized(ToggleableState.STREAM_CODEC).build());
     public static final RegistryEntry<DataComponentType<?>, DataComponentType<Unit>> SHOWS_AUREAL_METER = HELPER.register("shows_aureal_meter", () -> DataComponentType.<Unit>builder().persistent(Unit.CODEC).networkSynchronized(StreamCodec.unit(Unit.INSTANCE)).build());
     public static final RegistryEntry<DataComponentType<?>, DataComponentType<RitualStarter>> RITUAL_STARTER = HELPER.register("ritual_starter", () -> DataComponentType.<RitualStarter>builder().persistent(RitualStarter.CODEC).build());
-    public static final RegistryEntry<DataComponentType<?>, DataComponentType<ObsidianSkullType>> OBSIDIAN_SKULL_TYPE = HELPER.register("obsidian_skull_type", () -> DataComponentType.<ObsidianSkullType>builder().persistent(ObsidianSkullType.CODEC).build());
     public static final RegistryEntry<DataComponentType<?>, DataComponentType<PreventsDamage>> PREVENTS_DAMAGE = HELPER.register("prevents_damage", () -> DataComponentType.<PreventsDamage>builder().persistent(PreventsDamage.CODEC).cacheEncoding().build());
     public static final RegistryEntry<DataComponentType<?>, DataComponentType<WandParts>> WAND_PARTS = HELPER.register("wand_parts", () -> DataComponentType.<WandParts>builder().persistent(WandParts.CODEC).cacheEncoding().build());
     public static final RegistryEntry<DataComponentType<?>, DataComponentType<EssenceCost>> ESSENCE_COST = HELPER.register("essence_cost", () -> DataComponentType.<EssenceCost>builder().persistent(EssenceCost.CODEC).networkSynchronized(EssenceCost.STREAM_CODEC).build());
