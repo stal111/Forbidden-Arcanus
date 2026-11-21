@@ -20,7 +20,6 @@ public class NetworkEvents {
         final PayloadRegistrar registrar = event.registrar(ForbiddenArcanus.MOD_ID).versioned("1.0");
 
         registrar.playToClient(InsertMoltenMaterialPayload.TYPE, InsertMoltenMaterialPayload.STREAM_CODEC, InsertMoltenMaterialPayload::handle);
-        registrar.playToClient(TransformPedestalPayload.TYPE, TransformPedestalPayload.STREAM_CODEC, TransformPedestalPayload::handle);
         registrar.playToClient(SpawnParticlePayload.TYPE, SpawnParticlePayload.STREAM_CODEC, SpawnParticlePayload::handle);
         registrar.playToClient(AdvancedBlockEventPayload.TYPE, AdvancedBlockEventPayload.STREAM_CODEC, AdvancedBlockEventPayload::handle);
 

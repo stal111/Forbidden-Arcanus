@@ -5,9 +5,7 @@ import com.stal111.forbidden_arcanus.common.inventory.ClibanoMenu;
 import com.stal111.forbidden_arcanus.common.network.clientbound.AdvancedBlockEventPayload;
 import com.stal111.forbidden_arcanus.common.network.clientbound.InsertMoltenMaterialPayload;
 import com.stal111.forbidden_arcanus.common.network.clientbound.SpawnParticlePayload;
-import com.stal111.forbidden_arcanus.common.network.clientbound.TransformPedestalPayload;
 import com.stal111.forbidden_arcanus.core.init.ModParticles;
-import com.stal111.forbidden_arcanus.core.init.ModSounds;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.core.particles.ColorParticleOption;
@@ -17,9 +15,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.ARGB;
-import net.minecraft.util.ParticleUtils;
 import net.minecraft.util.RandomSource;
-import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
@@ -52,12 +48,6 @@ public final class ClientPayloadHandler {
                 screen.getMaterialList().updateSlots();
             }
         }
-    }
-
-    public void handle(TransformPedestalPayload payload, IPayloadContext context) {
-        ParticleUtils.spawnParticlesOnBlockFaces(this.minecraft.level, payload.pos(), ModParticles.MAGNETIC_GLOW.get(), UniformInt.of(3, 5));
-
-        this.minecraft.level.playLocalSound(payload.pos(), ModSounds.FERROGNETIC_MIXTURE_APPLY.get(), SoundSource.PLAYERS, 0.75F, 0.9F + this.minecraft.level.getRandom().nextFloat() * 0.1F, false);
     }
 
     public void handle(SpawnParticlePayload payload, IPayloadContext context) {
