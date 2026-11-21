@@ -1,4 +1,4 @@
-// 26.1.2	2026-07-10T20:44:50.5905262	Tags for minecraft:block mod id forbidden_arcanus
+// 26.1.2	2026-11-21T22:05:05.5589779	Tags for minecraft:block mod id forbidden_arcanus
 ed23ebe15a1414e3c7311e3750ac9dc0e912d732 data/c/tags/block/fences/wooden.json
 0643e621e7d9a779b7b1be9df093f0e899494b43 data/c/tags/block/fence_gates/wooden.json
 0473bb78ef9e4d1ab8d30321c82c228178cb97ef data/c/tags/block/glass_blocks.json
@@ -17,6 +17,8 @@ fc1d22e637a8c93c504c9d76b6a2873851fd6406 data/c/tags/block/ores_in_ground/deepsl
 b128c22b1f0aef1502fa919bc8d063604b299c75 data/c/tags/block/storage_blocks/deorum.json
 91840b14172330730eb5cfdf5c62e628823b1632 data/c/tags/block/storage_blocks/stellarite.json
 9876cbe82de2d9b6d1e81096ae7eaddd950af453 data/c/tags/block/storage_blocks/stygian_steel.json
+35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/forbidden_arcanus/tags/block/arcane_bone_meal_blacklisted.json
+35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/forbidden_arcanus/tags/block/arcane_bone_meal_single_use.json
 15ddb20eec4f474e9a7277aa0e68dd069b704173 data/forbidden_arcanus/tags/block/arcane_crystal_ores.json
 35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/forbidden_arcanus/tags/block/blacksmith_gavel_unaffected.json
 7178fc65549c2cdfe3c0d34421efedf7c81a341f data/forbidden_arcanus/tags/block/darkstone_ore_replaceables.json
@@ -34,6 +36,7 @@ ce2508892f23ecc4a019953c279d5bba6c908716 data/minecraft/tags/block/doors.json
 03a5318834090a24bfd4b3ce3f4c150e69e0cd12 data/minecraft/tags/block/fall_damage_resetting.json
 0643e621e7d9a779b7b1be9df093f0e899494b43 data/minecraft/tags/block/fence_gates.json
 56b78e2f7215fa7d523ebe14e937937b567aeff7 data/minecraft/tags/block/flower_pots.json
+05949b66ee39243f27c07b64db20a327f62e0095 data/minecraft/tags/block/grows_crops.json
 0473bb78ef9e4d1ab8d30321c82c228178cb97ef data/minecraft/tags/block/impermeable.json
 a3ca36ef0752ec1bed14ca0fa88942f160c44b0b data/minecraft/tags/block/leaves.json
 281f7d96ae64a0fe6635eebd35d6399355196788 data/minecraft/tags/block/logs.json
@@ -41,13 +44,15 @@ c9551f2da367b0c31ca0754eaef613b4207e60b4 data/minecraft/tags/block/logs_that_bur
 fe7efc8e65f4ede93ed6c6350fd4fefaa4e235dc data/minecraft/tags/block/mineable/axe.json
 a3ca36ef0752ec1bed14ca0fa88942f160c44b0b data/minecraft/tags/block/mineable/hoe.json
 c678631c957cafbee65c412e80dad97b55866e8a data/minecraft/tags/block/mineable/pickaxe.json
-e11c52073acc9688a3d1d87ed5c426f99e5813a2 data/minecraft/tags/block/mineable/shovel.json
+b67cb180bbbb6c6ae912acdde8fc0d781763f6c4 data/minecraft/tags/block/mineable/shovel.json
 c70a7fc48800e4720524e4176201d55b9823a964 data/minecraft/tags/block/needs_diamond_tool.json
 52ef3724e82ab1ef277527f8bd4ea66df81b9f20 data/minecraft/tags/block/needs_iron_tool.json
 20c47137acf7ae36baf62c859817b6e5db3aad3d data/minecraft/tags/block/needs_stone_tool.json
 a16c7f48d13080ae1e744d6e5d28d7e177251346 data/minecraft/tags/block/planks.json
 d8eb1237115a12ebd5759bebf3361289621b0456 data/minecraft/tags/block/saplings.json
 9e9500e769cd5c0703ef99e4a2a0df188529f697 data/minecraft/tags/block/small_flowers.json
+05949b66ee39243f27c07b64db20a327f62e0095 data/minecraft/tags/block/supports_crops.json
+05949b66ee39243f27c07b64db20a327f62e0095 data/minecraft/tags/block/supports_stem_crops.json
 8444fa480fdb1b147e132ca4416af4e96e7bcc0b data/minecraft/tags/block/trapdoors.json
 f4930e5d25066a47f22f548b027aa6a3d1ec7f91 data/minecraft/tags/block/walls.json
 3935b55b1e06b607bf6546db483f8101b38e36af data/minecraft/tags/block/wooden_buttons.json

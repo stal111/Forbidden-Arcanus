@@ -1,17 +1,13 @@
 package com.stal111.forbidden_arcanus.common.block.dispenser;
 
 import com.stal111.forbidden_arcanus.common.item.ArcaneBoneMealItem;
-import com.stal111.forbidden_arcanus.core.init.ModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.OptionalDispenseItemBehavior;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.item.BoneMealItem;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DispenserBlock;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import javax.annotation.Nonnull;
 
@@ -28,21 +24,17 @@ public class ArcaneBoneMealDispenseBehavior extends OptionalDispenseItemBehavior
     @Nonnull
     @Override
     protected ItemStack execute(@Nonnull BlockSource source, @Nonnull ItemStack stack) {
-        Level level = source.level();
+        ServerLevel level = source.level();
         BlockPos pos = source.pos().relative(source.state().getValue(DispenserBlock.FACING));
-        BlockState state = level.getBlockState(pos);
 
         this.setSuccess(true);
 
-        if (state.is(Blocks.FARMLAND)) {
-            stack.shrink(1);
+        if (ArcaneBoneMealItem.tryConvertFarmland(stack, level, pos, null)) {
+            return stack;
+        }
 
-            level.setBlockAndUpdate(pos, ModBlocks.MAGICAL_FARMLAND.get().defaultBlockState().setValue(BlockStateProperties.MOISTURE, state.getValue(BlockStateProperties.MOISTURE)));
-            level.levelEvent(null, 2001, pos, Block.getId(state));
-        } else if (ArcaneBoneMealItem.applyBoneMeal(stack, level, pos, null)) {
-            if (!level.isClientSide()) {
-                level.levelEvent(2005, pos, 0);
-            }
+        if (ArcaneBoneMealItem.applyBoneMeal(stack, level, pos, null) || BoneMealItem.growWaterPlant(stack, level, pos, null)) {
+            ArcaneBoneMealItem.playGrowthEffects(level, pos);
         } else {
             this.setSuccess(false);
         }

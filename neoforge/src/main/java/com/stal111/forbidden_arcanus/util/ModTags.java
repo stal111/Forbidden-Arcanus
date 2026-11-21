@@ -17,6 +17,8 @@ public class ModTags {
         public static final TagKey<Block> EDELWOOD_LOGS = modTag("edelwood_logs");
         public static final TagKey<Block> BLACKSMITH_GAVEL_UNAFFECTED = modTag("blacksmith_gavel_unaffected");
         public static final TagKey<Block> MAGICAL_FARMLAND_BLACKLISTED = modTag("magical_farmland_blacklisted");
+        public static final TagKey<Block> ARCANE_BONE_MEAL_BLACKLISTED = modTag("arcane_bone_meal_blacklisted");
+        public static final TagKey<Block> ARCANE_BONE_MEAL_SINGLE_USE = modTag("arcane_bone_meal_single_use");
         public static final TagKey<Block> RUNIC_STONES = modTag("runic_stones");
         public static final TagKey<Block> RUNE_BLOCKS = modTag("rune_blocks");
         public static final TagKey<Block> ARCANE_CRYSTAL_ORES = modTag("arcane_crystal_ores");
