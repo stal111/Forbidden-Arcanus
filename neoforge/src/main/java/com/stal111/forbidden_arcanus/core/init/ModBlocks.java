@@ -9,6 +9,7 @@ import com.stal111.forbidden_arcanus.common.block.pedestal.MagnetizedPedestalBlo
 import com.stal111.forbidden_arcanus.common.block.pedestal.PedestalBlock;
 import com.stal111.forbidden_arcanus.common.block.properties.ModBlockStateProperties;
 import com.stal111.forbidden_arcanus.common.block.skull.ObsidianSkullType;
+import com.stal111.forbidden_arcanus.common.essence.EssenceCosts;
 import com.stal111.forbidden_arcanus.common.item.ObsidianSkullItem;
 import com.stal111.forbidden_arcanus.common.item.component.FireDegradation;
 import com.stal111.forbidden_arcanus.common.item.component.PreventsDamage;
@@ -228,6 +229,7 @@ public class ModBlocks implements RegistryClass {
         public static final SkullRegistryEntry.SkullItemFactory AUREALIC_OBSIDIAN_SKULL_ITEM = (skull, wallSkull) ->
                 new ObsidianSkullItem(skull, wallSkull, baseSkullProperties(AUREALIC_OBSIDIAN_SKULL)
                         .rarity(Rarity.UNCOMMON)
+                        .component(ModDataComponents.ESSENCE_COST, EssenceCosts.AUREALIC_OBSIDIAN_SKULL)
                         .delayedComponent(ModDataComponents.PREVENTS_DAMAGE.get(), context -> PreventsDamage.fire(context, EquipmentSlotGroup.HEAD, PreventsDamage.HAS_AUREAL_PREDICATE)));
         public static final SkullRegistryEntry.SkullItemFactory ETERNAL_OBSIDIAN_SKULL_ITEM = (skull, wallSkull) ->
                 new ObsidianSkullItem(skull, wallSkull, baseSkullProperties(ETERNAL_OBSIDIAN_SKULL)

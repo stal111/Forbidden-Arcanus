@@ -340,6 +340,7 @@ class LangProvider(output: PackOutput) : LanguageProvider(output, ForbiddenArcan
 
         add("tooltip", "action.cast_spell", "Cast Spell")
         add("tooltip", "action.catch", "Catch")
+        add("tooltip", "action.fire_protection", "Per Second on Fire")
 
         add("attribute.name.generic.aureal_regeneration", "Aureal Regeneration")
 
