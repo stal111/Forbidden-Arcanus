@@ -32,7 +32,7 @@ public class SpectralEyeAmuletItem extends Item {
         if (isActive(stack) && entity instanceof LivingEntity livingEntity) {
             MobEffectInstance existing = livingEntity.getEffect(ModMobEffects.SPECTRAL_VISION);
             if (existing == null || existing.getDuration() <= 25) {
-                livingEntity.addEffect(new MobEffectInstance(ModMobEffects.SPECTRAL_VISION, 80, 0, false, false, true));
+                livingEntity.addEffect(new MobEffectInstance(ModMobEffects.SPECTRAL_VISION, 80, 0, false, false, false));
             }
         }
         super.inventoryTick(stack, level, entity, slot);
