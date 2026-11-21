@@ -1,6 +1,5 @@
 package com.stal111.forbidden_arcanus.common.loot;
 
-import com.google.common.base.Suppliers;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.util.ModTags;
@@ -18,27 +17,24 @@ import net.neoforged.neoforge.common.loot.IGlobalLootModifier;
 import net.neoforged.neoforge.common.loot.LootModifier;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.function.Supplier;
-
 /**
  * @author stal111
  * @since 2021-09-24
  */
 public class BlacksmithGavelLootModifier extends LootModifier {
 
-    public static final Supplier<MapCodec<BlacksmithGavelLootModifier>> CODEC = Suppliers.memoize(() -> RecordCodecBuilder.mapCodec(instance -> codecStart(instance).apply(instance, BlacksmithGavelLootModifier::new)));
+    public static final MapCodec<BlacksmithGavelLootModifier> CODEC = RecordCodecBuilder.mapCodec(instance -> codecStart(instance).apply(instance, BlacksmithGavelLootModifier::new));
 
-    /**
-     * Constructs a LootModifier.
-     *
-     * @param conditions the ILootConditions that need to be matched before the loot is modified.
-     */
     public BlacksmithGavelLootModifier(LootItemCondition[] conditions, int priority) {
         super(conditions, priority);
     }
 
     @Override
     protected @NotNull ObjectArrayList<ItemStack> doApply(@NotNull ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
+        if (generatedLoot.isEmpty()) {
+            return generatedLoot;
+        }
+
         BlockState state = context.getOptionalParameter(LootContextParams.BLOCK_STATE);
         ItemInstance stack = context.getOptionalParameter(LootContextParams.TOOL);
 
@@ -46,9 +42,12 @@ public class BlacksmithGavelLootModifier extends LootModifier {
             return generatedLoot;
         }
 
-        if (this.isValidGavel(stack, context.getLevel().registryAccess()) && state.is(Tags.Blocks.ORES) && !state.is(ModTags.Blocks.BLACKSMITH_GAVEL_UNAFFECTED)) {
-            generatedLoot.addAll(generatedLoot.clone());
+        if (state.is(Tags.Blocks.ORES) && !state.is(ModTags.Blocks.BLACKSMITH_GAVEL_UNAFFECTED) && this.isValidGavel(stack, context.getLevel().registryAccess())) {
+            for (int i = 0; i < generatedLoot.size(); i++) {
+                generatedLoot.add(generatedLoot.get(i).copy());
+            }
         }
+
         return generatedLoot;
     }
 
@@ -58,6 +57,6 @@ public class BlacksmithGavelLootModifier extends LootModifier {
 
     @Override
     public @NotNull MapCodec<? extends IGlobalLootModifier> codec() {
-        return CODEC.get();
+        return CODEC;
     }
 }
