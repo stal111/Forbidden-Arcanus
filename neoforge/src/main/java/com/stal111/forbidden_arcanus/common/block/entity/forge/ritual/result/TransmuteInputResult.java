@@ -3,19 +3,18 @@ package com.stal111.forbidden_arcanus.common.block.entity.forge.ritual.result;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.core.init.ModRitualResultTypes;
-import net.minecraft.core.Holder;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 
-public record TransmuteInputResult(Holder<Item> result) implements RitualResult {
+public record TransmuteInputResult(ItemStackTemplate result) implements RitualResult {
 
     public static final MapCodec<TransmuteInputResult> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-            Item.CODEC.fieldOf("result_item").forGetter(TransmuteInputResult::result)
+            ItemStackTemplate.CODEC.fieldOf("result_item").forGetter(TransmuteInputResult::result)
     ).apply(instance, TransmuteInputResult::new));
 
     @Override
     public ItemStack getResultItem(ItemStack mainInput) {
-        return mainInput.transmuteCopy(this.result.value());
+        return mainInput.transmuteCopy(this.result.item().value());
     }
 
     @Override
