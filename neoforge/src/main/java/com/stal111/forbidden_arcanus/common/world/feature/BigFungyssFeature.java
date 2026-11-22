@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import com.stal111.forbidden_arcanus.common.world.feature.config.BigFungyssFeatureConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.WorldGenLevel;
@@ -15,16 +16,11 @@ import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.neoforged.neoforge.common.Tags;
 
 import javax.annotation.Nonnull;
+import java.util.function.Predicate;
 
-/**
- * Big Fungyss Feature <br>
- * Forbidden Arcanus - com.stal111.forbidden_arcanus.common.world.feature.BigFungyssFeature
- *
- * @author stal111
- * @version 1.19 - 2.1.0
- * @since 2021-04-13
- */
 public class BigFungyssFeature extends Feature<BigFungyssFeatureConfig> {
+
+    private static final Predicate<BlockState> CAN_REPLACE = state -> state.isAir() || (!state.is(BlockTags.FEATURES_CANNOT_REPLACE) && state.is(BlockTags.REPLACEABLE_BY_TREES));
 
     public BigFungyssFeature(Codec<BigFungyssFeatureConfig> codec) {
         super(codec);
@@ -38,51 +34,47 @@ public class BigFungyssFeature extends Feature<BigFungyssFeatureConfig> {
         }
     }
 
-    private boolean canGenerate(LevelAccessor world, BlockPos pos, int height, BlockPos.MutableBlockPos mutable) {
-        if (pos.getY() < world.getMinY() + 1 || pos.getY() + height + 1 > world.getMaxY()) {
-            return false;
-        }
-
-        if (!world.getBlockState(pos.below()).is(Tags.Blocks.STONES)) {
-            return false;
-        }
-
-        for (int i = 0; i <= height; i++) {
-            BlockState state = world.getBlockState(mutable.setWithOffset(pos, 0, i, 0));
-
-            if (!state.isAir()) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     @Override
     public boolean place(@Nonnull FeaturePlaceContext<BigFungyssFeatureConfig> context) {
         WorldGenLevel level = context.level();
         BlockPos pos = context.origin();
         RandomSource random = context.random();
+        BigFungyssFeatureConfig config = context.config();
 
-        int height = this.getRandomHeight(random, context.config().variant());
+        int height = this.getRandomHeight(random, config.variant());
         BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 
         if (!this.canGenerate(level, pos, height, mutable)) {
             return false;
         }
 
-        this.placeCap(level, random, pos, height, mutable, context.config());
-        this.placeStem(level, random, pos, height, mutable, context.config());
+        this.placeStem(level, random, pos, height, mutable, config);
+        this.placeCap(level, random, pos, height, mutable, config);
 
+        return true;
+    }
+
+    private boolean canGenerate(LevelAccessor level, BlockPos pos, int height, BlockPos.MutableBlockPos mutable) {
+        if (pos.getY() < level.getMinY() + 1 || pos.getY() + height + 1 > level.getMaxY()) {
+            return false;
+        }
+
+        if (!level.getBlockState(pos.below()).is(Tags.Blocks.STONES)) {
+            return false;
+        }
+
+        for (int i = 0; i <= height; i++) {
+            if (!CAN_REPLACE.test(level.getBlockState(mutable.setWithOffset(pos, 0, i, 0)))) {
+                return false;
+            }
+        }
         return true;
     }
 
     private void placeStem(WorldGenLevel level, RandomSource random, BlockPos pos, int height, BlockPos.MutableBlockPos mutable, BigFungyssFeatureConfig config) {
         for (int i = 0; i < height; i++) {
-            mutable.set(pos).move(Direction.UP, i);
-
-            if (!level.getBlockState(mutable).isSolidRender()) {
-                this.setBlock(level, mutable, config.stemProvider().getState(level, random, pos));
-            }
+            mutable.setWithOffset(pos, 0, i, 0);
+            this.safeSetBlock(level, pos, config.stemProvider().getState(level, random, mutable), CAN_REPLACE);
         }
     }
 
@@ -92,40 +84,46 @@ public class BigFungyssFeature extends Feature<BigFungyssFeatureConfig> {
             for (int i = height - 2; i <= height; i++) {
                 for (int xOffset = -distanceToStem; xOffset <= distanceToStem; xOffset++) {
                     for (int zOffset = -distanceToStem; zOffset <= distanceToStem; zOffset++) {
-                        if ((i < height && !(xOffset == 0 && zOffset == 0)) || !isCorner(xOffset, zOffset, distanceToStem)) {
+                        boolean isCenter = xOffset == 0 && zOffset == 0;
+                        boolean isCorner = Math.abs(xOffset) == distanceToStem && Math.abs(zOffset) == distanceToStem;
+
+                        if (i < height ? !isCenter : !isCorner) {
                             mutable.setWithOffset(pos, xOffset, i, zOffset);
-                            this.setBlock(level, mutable, config.capProvider().getState(level, random, pos));
+
+                            this.safeSetBlock(level, pos, config.capProvider().getState(level, random, mutable), CAN_REPLACE);
                         }
                     }
                 }
             }
-            this.setBlock(level, pos.above(height), config.capProvider().getState(level, random, pos));
         } else {
             for (int i = height - 2; i <= height; i++) {
                 int distanceToStem = i < height ? 2 : 1;
 
                 for (int xOffset = -distanceToStem; xOffset <= distanceToStem; xOffset++) {
                     for (int zOffset = -distanceToStem; zOffset <= distanceToStem; zOffset++) {
-                        if (i >= height || !isCorner(xOffset, zOffset, distanceToStem)) {
+                        boolean isOuterEdgeWithoutCorners = (Math.abs(xOffset) == distanceToStem) != (Math.abs(zOffset) == distanceToStem);
+
+                        if (i >= height || isOuterEdgeWithoutCorners) {
                             mutable.setWithOffset(pos, xOffset, i, zOffset);
-                            this.setBlock(level, mutable, config.capProvider().getState(level, random, pos)
-                                    .setValue(HugeMushroomBlock.UP, i >= height - 1).setValue(HugeMushroomBlock.WEST, xOffset < 0).setValue(HugeMushroomBlock.EAST, xOffset > 0).setValue(HugeMushroomBlock.NORTH, zOffset < 0).setValue(HugeMushroomBlock.SOUTH, zOffset > 0));
+                            BlockState state = config.capProvider().getState(level, random, mutable)
+                                    .setValue(HugeMushroomBlock.UP, i >= height - 1)
+                                    .setValue(HugeMushroomBlock.WEST, xOffset < 0)
+                                    .setValue(HugeMushroomBlock.EAST, xOffset > 0)
+                                    .setValue(HugeMushroomBlock.NORTH, zOffset < 0)
+                                    .setValue(HugeMushroomBlock.SOUTH, zOffset > 0);
+
+                            this.safeSetBlock(level, pos, state, CAN_REPLACE);
                         }
                     }
                 }
             }
 
-            for (Direction direction : Direction.values()) {
-                if (direction.getAxis() != Direction.Axis.Y) {
-                    mutable.setWithOffset(pos, 0, height - 4, 0);
-                    mutable.move(direction);
-                    this.setBlock(level, mutable, config.capProvider().getState(level, random, pos).setValue(PipeBlock.PROPERTY_BY_DIRECTION.get(direction.getOpposite()), false));
-                }
+            for (Direction direction : Direction.Plane.HORIZONTAL) {
+                mutable.setWithOffset(pos, direction.getStepX(), height - 4, direction.getStepZ());
+                BlockState state = config.capProvider().getState(level, random, mutable).setValue(PipeBlock.PROPERTY_BY_DIRECTION.get(direction.getOpposite()), false);
+
+                this.safeSetBlock(level, pos, state, CAN_REPLACE);
             }
         }
-    }
-
-    private boolean isCorner(int xOffset, int zOffset, int distanceToStem) {
-        return (xOffset == -distanceToStem || xOffset == distanceToStem) == (zOffset == -distanceToStem || zOffset == distanceToStem);
     }
 }
