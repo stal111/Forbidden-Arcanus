@@ -8,6 +8,15 @@
         "class": "com/stal111/forbidden_arcanus/client/model/FAArmPoses",
         "field": "WAND_CAST"
       }
+    },
+    {
+      "enum": "net/minecraft/client/model/HumanoidModel$ArmPose",
+      "name": "FORBIDDEN_ARCANUS_ECTO_BLASTER_USE",
+      "constructor": "(ZZLnet/neoforged/neoforge/client/IArmPoseTransformer;)V",
+      "parameters": {
+        "class": "com/stal111/forbidden_arcanus/client/model/FAArmPoses",
+        "field": "ECTO_BLASTER_USE"
+      }
     }
   ]
 }

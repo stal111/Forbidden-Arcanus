@@ -24,7 +24,7 @@ import org.jspecify.annotations.Nullable;
 
 public class EctoplasmExtractorItem extends Item {
 
-    private static final int USE_DURATION = 35;
+    public static final int USE_DURATION = 35;
     private static final int ECTOPLASM_AMOUNT = 21;
 
     public EctoplasmExtractorItem(Properties properties) {

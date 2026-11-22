@@ -1,5 +1,6 @@
 package com.stal111.forbidden_arcanus.client.event;
 
+import com.stal111.forbidden_arcanus.client.renderer.item.EctoBlasterClientItemExtensions;
 import com.stal111.forbidden_arcanus.client.renderer.item.WandClientItemExtensions;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import net.minecraft.world.item.Item;
@@ -22,5 +23,6 @@ public class RegisterExtensionEvents {
                 new WandClientItemExtensions(),
                 ModItems.WANDS.stream().map(ItemRegistryEntry::get).toArray(Item[]::new)
         );
+        event.registerItem(new EctoBlasterClientItemExtensions(), ModItems.ECTO_BLASTER.get());
     }
 }
