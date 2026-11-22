@@ -1,4 +1,4 @@
-// 26.1.2	2026-11-13T23:14:25.5028963	Registries
+// 26.1.2	2026-11-22T11:29:59.8924434	Registries
 fd18da93d87a7f47354baedd82518d0440345dd9 data/forbidden_arcanus/enchantment/anchored.json
 c98ac566f1282450f9c754815a2c8f9a44e02b0a data/forbidden_arcanus/enchantment/soul_looting.json
 5dae7d2918859d0c001de5f1ba9afef12e45c807 data/forbidden_arcanus/forbidden_arcanus/enhancer/definition/artisan_relic.json
@@ -83,7 +83,7 @@ e710f3bba597b3ed73c43241621cb72af5a446f9 data/forbidden_arcanus/neoforge/biome_m
 1c9856fa2eb04723f00bdb9e687a13ec6883ec81 data/forbidden_arcanus/worldgen/configured_feature/aurum.json
 ffd9134c93b6a3758a7babef9f3a295030d4cfc4 data/forbidden_arcanus/worldgen/configured_feature/big_fungyss_0.json
 bfa3037ac6da3d7efff49de6b4dbcadd5c34cbd8 data/forbidden_arcanus/worldgen/configured_feature/big_fungyss_1.json
-1a234370ada9a6669df07e64af4760c2c143072d data/forbidden_arcanus/worldgen/configured_feature/edelwood.json
+4d0252645a59d50cc9eef76dbd430c1560008378 data/forbidden_arcanus/worldgen/configured_feature/edelwood.json
 64ca996677cc00588745145d5018aa6ade712dbc data/forbidden_arcanus/worldgen/configured_feature/flower_yellow_orchid.json
 c94b770e0ccca31c25a30839117cbc7a636ce163 data/forbidden_arcanus/worldgen/configured_feature/mega_fungyss_0.json
 60464b22a604362f66e131eb5ea9e4f272c79435 data/forbidden_arcanus/worldgen/configured_feature/mega_fungyss_1.json

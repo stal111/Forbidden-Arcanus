@@ -1,4 +1,12 @@
 {
   "type": "forbidden_arcanus:edelwood",
-  "config": {}
+  "config": {
+    "branch_chance": 0.65,
+    "branch_min_height": 3,
+    "height": {
+      "type": "minecraft:uniform",
+      "max_inclusive": 4,
+      "min_inclusive": 2
+    }
+  }
 }
