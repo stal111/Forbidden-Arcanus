@@ -2,7 +2,6 @@ package com.stal111.forbidden_arcanus.client;
 
 import com.stal111.forbidden_arcanus.client.gui.screen.ClibanoScreen;
 import com.stal111.forbidden_arcanus.common.inventory.ClibanoMenu;
-import com.stal111.forbidden_arcanus.common.network.clientbound.AdvancedBlockEventPayload;
 import com.stal111.forbidden_arcanus.common.network.clientbound.InsertMoltenMaterialPayload;
 import com.stal111.forbidden_arcanus.common.network.clientbound.SpawnParticlePayload;
 import com.stal111.forbidden_arcanus.core.init.ModParticles;
@@ -85,9 +84,5 @@ public final class ClientPayloadHandler {
                 this.minecraft.level.addParticle(ColorParticleOption.create(ModParticles.SPELL_EXPLOSION.get(), ARGB.color(255, 116, 116, 224)), x, y, z, 0.0F, 0.0F, 0.0F);
             }
         }
-    }
-
-    public void handle(AdvancedBlockEventPayload payload, IPayloadContext context) {
-        this.minecraft.level.blockEvent(payload.pos(), payload.block(), payload.b1(), payload.b2());
     }
 }

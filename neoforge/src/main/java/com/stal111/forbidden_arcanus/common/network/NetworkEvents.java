@@ -21,7 +21,6 @@ public class NetworkEvents {
 
         registrar.playToClient(InsertMoltenMaterialPayload.TYPE, InsertMoltenMaterialPayload.STREAM_CODEC, InsertMoltenMaterialPayload::handle);
         registrar.playToClient(SpawnParticlePayload.TYPE, SpawnParticlePayload.STREAM_CODEC, SpawnParticlePayload::handle);
-        registrar.playToClient(AdvancedBlockEventPayload.TYPE, AdvancedBlockEventPayload.STREAM_CODEC, AdvancedBlockEventPayload::handle);
 
         registrar.playToServer(CraftWandPayload.TYPE, CraftWandPayload.STREAM_CODEC, CraftWandPayload::handle);
         registrar.playToServer(ChangeTabPayload.TYPE, ChangeTabPayload.STREAM_CODEC, ChangeTabPayload::handle);
