@@ -5,6 +5,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.core.init.ModRitualResultTypes;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
+import net.minecraft.world.item.crafting.TransmuteRecipe;
 
 public record TransmuteInputResult(ItemStackTemplate result) implements RitualResult {
 
@@ -14,7 +15,7 @@ public record TransmuteInputResult(ItemStackTemplate result) implements RitualRe
 
     @Override
     public ItemStack getResultItem(ItemStack mainInput) {
-        return mainInput.transmuteCopy(this.result.item().value());
+        return TransmuteRecipe.createWithOriginalComponents(this.result, mainInput);
     }
 
     @Override
