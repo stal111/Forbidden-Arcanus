@@ -17,6 +17,8 @@ import com.stal111.forbidden_arcanus.datagen.model.ModEquipmentAssetProvider
 import com.stal111.forbidden_arcanus.datagen.model.ModItemModels
 import com.stal111.forbidden_arcanus.datagen.particle.ParticleDataProvider
 import com.stal111.forbidden_arcanus.datagen.recipes.*
+import com.stal111.forbidden_arcanus.datagen.research.ModConstellations
+import com.stal111.forbidden_arcanus.datagen.research.ModKnowledge
 import com.stal111.forbidden_arcanus.datagen.tags.ModBlockTagsProvider
 import com.stal111.forbidden_arcanus.datagen.tags.ModEnchantmentTagsProvider
 import com.stal111.forbidden_arcanus.datagen.tags.ModEntityTypeTagsProvider
@@ -88,6 +90,8 @@ class ProviderCollector : DataCollector() {
         addRegistryProvider(FARegistries.MOLTEN_MATERIAL_TYPE, ModMoltenMaterialTypes)
         addRegistryProvider(FARegistries.ITEM_MODIFIER, ModItemModifiers)
         addRegistryProvider(FARegistries.WAND_MATERIAL, WandMaterialProvider)
+        addRegistryProvider(FARegistries.KNOWLEDGE, ModKnowledge)
+        addRegistryProvider(FARegistries.CONSTELLATION, ModConstellations)
         addRegistryProvider(Registries.ENCHANTMENT, ModEnchantments)
         addRegistryProvider(NeoForgeRegistries.Keys.BIOME_MODIFIERS, ModBiomeModifiers)
         addRegistryProvider(Registries.CONFIGURED_FEATURE, ModConfiguredFeatures)

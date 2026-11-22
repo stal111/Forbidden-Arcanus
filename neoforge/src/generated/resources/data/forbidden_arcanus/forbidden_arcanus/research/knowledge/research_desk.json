@@ -1,0 +1,15 @@
+{
+  "display_info": {
+    "description": "More than elegant furniture.",
+    "frame": "master",
+    "icon": {
+      "item": "forbidden_arcanus:research_desk"
+    },
+    "relative_x": 0,
+    "relative_y": 2,
+    "title": "Desk"
+  },
+  "requirements": [
+    "forbidden_arcanus:welcome"
+  ]
+}

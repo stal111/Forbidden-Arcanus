@@ -11,8 +11,6 @@ import com.stal111.forbidden_arcanus.common.item.mundabitur.MundabiturInteractio
 import com.stal111.forbidden_arcanus.core.init.*;
 import com.stal111.forbidden_arcanus.core.init.other.*;
 import com.stal111.forbidden_arcanus.core.init.world.ModFeatures;
-import com.stal111.forbidden_arcanus.data.research.ModConstellations;
-import com.stal111.forbidden_arcanus.data.research.ModKnowledge;
 import net.minecraft.core.registries.Registries;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import net.valhelsia.valhelsia_core.api.common.registry.RegistryCollector;
@@ -62,8 +60,5 @@ public class ModRegistryCollector extends RegistryCollector {
         this.addMappedHelper(FARegistries.MUNDABITUR_INTERACTION, MundabiturInteractions.class);
         this.addMappedHelper(FARegistries.PEDESTAL_EFFECT, PedestalEffects.class);
         this.addMappedHelper(FARegistries.ESSENCE_SOURCE, EssenceSources.class);
-
-        this.addDatapackHelper(FARegistries.KNOWLEDGE, ModKnowledge::new);
-        this.addDatapackHelper(FARegistries.CONSTELLATION, ModConstellations::new);
     }
 }
