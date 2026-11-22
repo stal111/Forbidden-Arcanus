@@ -77,10 +77,10 @@ public class MegaFungyssFeature extends Feature<BigFungyssFeatureConfig> {
 
     private void placeStem(WorldGenLevel level, RandomSource random, BlockPos pos, int height, BlockPos.MutableBlockPos mutable, BigFungyssFeatureConfig config) {
         for (int i = 0; i < height; i++) {
-            this.placeStemBlock(level, config.stemProvider.getState(level, random, pos), mutable, pos, 0, i, 0);
-            this.placeStemBlock(level, config.stemProvider.getState(level, random, pos), mutable, pos, 1, i, 0);
-            this.placeStemBlock(level, config.stemProvider.getState(level, random, pos), mutable, pos, 1, i, 1);
-            this.placeStemBlock(level, config.stemProvider.getState(level, random, pos), mutable, pos, 0, i, 1);
+            this.placeStemBlock(level, config.stemProvider().getState(level, random, pos), mutable, pos, 0, i, 0);
+            this.placeStemBlock(level, config.stemProvider().getState(level, random, pos), mutable, pos, 1, i, 0);
+            this.placeStemBlock(level, config.stemProvider().getState(level, random, pos), mutable, pos, 1, i, 1);
+            this.placeStemBlock(level, config.stemProvider().getState(level, random, pos), mutable, pos, 0, i, 1);
         }
     }
 
@@ -108,7 +108,7 @@ public class MegaFungyssFeature extends Feature<BigFungyssFeatureConfig> {
                         if (moveDown) {
                             mutable.move(Direction.DOWN);
                         }
-                        BlockState state = i == height && !moveDown ? config.capProvider.getState(level, random, pos) : config.capProvider.getState(level, random, pos).setValue(HugeMushroomBlock.WEST, xOffset < 0).setValue(HugeMushroomBlock.EAST, xOffset > 0).setValue(HugeMushroomBlock.NORTH, zOffset < 0).setValue(HugeMushroomBlock.SOUTH, zOffset > 0);
+                        BlockState state = i == height && !moveDown ? config.capProvider().getState(level, random, pos) : config.capProvider().getState(level, random, pos).setValue(HugeMushroomBlock.WEST, xOffset < 0).setValue(HugeMushroomBlock.EAST, xOffset > 0).setValue(HugeMushroomBlock.NORTH, zOffset < 0).setValue(HugeMushroomBlock.SOUTH, zOffset > 0);
                         this.setBlock(level, mutable, state);
                     }
                 }
@@ -121,7 +121,7 @@ public class MegaFungyssFeature extends Feature<BigFungyssFeatureConfig> {
                             mutable.setWithOffset(pos, xOffset, height - 5, zOffset);
                             mutable.move(direction);
                             if (level.getBlockState(mutable).isAir()) {
-                                this.setBlock(level, mutable, config.capProvider.getState(level, random, pos).setValue(PipeBlock.PROPERTY_BY_DIRECTION.get(direction.getOpposite()), false));
+                                this.setBlock(level, mutable, config.capProvider().getState(level, random, pos).setValue(PipeBlock.PROPERTY_BY_DIRECTION.get(direction.getOpposite()), false));
                             }
                         }
                     }
@@ -131,7 +131,7 @@ public class MegaFungyssFeature extends Feature<BigFungyssFeatureConfig> {
         int xOffset = random.nextInt(2);
         int zOffset = random.nextInt(2);
 
-        if (config.variant == 0) {
+        if (config.variant() == 0) {
             placeSmallCap(level, random, pos, height, mutable, xOffset, zOffset, config);
             placeSmallCap(level, random, pos, height - 2, mutable, xOffset == 0 ? 1 : 0, zOffset == 0 ? 1 : 0, config);
         } else {
@@ -146,13 +146,13 @@ public class MegaFungyssFeature extends Feature<BigFungyssFeatureConfig> {
         mutable.setWithOffset(pos, xOffset, height - 8, zOffset);
         mutable.move(direction);
 
-        this.setBlock(level, mutable, config.capProvider.getState(level, random, pos).setValue(PipeBlock.PROPERTY_BY_DIRECTION.get(direction.getOpposite()), false));
+        this.setBlock(level, mutable, config.capProvider().getState(level, random, pos).setValue(PipeBlock.PROPERTY_BY_DIRECTION.get(direction.getOpposite()), false));
 
         for (int i = 0; i <= 1; i++) {
             direction = direction == Direction.SOUTH ? Direction.EAST : Direction.from2DDataValue(direction.get2DDataValue() - 1);
             mutable.move(direction);
 
-            this.setBlock(level, mutable, config.capProvider.getState(level, random, pos).setValue(PipeBlock.PROPERTY_BY_DIRECTION.get(direction.getOpposite().getClockWise()), false));
+            this.setBlock(level, mutable, config.capProvider().getState(level, random, pos).setValue(PipeBlock.PROPERTY_BY_DIRECTION.get(direction.getOpposite().getClockWise()), false));
         }
     }
 
@@ -167,14 +167,14 @@ public class MegaFungyssFeature extends Feature<BigFungyssFeatureConfig> {
             mutable.move(Direction.DOWN);
         }
 
-        this.setBlock(level, mutable, config.stemProvider.getState(level, random, pos).setValue(BlockStateProperties.AXIS, direction.getAxis()));
+        this.setBlock(level, mutable, config.stemProvider().getState(level, random, pos).setValue(BlockStateProperties.AXIS, direction.getAxis()));
 
         mutable.move(direction);
-        this.setBlock(level, mutable, config.hyphaeProvider.getState(level, random, pos).setValue(BlockStateProperties.AXIS, direction.getAxis()));
+        this.setBlock(level, mutable, config.hyphaeProvider().getState(level, random, pos).setValue(BlockStateProperties.AXIS, direction.getAxis()));
 
         for (int i = 0; i < stemHeight; i++) {
             mutable.move(Direction.UP);
-            this.setBlock(level, mutable, config.stemProvider.getState(level, random, pos).setValue(BlockStateProperties.AXIS, Direction.Axis.Y));
+            this.setBlock(level, mutable, config.stemProvider().getState(level, random, pos).setValue(BlockStateProperties.AXIS, Direction.Axis.Y));
         }
 
         pos = mutable.immutable();
@@ -185,12 +185,12 @@ public class MegaFungyssFeature extends Feature<BigFungyssFeatureConfig> {
                 for (int zPos = -distanceToStem; zPos <= distanceToStem; zPos++) {
                     if ((i < stemHeight + 1 && !(xPos == 0 && zPos == 0)) || !isCorner(xPos, zPos, distanceToStem)) {
                         mutable.setWithOffset(pos, xPos, i - stemHeight, zPos);
-                        this.setBlock(level, mutable, config.capProvider.getState(level, random, pos));
+                        this.setBlock(level, mutable, config.capProvider().getState(level, random, pos));
                     }
                 }
             }
         }
-        this.setBlock(level, pos.above(), config.capProvider.getState(level, random, pos));
+        this.setBlock(level, pos.above(), config.capProvider().getState(level, random, pos));
     }
 
     private Direction getDirectionFromOffset(int xOffset, int zOffset) {
