@@ -7,44 +7,50 @@ import com.stal111.forbidden_arcanus.datagen.recipes.builder.EssenceTransformRec
 import com.stal111.forbidden_arcanus.util.ModTags
 import net.minecraft.core.HolderLookup
 import net.minecraft.data.recipes.RecipeOutput
-import net.minecraft.world.item.ItemStackTemplate
+import net.minecraft.tags.TagKey
+import net.minecraft.world.item.Item
 import net.minecraft.world.item.Items
 import net.minecraft.world.item.crafting.Ingredient
+import net.minecraft.world.level.ItemLike
 import net.valhelsia.dataforge.recipe.RecipeSubProvider
 
 class EssenceTransformRecipeProvider(
     provider: HolderLookup.Provider,
-    recipeOutput: RecipeOutput
+    recipeOutput: RecipeOutput,
 ) : RecipeSubProvider(provider, recipeOutput) {
 
     override fun buildRecipes() {
-        add(
-            EssenceTransformRecipeBuilder(
-                input = Ingredient.of(items.getOrThrow(ModTags.Items.ESSENCE_TRANSFORMS_INTO_GROWING_EDELWOOD)),
-                essence = EssenceValue(EssenceType.ECTOPLASM, 76),
-                result = ItemStackTemplate(ModBlocks.GROWING_EDELWOOD.get().asItem())
-            )
+        transform(
+            input = ModTags.Items.ESSENCE_TRANSFORMS_INTO_GROWING_EDELWOOD,
+            essence = EssenceValue(EssenceType.ECTOPLASM, 76),
+            result = ModBlocks.GROWING_EDELWOOD.get(),
         )
-        add(
-            EssenceTransformRecipeBuilder(
-                input = Ingredient.of(items.getOrThrow(ModTags.Items.ESSENCE_TRANSFORMS_INTO_AURUM_SAPLING)),
-                essence = EssenceValue(EssenceType.AUREAL, 58),
-                result = ItemStackTemplate(ModBlocks.AURUM_SAPLING.get().asItem())
-            )
+        transform(
+            input = ModTags.Items.ESSENCE_TRANSFORMS_INTO_AURUM_SAPLING,
+            essence = EssenceValue(EssenceType.AUREAL, 58),
+            result = ModBlocks.AURUM_SAPLING.get(),
         )
-        add(
-            EssenceTransformRecipeBuilder(
-                input = Ingredient.of(items.getOrThrow(ModTags.Items.ESSENCE_TRANSFORMS_INTO_FUNGYSS)),
-                essence = EssenceValue(EssenceType.AUREAL, 84),
-                result = ItemStackTemplate(ModBlocks.FUNGYSS.get().asItem())
-            )
+        transform(
+            input = ModTags.Items.ESSENCE_TRANSFORMS_INTO_FUNGYSS,
+            essence = EssenceValue(EssenceType.AUREAL, 84),
+            result = ModBlocks.FUNGYSS.get(),
         )
-        add(
-            EssenceTransformRecipeBuilder(
-                input = Ingredient.of(Items.BLUE_ORCHID),
-                essence = EssenceValue(EssenceType.AUREAL, 65),
-                result = ItemStackTemplate(ModBlocks.YELLOW_ORCHID.get().asItem())
-            )
+        transform(
+            input = Items.BLUE_ORCHID,
+            essence = EssenceValue(EssenceType.AUREAL, 65),
+            result = ModBlocks.YELLOW_ORCHID.get(),
         )
     }
+
+    private fun transform(
+        input: TagKey<Item>,
+        essence: EssenceValue,
+        result: ItemLike,
+    ) = add(EssenceTransformRecipeBuilder(Ingredient.of(items.getOrThrow(input)), essence, result))
+
+    private fun transform(
+        input: ItemLike,
+        essence: EssenceValue,
+        result: ItemLike,
+    ) = add(EssenceTransformRecipeBuilder(input, essence, result))
 }

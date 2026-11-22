@@ -2,46 +2,30 @@ package com.stal111.forbidden_arcanus.datagen.recipes.builder
 
 import com.stal111.forbidden_arcanus.common.block.entity.clibano.material.MoltenMaterial
 import com.stal111.forbidden_arcanus.common.item.crafting.ClibanoAlloyingRecipe
-import net.minecraft.advancements.Criterion
-import net.minecraft.core.registries.Registries
-import net.minecraft.data.recipes.RecipeBuilder
-import net.minecraft.data.recipes.RecipeOutput
 import net.minecraft.resources.ResourceKey
 import net.minecraft.world.item.ItemStackTemplate
 import net.minecraft.world.item.crafting.Recipe
+import net.minecraft.world.level.ItemLike
 
 class ClibanoAlloyingRecipeBuilder(
     private val requiredMaterials: List<MoltenMaterial>,
     private val result: ItemStackTemplate,
-    private val duration: Int = 100
-) : RecipeBuilder {
+    private val duration: Int = 100,
+) : SimpleRecipeBuilder() {
 
-    override fun unlockedBy(
-        name: String,
-        criterion: Criterion<*>
-    ): RecipeBuilder {
-        throw UnsupportedOperationException("ClibanoAlloyingRecipe does not support advancements")
-    }
+    constructor(
+        requiredMaterials: List<MoltenMaterial>,
+        result: ItemLike,
+        duration: Int = 100,
+    ) : this(requiredMaterials, ItemStackTemplate(result.asItem()), duration)
 
-    override fun group(group: String?): RecipeBuilder {
-        throw UnsupportedOperationException("ClibanoAlloyingRecipe does not support groups")
-    }
-
-    override fun defaultId() = ResourceKey.create(
-        Registries.RECIPE,
-        result.typeHolder().unwrapKey().orElseThrow().identifier().withPrefix("clibano/alloying/")
+    override fun defaultId(): ResourceKey<Recipe<*>> = recipeKey(
+        "clibano/alloying/" + result.typeHolder().unwrapKey().orElseThrow().identifier().path
     )
 
-    override fun save(
-        output: RecipeOutput,
-        resourceKey: ResourceKey<Recipe<*>>
-    ) {
-        val recipe = ClibanoAlloyingRecipe(
-            requiredMaterials,
-            result,
-            duration
-        )
-
-        output.accept(resourceKey, recipe, null)
-    }
+    override fun createRecipe(): Recipe<*> = ClibanoAlloyingRecipe(
+        requiredMaterials,
+        result,
+        duration,
+    )
 }
