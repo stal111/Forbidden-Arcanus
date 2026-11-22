@@ -1,0 +1,13 @@
+{
+  "entries": [
+    {
+      "enum": "net/minecraft/client/model/HumanoidModel$ArmPose",
+      "name": "FORBIDDEN_ARCANUS_WAND_CAST",
+      "constructor": "(ZZLnet/neoforged/neoforge/client/IArmPoseTransformer;)V",
+      "parameters": {
+        "class": "com/stal111/forbidden_arcanus/client/model/FAArmPoses",
+        "field": "WAND_CAST"
+      }
+    }
+  ]
+}

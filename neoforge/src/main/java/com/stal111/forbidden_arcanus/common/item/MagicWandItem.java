@@ -5,6 +5,7 @@ import com.stal111.forbidden_arcanus.common.essence.EssenceHelper;
 import com.stal111.forbidden_arcanus.core.init.ModDataComponents;
 import com.stal111.forbidden_arcanus.core.init.ModSounds;
 import net.minecraft.network.chat.Component;
+import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
@@ -19,7 +20,7 @@ import java.util.function.Consumer;
 
 public class MagicWandItem extends Item {
 
-    private static final float CHARGE_DURATION = 30.0F;
+    public static final float CHARGE_DURATION = 30.0F;
 
     public MagicWandItem(Properties properties) {
         super(properties);
@@ -50,14 +51,16 @@ public class MagicWandItem extends Item {
 
     @Override
     public boolean releaseUsing(ItemStack stack, Level level, LivingEntity livingEntity, int timeLeft) {
-        if (!level.isClientSide() && (stack.getUseDuration(livingEntity) - timeLeft) >= CHARGE_DURATION) {
-            if (EssenceHelper.hasEnough(livingEntity, stack)) {
+        if ((stack.getUseDuration(livingEntity) - timeLeft) >= CHARGE_DURATION && EssenceHelper.hasEnough(livingEntity, stack)) {
+            if (!level.isClientSide()) {
                 this.shootProjectile(level, livingEntity);
 
                 EssenceHelper.consume(livingEntity, stack);
-
-                return true;
             }
+
+            livingEntity.swing(livingEntity.getUsedItemHand());
+
+            return true;
         }
         return false;
     }
@@ -71,7 +74,10 @@ public class MagicWandItem extends Item {
         level.playSound(null, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), ModSounds.MAGIC_WAND_CAST.get(), livingEntity.getSoundSource(), 1.0F, 1.0F + (level.getRandom().nextFloat() - level.getRandom().nextFloat()) * 0.2F);
     }
 
-    public static float getUseProgress(ItemStack stack, LivingEntity entity) {
-        return entity.isUsingItem() ? Math.min(CHARGE_DURATION, stack.getUseDuration(entity) - entity.getUseItemRemainingTicks()) / CHARGE_DURATION : 0.0F;
+    public static float getUseProgress(LivingEntity entity, float partialTick) {
+        if (!entity.isUsingItem() || !(entity.getUseItem().getItem() instanceof MagicWandItem)) {
+            return 0.0F;
+        }
+        return Mth.clamp(entity.getTicksUsingItem(partialTick) / CHARGE_DURATION, 0.0F, 1.0F);
     }
 }

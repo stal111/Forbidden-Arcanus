@@ -28,7 +28,7 @@ public class WandIndicatorLayer implements GuiLayer {
         int indicatorXPosition = guiGraphics.guiWidth() / 2 - 8;
         int indicatorYPosition = guiGraphics.guiHeight() / 2 - 7 + 16;
 
-        float progressRatio = MagicWandItem.getUseProgress(player.getMainHandItem(), player);
+        float progressRatio = MagicWandItem.getUseProgress(player, deltaTracker.getGameTimeDeltaPartialTick(false));
 
         if (progressRatio >= 1.0F) {
             guiGraphics.blitSprite(RenderPipelines.CROSSHAIR, CROSSHAIR_WAND_INDICATOR_FULL_SPRITE, indicatorXPosition, indicatorYPosition, 16, 16);

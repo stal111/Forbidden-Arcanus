@@ -35,6 +35,8 @@ import net.valhelsia.valhelsia_core.api.common.registry.helper.item.ItemEntrySet
 import net.valhelsia.valhelsia_core.api.common.registry.helper.item.ItemRegistryEntry;
 import net.valhelsia.valhelsia_core.api.common.registry.helper.item.ItemRegistryHelper;
 
+import java.util.List;
+
 /**
  * Mod Items <br>
  * Forbidden Arcanus - com.stal111.forbidden_arcanus.init.ModItems
@@ -155,6 +157,11 @@ public class ModItems implements RegistryClass {
     public static final ItemRegistryEntry<MagicWandItem> WARPED_WAND = HELPER.register("warped_wand", MagicWandItem::new, () -> new Item.Properties().stacksTo(1).requiredFeatures(ForbiddenArcanus.PREVIEW).component(ModDataComponents.SHOWS_AUREAL_METER, Unit.INSTANCE).component(ModDataComponents.ESSENCE_COST, EssenceCosts.WAND));
     public static final ItemRegistryEntry<MagicWandItem> AURUM_WAND = HELPER.register("aurum_wand", MagicWandItem::new, () -> new Item.Properties().stacksTo(1).requiredFeatures(ForbiddenArcanus.PREVIEW).component(ModDataComponents.SHOWS_AUREAL_METER, Unit.INSTANCE).component(ModDataComponents.ESSENCE_COST, EssenceCosts.WAND));
     public static final ItemRegistryEntry<MagicWandItem> EDELWOOD_WAND = HELPER.register("edelwood_wand", MagicWandItem::new, () -> new Item.Properties().stacksTo(1).requiredFeatures(ForbiddenArcanus.PREVIEW).component(ModDataComponents.SHOWS_AUREAL_METER, Unit.INSTANCE).component(ModDataComponents.ESSENCE_COST, EssenceCosts.WAND));
+
+    public static final List<ItemRegistryEntry<MagicWandItem>> WANDS = List.of(
+            OAK_WAND, SPRUCE_WAND, BIRCH_WAND, JUNGLE_WAND, ACACIA_WAND, DARK_OAK_WAND, MANGROVE_WAND,
+            CHERRY_WAND, PALE_OAK_WAND, BAMBOO_WAND, CRIMSON_WAND, WARPED_WAND, AURUM_WAND, EDELWOOD_WAND
+    );
     public static final ItemRegistryEntry<Item> DRACO_ARCANUS_STAFF = HELPER.register("draco_arcanus_staff", Item::new, () -> new Item.Properties().stacksTo(1));
     //    public static final ItemRegistryEntry<Item> DRACO_ARCANUS_SWORD = HELPER.register("draco_arcanus_sword", () -> new SwordItem(FAToolMaterials.DRACO_ARCANUS, new Item.Properties()));
 //    public static final ItemRegistryEntry<Item> DRACO_ARCANUS_SHOVEL = HELPER.register("draco_arcanus_shovel", () -> new ShovelItem(FAToolMaterials.DRACO_ARCANUS, new Item.Properties()));

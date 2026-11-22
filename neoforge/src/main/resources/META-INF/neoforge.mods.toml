@@ -10,6 +10,7 @@ credits="${mod_authors}" #optional
 # The description text for the mod (multi line!) (#mandatory)
 description=''' '''
 featureFlags="META-INF/feature_flags.json"
+enumExtensions="META-INF/enumextensions.json"
 
 [[dependencies.${mod_id}]]
 modId="neoforge"
