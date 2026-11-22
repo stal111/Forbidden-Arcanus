@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.common.world.feature;
 
 import com.mojang.serialization.Codec;
-import com.stal111.forbidden_arcanus.common.world.feature.config.BigFungyssFeatureConfig;
+import com.stal111.forbidden_arcanus.common.world.feature.config.BigFungyssConfiguration;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.BlockTags;
@@ -18,30 +18,22 @@ import net.neoforged.neoforge.common.Tags;
 import javax.annotation.Nonnull;
 import java.util.function.Predicate;
 
-public class BigFungyssFeature extends Feature<BigFungyssFeatureConfig> {
+public class BigFungyssFeature extends Feature<BigFungyssConfiguration> {
 
     private static final Predicate<BlockState> CAN_REPLACE = state -> state.isAir() || (!state.is(BlockTags.FEATURES_CANNOT_REPLACE) && state.is(BlockTags.REPLACEABLE_BY_TREES));
 
-    public BigFungyssFeature(Codec<BigFungyssFeatureConfig> codec) {
+    public BigFungyssFeature(Codec<BigFungyssConfiguration> codec) {
         super(codec);
     }
 
-    private int getRandomHeight(RandomSource random, int variant) {
-        if (variant == 0) {
-            return random.nextInt(3) + 4;
-        } else {
-            return random.nextInt(2) + 6;
-        }
-    }
-
     @Override
-    public boolean place(@Nonnull FeaturePlaceContext<BigFungyssFeatureConfig> context) {
+    public boolean place(@Nonnull FeaturePlaceContext<BigFungyssConfiguration> context) {
         WorldGenLevel level = context.level();
         BlockPos pos = context.origin();
         RandomSource random = context.random();
-        BigFungyssFeatureConfig config = context.config();
+        BigFungyssConfiguration config = context.config();
 
-        int height = this.getRandomHeight(random, config.variant());
+        int height = config.height().sample(random);
         BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 
         if (!this.canGenerate(level, pos, height, mutable)) {
@@ -71,15 +63,15 @@ public class BigFungyssFeature extends Feature<BigFungyssFeatureConfig> {
         return true;
     }
 
-    private void placeStem(WorldGenLevel level, RandomSource random, BlockPos pos, int height, BlockPos.MutableBlockPos mutable, BigFungyssFeatureConfig config) {
+    private void placeStem(WorldGenLevel level, RandomSource random, BlockPos pos, int height, BlockPos.MutableBlockPos mutable, BigFungyssConfiguration config) {
         for (int i = 0; i < height; i++) {
             mutable.setWithOffset(pos, 0, i, 0);
             this.safeSetBlock(level, mutable, config.stemProvider().getState(level, random, mutable), CAN_REPLACE);
         }
     }
 
-    private void placeCap(WorldGenLevel level, RandomSource random, BlockPos pos, int height, BlockPos.MutableBlockPos mutable, BigFungyssFeatureConfig config) {
-        if (config.variant() == 0) {
+    private void placeCap(WorldGenLevel level, RandomSource random, BlockPos pos, int height, BlockPos.MutableBlockPos mutable, BigFungyssConfiguration config) {
+        if (config.capStyle() == BigFungyssConfiguration.CapStyle.SMALL) {
             int distanceToStem = 1;
             for (int i = height - 2; i <= height; i++) {
                 for (int xOffset = -distanceToStem; xOffset <= distanceToStem; xOffset++) {

@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.common.world.feature;
 
 import com.mojang.serialization.Codec;
-import com.stal111.forbidden_arcanus.common.world.feature.config.BigFungyssFeatureConfig;
+import com.stal111.forbidden_arcanus.common.world.feature.config.MegaFungyssConfiguration;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.BlockTags;
@@ -19,26 +19,22 @@ import net.neoforged.neoforge.common.Tags;
 import javax.annotation.Nonnull;
 import java.util.function.Predicate;
 
-public class MegaFungyssFeature extends Feature<BigFungyssFeatureConfig> {
+public class MegaFungyssFeature extends Feature<MegaFungyssConfiguration> {
 
     private static final Predicate<BlockState> CAN_REPLACE = state -> state.isAir() || (!state.is(BlockTags.FEATURES_CANNOT_REPLACE) && state.is(BlockTags.REPLACEABLE_BY_TREES));
 
-    public MegaFungyssFeature(Codec<BigFungyssFeatureConfig> codec) {
+    public MegaFungyssFeature(Codec<MegaFungyssConfiguration> codec) {
         super(codec);
     }
 
-    private int getRandomHeight(RandomSource random) {
-        return random.nextInt(4) + 11;
-    }
-
     @Override
-    public boolean place(@Nonnull FeaturePlaceContext<BigFungyssFeatureConfig> context) {
+    public boolean place(@Nonnull FeaturePlaceContext<MegaFungyssConfiguration> context) {
         WorldGenLevel level = context.level();
         BlockPos pos = context.origin();
         RandomSource random = context.random();
-        BigFungyssFeatureConfig config = context.config();
+        MegaFungyssConfiguration config = context.config();
 
-        int height = this.getRandomHeight(random);
+        int height = config.height().sample(random);
         BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 
         if (!this.canGenerate(level, pos, height, mutable)) {
@@ -71,7 +67,7 @@ public class MegaFungyssFeature extends Feature<BigFungyssFeatureConfig> {
         return true;
     }
 
-    private void placeStem(WorldGenLevel level, RandomSource random, BlockPos pos, int height, BlockPos.MutableBlockPos mutable, BigFungyssFeatureConfig config) {
+    private void placeStem(WorldGenLevel level, RandomSource random, BlockPos pos, int height, BlockPos.MutableBlockPos mutable, MegaFungyssConfiguration config) {
         for (int i = 0; i < height; i++) {
             for (int xOffset = 0; xOffset <= 1; xOffset++) {
                 for (int zOffset = 0; zOffset <= 1; zOffset++) {
@@ -83,7 +79,7 @@ public class MegaFungyssFeature extends Feature<BigFungyssFeatureConfig> {
         }
     }
 
-    private void placeCap(WorldGenLevel level, RandomSource random, BlockPos pos, int height, BlockPos.MutableBlockPos mutable, BigFungyssFeatureConfig config) {
+    private void placeCap(WorldGenLevel level, RandomSource random, BlockPos pos, int height, BlockPos.MutableBlockPos mutable, MegaFungyssConfiguration config) {
         int distanceToStem = 2;
 
         for (int i = height - 3; i <= height; i++) {
@@ -125,7 +121,7 @@ public class MegaFungyssFeature extends Feature<BigFungyssFeatureConfig> {
         int xOffset = random.nextInt(2);
         int zOffset = random.nextInt(2);
 
-        if (config.variant() == 0) {
+        if (config.sideDecoration() == MegaFungyssConfiguration.SideDecoration.SMALL_CAPS) {
             this.placeSmallCap(level, random, pos, height, mutable, xOffset, zOffset, config);
             this.placeSmallCap(level, random, pos, height - 2, mutable, 1 - xOffset, 1 - zOffset, config);
         } else {
@@ -134,7 +130,7 @@ public class MegaFungyssFeature extends Feature<BigFungyssFeatureConfig> {
         }
     }
 
-    private void placeSmallCap(WorldGenLevel level, RandomSource random, BlockPos pos, int height, BlockPos.MutableBlockPos mutable, int xOffset, int zOffset, BigFungyssFeatureConfig config) {
+    private void placeSmallCap(WorldGenLevel level, RandomSource random, BlockPos pos, int height, BlockPos.MutableBlockPos mutable, int xOffset, int zOffset, MegaFungyssConfiguration config) {
         Direction direction = this.getDirectionFromOffset(xOffset, zOffset);
 
         mutable.setWithOffset(pos, xOffset, height - 8, zOffset).move(direction);
@@ -149,9 +145,9 @@ public class MegaFungyssFeature extends Feature<BigFungyssFeatureConfig> {
         }
     }
 
-    private void placeSmallFungyss(WorldGenLevel level, RandomSource random, BlockPos pos, int height, BlockPos.MutableBlockPos mutable, int xOffset, int zOffset, BigFungyssFeatureConfig config) {
+    private void placeSmallFungyss(WorldGenLevel level, RandomSource random, BlockPos pos, int height, BlockPos.MutableBlockPos mutable, int xOffset, int zOffset, MegaFungyssConfiguration config) {
         Direction direction = this.getDirectionFromOffset(xOffset, zOffset);
-        int stemHeight = random.nextInt(2) + 2;
+        int stemHeight = config.smallFungyssHeight().sample(random);
 
         mutable.setWithOffset(pos, xOffset, height - 8, zOffset).move(direction);
 

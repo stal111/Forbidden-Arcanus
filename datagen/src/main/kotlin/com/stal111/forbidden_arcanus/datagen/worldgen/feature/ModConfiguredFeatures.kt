@@ -1,8 +1,9 @@
 package com.stal111.forbidden_arcanus.datagen.worldgen.feature
 
 import com.stal111.forbidden_arcanus.common.world.feature.BuiltInFeatures
-import com.stal111.forbidden_arcanus.common.world.feature.config.BigFungyssFeatureConfig
+import com.stal111.forbidden_arcanus.common.world.feature.config.BigFungyssConfiguration
 import com.stal111.forbidden_arcanus.common.world.feature.config.EdelwoodConfiguration
+import com.stal111.forbidden_arcanus.common.world.feature.config.MegaFungyssConfiguration
 import com.stal111.forbidden_arcanus.common.world.feature.config.MeteoriteConfiguration
 import com.stal111.forbidden_arcanus.core.init.ModBlocks
 import com.stal111.forbidden_arcanus.core.init.world.ModFeatures
@@ -126,44 +127,52 @@ object ModConfiguredFeatures : RegistryDataProvider<ConfiguredFeature<*, *>> {
         context.register(
             BuiltInFeatures.BIG_FUNGYSS_0,
             ConfiguredFeature(
-                ModFeatures.BIG_FUNGYSS.get(), BigFungyssFeatureConfig(
+                ModFeatures.BIG_FUNGYSS.get(),
+                BigFungyssConfiguration(
+                    UniformInt.of(4, 6),
                     SimpleStateProvider.simple(FUNGYSS_BLOCK.get()),
                     SimpleStateProvider.simple(FUNGYSS_STEM.get()),
-                    SimpleStateProvider.simple(FUNGYSS_HYPHAE.get()),
-                    0
+                    BigFungyssConfiguration.CapStyle.SMALL
                 )
             )
         )
         context.register(
             BuiltInFeatures.BIG_FUNGYSS_1,
             ConfiguredFeature(
-                ModFeatures.BIG_FUNGYSS.get(), BigFungyssFeatureConfig(
+                ModFeatures.BIG_FUNGYSS.get(),
+                BigFungyssConfiguration(
+                    UniformInt.of(6, 7),
                     SimpleStateProvider.simple(FUNGYSS_BLOCK.get()),
                     SimpleStateProvider.simple(FUNGYSS_STEM.get()),
-                    SimpleStateProvider.simple(FUNGYSS_HYPHAE.get()),
-                    1
+                    BigFungyssConfiguration.CapStyle.LARGE
                 )
             )
         )
         context.register(
             BuiltInFeatures.MEGA_FUNGYSS_0,
             ConfiguredFeature(
-                ModFeatures.MEGA_FUNGYSS.get(), BigFungyssFeatureConfig(
+                ModFeatures.MEGA_FUNGYSS.get(),
+                MegaFungyssConfiguration(
+                    UniformInt.of(11, 14),
+                    UniformInt.of(2, 3),
                     SimpleStateProvider.simple(FUNGYSS_BLOCK.get()),
                     SimpleStateProvider.simple(FUNGYSS_STEM.get()),
                     SimpleStateProvider.simple(FUNGYSS_HYPHAE.get()),
-                    0
+                    MegaFungyssConfiguration.SideDecoration.SMALL_CAPS
                 )
             )
         )
         context.register(
             BuiltInFeatures.MEGA_FUNGYSS_1,
             ConfiguredFeature(
-                ModFeatures.MEGA_FUNGYSS.get(), BigFungyssFeatureConfig(
+                ModFeatures.MEGA_FUNGYSS.get(),
+                MegaFungyssConfiguration(
+                    UniformInt.of(11, 14),
+                    UniformInt.of(2, 3),
                     SimpleStateProvider.simple(FUNGYSS_BLOCK.get()),
                     SimpleStateProvider.simple(FUNGYSS_STEM.get()),
                     SimpleStateProvider.simple(FUNGYSS_HYPHAE.get()),
-                    1
+                    MegaFungyssConfiguration.SideDecoration.SMALL_FUNGYSS
                 )
             )
         )
