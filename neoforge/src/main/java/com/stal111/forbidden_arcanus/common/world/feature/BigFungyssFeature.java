@@ -74,7 +74,7 @@ public class BigFungyssFeature extends Feature<BigFungyssFeatureConfig> {
     private void placeStem(WorldGenLevel level, RandomSource random, BlockPos pos, int height, BlockPos.MutableBlockPos mutable, BigFungyssFeatureConfig config) {
         for (int i = 0; i < height; i++) {
             mutable.setWithOffset(pos, 0, i, 0);
-            this.safeSetBlock(level, pos, config.stemProvider().getState(level, random, mutable), CAN_REPLACE);
+            this.safeSetBlock(level, mutable, config.stemProvider().getState(level, random, mutable), CAN_REPLACE);
         }
     }
 
@@ -90,7 +90,7 @@ public class BigFungyssFeature extends Feature<BigFungyssFeatureConfig> {
                         if (i < height ? !isCenter : !isCorner) {
                             mutable.setWithOffset(pos, xOffset, i, zOffset);
 
-                            this.safeSetBlock(level, pos, config.capProvider().getState(level, random, mutable), CAN_REPLACE);
+                            this.safeSetBlock(level, mutable, config.capProvider().getState(level, random, mutable), CAN_REPLACE);
                         }
                     }
                 }
@@ -112,7 +112,7 @@ public class BigFungyssFeature extends Feature<BigFungyssFeatureConfig> {
                                     .setValue(HugeMushroomBlock.NORTH, zOffset < 0)
                                     .setValue(HugeMushroomBlock.SOUTH, zOffset > 0);
 
-                            this.safeSetBlock(level, pos, state, CAN_REPLACE);
+                            this.safeSetBlock(level, mutable, state, CAN_REPLACE);
                         }
                     }
                 }
@@ -122,7 +122,7 @@ public class BigFungyssFeature extends Feature<BigFungyssFeatureConfig> {
                 mutable.setWithOffset(pos, direction.getStepX(), height - 4, direction.getStepZ());
                 BlockState state = config.capProvider().getState(level, random, mutable).setValue(PipeBlock.PROPERTY_BY_DIRECTION.get(direction.getOpposite()), false);
 
-                this.safeSetBlock(level, pos, state, CAN_REPLACE);
+                this.safeSetBlock(level, mutable, state, CAN_REPLACE);
             }
         }
     }

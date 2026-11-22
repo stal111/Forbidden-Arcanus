@@ -38,7 +38,7 @@ public class MegaFungyssFeature extends Feature<BigFungyssFeatureConfig> {
         RandomSource random = context.random();
         BigFungyssFeatureConfig config = context.config();
 
-        int height = this.getRandomHeight(context.random());
+        int height = this.getRandomHeight(random);
         BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 
         if (!this.canGenerate(level, pos, height, mutable)) {
@@ -109,18 +109,19 @@ public class MegaFungyssFeature extends Feature<BigFungyssFeatureConfig> {
                     }
                 }
             }
+        }
 
-            for (int xOffset = 0; xOffset <= 1; xOffset++) {
-                for (int zOffset = 0; zOffset <= 1; zOffset++) {
-                    for (Direction direction : Direction.Plane.HORIZONTAL) {
-                        mutable.setWithOffset(pos, xOffset + direction.getStepX(), height - 5, zOffset + direction.getStepZ());
-                        BlockState state = config.capProvider().getState(level, random, mutable).setValue(PipeBlock.PROPERTY_BY_DIRECTION.get(direction.getOpposite()), false);
+        for (int xOffset = 0; xOffset <= 1; xOffset++) {
+            for (int zOffset = 0; zOffset <= 1; zOffset++) {
+                for (Direction direction : Direction.Plane.HORIZONTAL) {
+                    mutable.setWithOffset(pos, xOffset + direction.getStepX(), height - 5, zOffset + direction.getStepZ());
+                    BlockState state = config.capProvider().getState(level, random, mutable).setValue(PipeBlock.PROPERTY_BY_DIRECTION.get(direction.getOpposite()), false);
 
-                        this.safeSetBlock(level, mutable, state, CAN_REPLACE);
-                    }
+                    this.safeSetBlock(level, mutable, state, CAN_REPLACE);
                 }
             }
         }
+
         int xOffset = random.nextInt(2);
         int zOffset = random.nextInt(2);
 
@@ -138,13 +139,13 @@ public class MegaFungyssFeature extends Feature<BigFungyssFeatureConfig> {
 
         mutable.setWithOffset(pos, xOffset, height - 8, zOffset).move(direction);
 
-        this.safeSetBlock(level, mutable, config.capProvider().getState(level, random, pos).setValue(PipeBlock.PROPERTY_BY_DIRECTION.get(direction.getOpposite()), false), CAN_REPLACE);
+        this.safeSetBlock(level, mutable, config.capProvider().getState(level, random, mutable).setValue(PipeBlock.PROPERTY_BY_DIRECTION.get(direction.getOpposite()), false), CAN_REPLACE);
 
         for (int i = 0; i <= 1; i++) {
             direction = direction.getCounterClockWise();
             mutable.move(direction);
 
-            this.safeSetBlock(level, mutable, config.capProvider().getState(level, random, pos).setValue(PipeBlock.PROPERTY_BY_DIRECTION.get(direction.getOpposite()), false), CAN_REPLACE);
+            this.safeSetBlock(level, mutable, config.capProvider().getState(level, random, mutable).setValue(PipeBlock.PROPERTY_BY_DIRECTION.get(direction.getOpposite().getClockWise()), false), CAN_REPLACE);
         }
     }
 
@@ -158,10 +159,10 @@ public class MegaFungyssFeature extends Feature<BigFungyssFeatureConfig> {
             mutable.move(Direction.DOWN);
         }
 
-        this.safeSetBlock(level, mutable, config.hyphaeProvider().getState(level, random, pos).setValue(BlockStateProperties.AXIS, direction.getAxis()), CAN_REPLACE);
+        this.safeSetBlock(level, mutable, config.stemProvider().getState(level, random, mutable).setValue(BlockStateProperties.AXIS, direction.getAxis()), CAN_REPLACE);
 
         mutable.move(direction);
-        this.safeSetBlock(level, mutable, config.hyphaeProvider().getState(level, random, pos).setValue(BlockStateProperties.AXIS, direction.getAxis()), CAN_REPLACE);
+        this.safeSetBlock(level, mutable, config.hyphaeProvider().getState(level, random, mutable).setValue(BlockStateProperties.AXIS, direction.getAxis()), CAN_REPLACE);
 
         for (int i = 0; i < stemHeight; i++) {
             mutable.move(Direction.UP);
