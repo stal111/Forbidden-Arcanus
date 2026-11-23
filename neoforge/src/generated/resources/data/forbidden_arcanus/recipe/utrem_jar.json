@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "key": {
     "#": "#c:glass_blocks/colorless",
     "G": "minecraft:ghast_tear",

@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "key": {
     "#": "#c:nuggets/deorum",
     "X": "#c:ingots/deorum"

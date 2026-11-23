@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "group": "deorum_ingot",
   "key": {
     "#": "forbidden_arcanus:deorum_nugget"

@@ -7,16 +7,17 @@ import com.stal111.forbidden_arcanus.common.loot.FieryLootModifier
 import com.stal111.forbidden_arcanus.common.loot.MagicalFarmlandLootModifier
 import com.stal111.forbidden_arcanus.core.init.ModDataComponents
 import com.stal111.forbidden_arcanus.util.ModTags
-import net.minecraft.advancements.criterion.DataComponentMatchers
-import net.minecraft.advancements.criterion.EnchantmentPredicate
-import net.minecraft.advancements.criterion.ItemPredicate
-import net.minecraft.advancements.criterion.MinMaxBounds
+import net.minecraft.advancements.predicates.DataComponentMatchers
+import net.minecraft.advancements.predicates.EnchantmentPredicate
+import net.minecraft.advancements.predicates.ItemPredicate
+import net.minecraft.advancements.predicates.MinMaxBounds
 import net.minecraft.core.component.DataComponentExactPredicate
 import net.minecraft.core.component.predicates.DataComponentPredicates
 import net.minecraft.core.component.predicates.EnchantmentsPredicate
 import net.minecraft.core.registries.Registries
 import net.minecraft.resources.ResourceKey
 import net.minecraft.world.entity.EntityType
+import net.minecraft.world.entity.EntityTypes
 import net.minecraft.world.item.enchantment.Enchantments
 import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.storage.loot.BuiltInLootTables
@@ -51,7 +52,7 @@ class ModLootModifierProvider(
             name = "enderman_additions",
             lootTable = ModEntityLootAdditions.ENDER_PEARL_FRAGMENT_ADDITION,
             conditions = arrayOf(
-                lootTableId(EntityType.ENDERMAN)
+                lootTableId(EntityTypes.ENDERMAN)
             )
         )
 
@@ -59,7 +60,7 @@ class ModLootModifierProvider(
             name = "bat_additions",
             lootTable = ModEntityLootAdditions.BAT_WING_ADDITION,
             conditions = arrayOf(
-                lootTableId(EntityType.BAT)
+                lootTableId(EntityTypes.BAT)
             )
         )
 
@@ -67,7 +68,7 @@ class ModLootModifierProvider(
             name = "squid_additions",
             lootTable = ModEntityLootAdditions.TENTACLE_ADDITION,
             conditions = arrayOf(
-                lootTableId(EntityType.SQUID),
+                lootTableId(EntityTypes.SQUID),
                 randomChance(0.7f)
             )
         )
@@ -76,7 +77,7 @@ class ModLootModifierProvider(
             name = "ender_dragon_additions",
             lootTable = ModEntityLootAdditions.DRAGON_SCALE_ADDITION,
             conditions = arrayOf(
-                lootTableId(EntityType.ENDER_DRAGON)
+                lootTableId(EntityTypes.ENDER_DRAGON)
             )
         )
 

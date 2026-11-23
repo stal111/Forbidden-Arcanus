@@ -10,102 +10,102 @@ import net.valhelsia.dataforge.tag.DataForgeBlockTagsProvider
 
 class ModBlockTagsProvider(context: DataProviderContext.Server) : DataForgeBlockTagsProvider(context) {
     override fun addTags(provider: HolderLookup.Provider) {
-        this.tag(ModTags.Blocks.FUNGYSS_STEMS).add(ModBlocks.FUNGYSS_STEM.get(), ModBlocks.FUNGYSS_HYPHAE.get())
+        this.tag(ModTags.Blocks.FUNGYSS_STEMS).add(ModBlocks.FUNGYSS_STEM.key(), ModBlocks.FUNGYSS_HYPHAE.key())
         this.tag(ModTags.Blocks.MYSTERYWOOD_LOGS).add(
-            ModBlocks.AURUM_LOG.get(),
-            ModBlocks.AURUM_WOOD.get(),
-            ModBlocks.STRIPPED_AURUM_LOG.get(),
-            ModBlocks.STRIPPED_AURUM_WOOD.get()
+            ModBlocks.AURUM_LOG.key(),
+            ModBlocks.AURUM_WOOD.key(),
+            ModBlocks.STRIPPED_AURUM_LOG.key(),
+            ModBlocks.STRIPPED_AURUM_WOOD.key()
         )
-        this.tag(ModTags.Blocks.EDELWOOD_LOGS).add(ModBlocks.EDELWOOD_LOG.get(), ModBlocks.CARVED_EDELWOOD_LOG.get())
+        this.tag(ModTags.Blocks.EDELWOOD_LOGS).add(ModBlocks.EDELWOOD_LOG.key(), ModBlocks.CARVED_EDELWOOD_LOG.key())
         this.tag(BlockTags.LOGS)
             .addTags(ModTags.Blocks.FUNGYSS_STEMS, ModTags.Blocks.MYSTERYWOOD_LOGS, ModTags.Blocks.EDELWOOD_LOGS)
-        this.tag(BlockTags.LOGS_THAT_BURN).addTag(ModTags.Blocks.MYSTERYWOOD_LOGS)
+//        this.tag(BlockTags.LOGS_THAT_BURN).addTag(ModTags.Blocks.MYSTERYWOOD_LOGS)
         this.tag(BlockTags.PLANKS).add(
-            ModBlocks.FUNGYSS_PLANKS.get(),
-            ModBlocks.AURUM_PLANKS.get(),
-            ModBlocks.EDELWOOD_PLANKS.get(),
-            ModBlocks.ARCANE_EDELWOOD_PLANKS.get()
+            ModBlocks.FUNGYSS_PLANKS.key(),
+            ModBlocks.AURUM_PLANKS.key(),
+            ModBlocks.EDELWOOD_PLANKS.key(),
+            ModBlocks.ARCANE_EDELWOOD_PLANKS.key()
         )
         this.tag(BlockTags.WOODEN_SLABS)
-            .add(ModBlocks.FUNGYSS_SLAB.get(), ModBlocks.AURUM_SLAB.get(), ModBlocks.EDELWOOD_SLAB.get())
+            .add(ModBlocks.FUNGYSS_SLAB.key(), ModBlocks.AURUM_SLAB.key(), ModBlocks.EDELWOOD_SLAB.key())
         this.tag(BlockTags.WOODEN_STAIRS)
-            .add(ModBlocks.FUNGYSS_STAIRS.get(), ModBlocks.AURUM_STAIRS.get(), ModBlocks.EDELWOOD_STAIRS.get())
+            .add(ModBlocks.FUNGYSS_STAIRS.key(), ModBlocks.AURUM_STAIRS.key(), ModBlocks.EDELWOOD_STAIRS.key())
         this.tag(BlockTags.WOODEN_PRESSURE_PLATES).add(
-            ModBlocks.FUNGYSS_PRESSURE_PLATE.get(),
-            ModBlocks.AURUM_PRESSURE_PLATE.get(),
-            ModBlocks.EDELWOOD_PRESSURE_PLATE.get()
+            ModBlocks.FUNGYSS_PRESSURE_PLATE.key(),
+            ModBlocks.AURUM_PRESSURE_PLATE.key(),
+            ModBlocks.EDELWOOD_PRESSURE_PLATE.key()
         )
-        this.tag(BlockTags.BUTTONS).add(ModBlocks.POLISHED_DARKSTONE_BUTTON.get())
+        this.tag(BlockTags.BUTTONS).add(ModBlocks.POLISHED_DARKSTONE_BUTTON.key())
         this.tag(BlockTags.WOODEN_BUTTONS)
-            .add(ModBlocks.FUNGYSS_BUTTON.get(), ModBlocks.AURUM_BUTTON.get(), ModBlocks.EDELWOOD_BUTTON.get())
+            .add(ModBlocks.FUNGYSS_BUTTON.key(), ModBlocks.AURUM_BUTTON.key(), ModBlocks.EDELWOOD_BUTTON.key())
         this.tag(BlockTags.WOODEN_FENCES)
-            .add(ModBlocks.FUNGYSS_FENCE.get(), ModBlocks.AURUM_FENCE.get(), ModBlocks.EDELWOOD_FENCE.get())
+            .add(ModBlocks.FUNGYSS_FENCE.key(), ModBlocks.AURUM_FENCE.key(), ModBlocks.EDELWOOD_FENCE.key())
         this.tag(Tags.Blocks.FENCES_WOODEN)
-            .add(ModBlocks.FUNGYSS_FENCE.get(), ModBlocks.AURUM_FENCE.get(), ModBlocks.EDELWOOD_FENCE.get())
+            .add(ModBlocks.FUNGYSS_FENCE.key(), ModBlocks.AURUM_FENCE.key(), ModBlocks.EDELWOOD_FENCE.key())
         this.tag(BlockTags.FENCE_GATES).add(
-            ModBlocks.FUNGYSS_FENCE_GATE.get(),
-            ModBlocks.AURUM_FENCE_GATE.get(),
-            ModBlocks.EDELWOOD_FENCE_GATE.get()
+            ModBlocks.FUNGYSS_FENCE_GATE.key(),
+            ModBlocks.AURUM_FENCE_GATE.key(),
+            ModBlocks.EDELWOOD_FENCE_GATE.key()
         )
         this.tag(Tags.Blocks.FENCE_GATES_WOODEN).add(
-            ModBlocks.FUNGYSS_FENCE_GATE.get(),
-            ModBlocks.AURUM_FENCE_GATE.get(),
-            ModBlocks.EDELWOOD_FENCE_GATE.get()
+            ModBlocks.FUNGYSS_FENCE_GATE.key(),
+            ModBlocks.AURUM_FENCE_GATE.key(),
+            ModBlocks.EDELWOOD_FENCE_GATE.key()
         )
         this.tag(BlockTags.WALLS).add(
-            ModBlocks.DARKSTONE_WALL.get(),
-            ModBlocks.POLISHED_DARKSTONE_WALL.get(),
-            ModBlocks.POLISHED_DARKSTONE_BRICK_WALL.get(),
-            ModBlocks.SOULLESS_SANDSTONE_WALL.get(),
-            ModBlocks.ARCANE_POLISHED_DARKSTONE_WALL.get(),
+            ModBlocks.DARKSTONE_WALL.key(),
+            ModBlocks.POLISHED_DARKSTONE_WALL.key(),
+            ModBlocks.POLISHED_DARKSTONE_BRICK_WALL.key(),
+            ModBlocks.SOULLESS_SANDSTONE_WALL.key(),
+            ModBlocks.ARCANE_POLISHED_DARKSTONE_WALL.key(),
         )
         this.tag(BlockTags.WOODEN_DOORS).add(
-            ModBlocks.FUNGYSS_DOOR.get(),
-            ModBlocks.AURUM_DOOR.get(),
-            ModBlocks.EDELWOOD_DOOR.get(),
-            ModBlocks.ARCANE_EDELWOOD_DOOR.get()
+            ModBlocks.FUNGYSS_DOOR.key(),
+            ModBlocks.AURUM_DOOR.key(),
+            ModBlocks.EDELWOOD_DOOR.key(),
+            ModBlocks.ARCANE_EDELWOOD_DOOR.key()
         )
-        this.tag(BlockTags.DOORS).add(ModBlocks.DEORUM_DOOR.get())
+        this.tag(BlockTags.DOORS).add(ModBlocks.DEORUM_DOOR.key())
         this.tag(BlockTags.WOODEN_TRAPDOORS).add(
-            ModBlocks.FUNGYSS_TRAPDOOR.get(),
-            ModBlocks.AURUM_TRAPDOOR.get(),
-            ModBlocks.EDELWOOD_TRAPDOOR.get(),
-            ModBlocks.ARCANE_EDELWOOD_TRAPDOOR.get()
+            ModBlocks.FUNGYSS_TRAPDOOR.key(),
+            ModBlocks.AURUM_TRAPDOOR.key(),
+            ModBlocks.EDELWOOD_TRAPDOOR.key(),
+            ModBlocks.ARCANE_EDELWOOD_TRAPDOOR.key()
         )
-        this.tag(BlockTags.TRAPDOORS).add(ModBlocks.DEORUM_TRAPDOOR.get())
+        this.tag(BlockTags.TRAPDOORS).add(ModBlocks.DEORUM_TRAPDOOR.key())
         this.tag(BlockTags.FLOWER_POTS).add(
-            ModBlocks.POTTED_FUNGYSS.get(),
-            ModBlocks.POTTED_AURUM_SAPLING.get(),
-            ModBlocks.POTTED_GROWING_EDELWOOD.get(),
-            ModBlocks.POTTED_YELLOW_ORCHID.get()
+            ModBlocks.POTTED_FUNGYSS.key(),
+            ModBlocks.POTTED_AURUM_SAPLING.key(),
+            ModBlocks.POTTED_GROWING_EDELWOOD.key(),
+            ModBlocks.POTTED_YELLOW_ORCHID.key()
         )
         this.tag(ModTags.Blocks.BLACKSMITH_GAVEL_UNAFFECTED)
         this.tag(ModTags.Blocks.MAGICAL_FARMLAND_BLACKLISTED)
         this.tag(ModTags.Blocks.ARCANE_BONE_MEAL_BLACKLISTED)
         this.tag(ModTags.Blocks.ARCANE_BONE_MEAL_SINGLE_USE)
         this.tag(ModTags.Blocks.RUNIC_STONES)
-            .add(ModBlocks.RUNIC_STONE.get(), ModBlocks.RUNIC_DEEPSLATE.get(), ModBlocks.RUNIC_DARKSTONE.get())
-        this.tag(ModTags.Blocks.RUNE_BLOCKS).add(ModBlocks.RUNE_BLOCK.get())
+            .add(ModBlocks.RUNIC_STONE.key(), ModBlocks.RUNIC_DEEPSLATE.key(), ModBlocks.RUNIC_DARKSTONE.key())
+        this.tag(ModTags.Blocks.RUNE_BLOCKS).add(ModBlocks.RUNE_BLOCK.key())
         this.tag(ModTags.Blocks.ARCANE_CRYSTAL_ORES)
-            .add(ModBlocks.ARCANE_CRYSTAL_ORE.get(), ModBlocks.DEEPSLATE_ARCANE_CRYSTAL_ORE.get())
-        this.tag(BlockTags.IMPERMEABLE).add(ModBlocks.DEORUM_GLASS.get(), ModBlocks.RUNIC_GLASS.get())
+            .add(ModBlocks.ARCANE_CRYSTAL_ORE.key(), ModBlocks.DEEPSLATE_ARCANE_CRYSTAL_ORE.key())
+        this.tag(BlockTags.IMPERMEABLE).add(ModBlocks.DEORUM_GLASS.key(), ModBlocks.RUNIC_GLASS.key())
         //TODO
-        //this.tag(BlockTags.STANDING_SIGNS).add(ModBlocks.FUNGYSS_SIGN.getFirst().get(), ModBlocks.CHERRY_SIGN.getFirst().get(), ModBlocks.AURUM_SIGN.getFirst().get(), ModBlocks.EDELWOOD_SIGN.getFirst().get());
-        //this.tag(BlockTags.WALL_SIGNS).add(ModBlocks.FUNGYSS_SIGN.getSecond().get(), ModBlocks.CHERRY_SIGN.getSecond().get(), ModBlocks.AURUM_SIGN.getSecond().get(), ModBlocks.EDELWOOD_SIGN.getSecond().get());
-        this.tag(BlockTags.SAPLINGS).add(ModBlocks.AURUM_SAPLING.get(), ModBlocks.GROWING_EDELWOOD.get())
-        this.tag(BlockTags.LEAVES).add(ModBlocks.AURUM_LEAVES.get(), ModBlocks.NUGGETY_AURUM_LEAVES.get())
-        this.tag(BlockTags.SMALL_FLOWERS).add(ModBlocks.YELLOW_ORCHID.get())
-        this.tag(ModTags.Blocks.DARKSTONE_ORE_REPLACEABLES).add(ModBlocks.DARKSTONE.get())
+        //this.tag(BlockTags.STANDING_SIGNS).add(ModBlocks.FUNGYSS_SIGN.getFirst().key(), ModBlocks.CHERRY_SIGN.getFirst().key(), ModBlocks.AURUM_SIGN.getFirst().key(), ModBlocks.EDELWOOD_SIGN.getFirst().key());
+        //this.tag(BlockTags.WALL_SIGNS).add(ModBlocks.FUNGYSS_SIGN.getSecond().key(), ModBlocks.CHERRY_SIGN.getSecond().key(), ModBlocks.AURUM_SIGN.getSecond().key(), ModBlocks.EDELWOOD_SIGN.getSecond().key());
+//        this.tag(BlockTags.SAPLINGS).add(ModBlocks.AURUM_SAPLING.key(), ModBlocks.GROWING_EDELWOOD.key())
+        this.tag(BlockTags.LEAVES).add(ModBlocks.AURUM_LEAVES.key(), ModBlocks.NUGGETY_AURUM_LEAVES.key())
+        this.tag(BlockTags.SMALL_FLOWERS).add(ModBlocks.YELLOW_ORCHID.key())
+        this.tag(ModTags.Blocks.DARKSTONE_ORE_REPLACEABLES).add(ModBlocks.DARKSTONE.key())
         this.tag(ModTags.Blocks.PEDESTALS)
-            .add(ModBlocks.DARKSTONE_PEDESTAL.get(), ModBlocks.MAGNETIZED_DARKSTONE_PEDESTAL.get())
+            .add(ModBlocks.DARKSTONE_PEDESTAL.key(), ModBlocks.MAGNETIZED_DARKSTONE_PEDESTAL.key())
 
-        this.tag(ModTags.Blocks.STORAGE_BLOCKS_DEORUM).add(ModBlocks.DEORUM_BLOCK.get())
-        this.tag(ModTags.Blocks.STORAGE_BLOCKS_ARCANE_CRYSTAL).add(ModBlocks.ARCANE_CRYSTAL_BLOCK.get())
+        this.tag(ModTags.Blocks.STORAGE_BLOCKS_DEORUM).add(ModBlocks.DEORUM_BLOCK.key())
+        this.tag(ModTags.Blocks.STORAGE_BLOCKS_ARCANE_CRYSTAL).add(ModBlocks.ARCANE_CRYSTAL_BLOCK.key())
         this.tag(ModTags.Blocks.STORAGE_BLOCKS_CORRUPTED_ARCANE_CRYSTAL)
-            .add(ModBlocks.CORRUPTED_ARCANE_CRYSTAL_BLOCK.get())
-        this.tag(ModTags.Blocks.STORAGE_BLOCKS_STELLARITE).add(ModBlocks.STELLARITE_BLOCK.get())
-        this.tag(ModTags.Blocks.STORAGE_BLOCKS_STYGIAN_STEEL).add(ModBlocks.STYGIAN_STEEL_BLOCK.get())
+            .add(ModBlocks.CORRUPTED_ARCANE_CRYSTAL_BLOCK.key())
+        this.tag(ModTags.Blocks.STORAGE_BLOCKS_STELLARITE).add(ModBlocks.STELLARITE_BLOCK.key())
+        this.tag(ModTags.Blocks.STORAGE_BLOCKS_STYGIAN_STEEL).add(ModBlocks.STYGIAN_STEEL_BLOCK.key())
 
         this.tag(Tags.Blocks.STORAGE_BLOCKS).addTags(
             ModTags.Blocks.STORAGE_BLOCKS_DEORUM,
@@ -116,127 +116,127 @@ class ModBlockTagsProvider(context: DataProviderContext.Server) : DataForgeBlock
         )
 
         this.tag(ModTags.Blocks.ORES_ARCANE_CRYSTAL)
-            .add(ModBlocks.ARCANE_CRYSTAL_ORE.get(), ModBlocks.DEEPSLATE_ARCANE_CRYSTAL_ORE.get())
+            .add(ModBlocks.ARCANE_CRYSTAL_ORE.key(), ModBlocks.DEEPSLATE_ARCANE_CRYSTAL_ORE.key())
         this.tag(ModTags.Blocks.ORES_RUNIC)
-            .add(ModBlocks.RUNIC_STONE.get(), ModBlocks.RUNIC_DEEPSLATE.get(), ModBlocks.RUNIC_DARKSTONE.get())
-        this.tag(ModTags.Blocks.ORES_STELLARITE).add(ModBlocks.STELLA_ARCANUM.get())
+            .add(ModBlocks.RUNIC_STONE.key(), ModBlocks.RUNIC_DEEPSLATE.key(), ModBlocks.RUNIC_DARKSTONE.key())
+        this.tag(ModTags.Blocks.ORES_STELLARITE).add(ModBlocks.STELLA_ARCANUM.key())
         this.tag(Tags.Blocks.ORES).addTag(ModTags.Blocks.ORES_ARCANE_CRYSTAL).addTag(ModTags.Blocks.ORES_RUNIC).addTag(
             ModTags.Blocks.ORES_STELLARITE
         )
         this.tag(Tags.Blocks.ORES_IN_GROUND_STONE)
-            .add(ModBlocks.ARCANE_CRYSTAL_ORE.get(), ModBlocks.RUNIC_STONE.get(), ModBlocks.STELLA_ARCANUM.get())
+            .add(ModBlocks.ARCANE_CRYSTAL_ORE.key(), ModBlocks.RUNIC_STONE.key(), ModBlocks.STELLA_ARCANUM.key())
         this.tag(Tags.Blocks.ORES_IN_GROUND_DEEPSLATE).add(
-            ModBlocks.DEEPSLATE_ARCANE_CRYSTAL_ORE.get(),
-            ModBlocks.RUNIC_DEEPSLATE.get(),
-            ModBlocks.STELLA_ARCANUM.get()
+            ModBlocks.DEEPSLATE_ARCANE_CRYSTAL_ORE.key(),
+            ModBlocks.RUNIC_DEEPSLATE.key(),
+            ModBlocks.STELLA_ARCANUM.key()
         )
-        this.tag(BlockTags.BASE_STONE_OVERWORLD).add(ModBlocks.DARKSTONE.get())
+        this.tag(BlockTags.BASE_STONE_OVERWORLD).add(ModBlocks.DARKSTONE.key())
 
-        this.tag(Tags.Blocks.GLASS_BLOCKS).add(ModBlocks.DEORUM_GLASS.get(), ModBlocks.RUNIC_GLASS.get())
-        this.tag(Tags.Blocks.GLASS_BLOCKS_COLORLESS).add(ModBlocks.DEORUM_GLASS.get(), ModBlocks.RUNIC_GLASS.get())
-        this.tag(Tags.Blocks.GLASS_PANES).add(ModBlocks.DEORUM_GLASS_PANE.get(), ModBlocks.RUNIC_GLASS_PANE.get())
+        this.tag(Tags.Blocks.GLASS_BLOCKS).add(ModBlocks.DEORUM_GLASS.key(), ModBlocks.RUNIC_GLASS.key())
+        this.tag(Tags.Blocks.GLASS_BLOCKS_COLORLESS).add(ModBlocks.DEORUM_GLASS.key(), ModBlocks.RUNIC_GLASS.key())
+        this.tag(Tags.Blocks.GLASS_PANES).add(ModBlocks.DEORUM_GLASS_PANE.key(), ModBlocks.RUNIC_GLASS_PANE.key())
         this.tag(Tags.Blocks.GLASS_PANES_COLORLESS)
-            .add(ModBlocks.DEORUM_GLASS_PANE.get(), ModBlocks.RUNIC_GLASS_PANE.get())
+            .add(ModBlocks.DEORUM_GLASS_PANE.key(), ModBlocks.RUNIC_GLASS_PANE.key())
 
-        this.tag(BlockTags.CLIMBABLE).add(ModBlocks.EDELWOOD_LADDER.get())
-        this.tag(BlockTags.FALL_DAMAGE_RESETTING).add(ModBlocks.EDELWOOD_LADDER.get())
+        this.tag(BlockTags.CLIMBABLE).add(ModBlocks.EDELWOOD_LADDER.key())
+        this.tag(BlockTags.FALL_DAMAGE_RESETTING).add(ModBlocks.EDELWOOD_LADDER.key())
 
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE)
             .add(
-                ModBlocks.HEPHAESTUS_FORGE.get(),
-                ModBlocks.DEORUM_CHAIN.get(),
-                ModBlocks.ASTERITE_DEBRIS.get(),
-                ModBlocks.STELLA_ARCANUM.get(),
-                ModBlocks.STYGIAN_STEEL_BLOCK.get(),
-                ModBlocks.ARCANE_CRYSTAL_BLOCK.get(),
-                ModBlocks.CORRUPTED_ARCANE_CRYSTAL_BLOCK.get(),
-                ModBlocks.DEORUM_BLOCK.get(),
-                ModBlocks.ASTERITE_BLOCK.get(),
-                ModBlocks.STELLARITE_BLOCK.get(),
-                ModBlocks.SOULLESS_SANDSTONE.get(),
-                ModBlocks.CUT_SOULLESS_SANDSTONE.get(),
-                ModBlocks.POLISHED_SOULLESS_SANDSTONE.get(),
-                ModBlocks.SOULLESS_SANDSTONE_SLAB.get(),
-                ModBlocks.CUT_SOULLESS_SANDSTONE_SLAB.get(),
-                ModBlocks.POLISHED_SOULLESS_SANDSTONE_SLAB.get(),
-                ModBlocks.SOULLESS_SANDSTONE_STAIRS.get(),
-                ModBlocks.POLISHED_SOULLESS_SANDSTONE_STAIRS.get(),
-                ModBlocks.DEORUM_DOOR.get(),
-                ModBlocks.DEORUM_TRAPDOOR.get(),
-                ModBlocks.DARKSTONE.get(),
-                ModBlocks.DARKSTONE_SLAB.get(),
-                ModBlocks.DARKSTONE_STAIRS.get(),
-                ModBlocks.POLISHED_DARKSTONE.get(),
-                ModBlocks.POLISHED_DARKSTONE_SLAB.get(),
-                ModBlocks.POLISHED_DARKSTONE_STAIRS.get(),
-                ModBlocks.POLISHED_DARKSTONE_PRESSURE_PLATE.get(),
-                ModBlocks.POLISHED_DARKSTONE_BUTTON.get(),
-                ModBlocks.CHISELED_POLISHED_DARKSTONE.get(),
-                ModBlocks.GILDED_CHISELED_POLISHED_DARKSTONE.get(),
-                ModBlocks.POLISHED_DARKSTONE_BRICKS.get(),
-                ModBlocks.POLISHED_DARKSTONE_BRICK_SLAB.get(),
-                ModBlocks.POLISHED_DARKSTONE_BRICK_STAIRS.get(),
-                ModBlocks.CRACKED_POLISHED_DARKSTONE_BRICKS.get(),
-                ModBlocks.ARCANE_POLISHED_DARKSTONE.get(),
-                ModBlocks.ARCANE_POLISHED_DARKSTONE_SLAB.get(),
-                ModBlocks.ARCANE_POLISHED_DARKSTONE_STAIRS.get(),
-                ModBlocks.CHISELED_ARCANE_POLISHED_DARKSTONE.get(),
-                ModBlocks.ARCANE_POLISHED_DARKSTONE_PILLAR.get(),
-                ModBlocks.TILED_POLISHED_DARKSTONE_BRICKS.get(),
-                ModBlocks.CLIBANO_CORE.get(),
-                ModBlocks.CLIBANO_SIDE_HORIZONTAL.get(),
-                ModBlocks.CLIBANO_SIDE_VERTICAL.get(),
-                ModBlocks.CLIBANO_CORNER.get(),
-                ModBlocks.CLIBANO_CENTER.get(),
-                ModBlocks.CLIBANO_MAIN_PART.get(),
-                ModBlocks.DEORUM_LANTERN.get(),
-                ModBlocks.DEORUM_SOUL_LANTERN.get()
+                ModBlocks.HEPHAESTUS_FORGE.key(),
+                ModBlocks.DEORUM_CHAIN.key(),
+                ModBlocks.ASTERITE_DEBRIS.key(),
+                ModBlocks.STELLA_ARCANUM.key(),
+                ModBlocks.STYGIAN_STEEL_BLOCK.key(),
+                ModBlocks.ARCANE_CRYSTAL_BLOCK.key(),
+                ModBlocks.CORRUPTED_ARCANE_CRYSTAL_BLOCK.key(),
+                ModBlocks.DEORUM_BLOCK.key(),
+                ModBlocks.ASTERITE_BLOCK.key(),
+                ModBlocks.STELLARITE_BLOCK.key(),
+                ModBlocks.SOULLESS_SANDSTONE.key(),
+                ModBlocks.CUT_SOULLESS_SANDSTONE.key(),
+                ModBlocks.POLISHED_SOULLESS_SANDSTONE.key(),
+                ModBlocks.SOULLESS_SANDSTONE_SLAB.key(),
+                ModBlocks.CUT_SOULLESS_SANDSTONE_SLAB.key(),
+                ModBlocks.POLISHED_SOULLESS_SANDSTONE_SLAB.key(),
+                ModBlocks.SOULLESS_SANDSTONE_STAIRS.key(),
+                ModBlocks.POLISHED_SOULLESS_SANDSTONE_STAIRS.key(),
+                ModBlocks.DEORUM_DOOR.key(),
+                ModBlocks.DEORUM_TRAPDOOR.key(),
+                ModBlocks.DARKSTONE.key(),
+                ModBlocks.DARKSTONE_SLAB.key(),
+                ModBlocks.DARKSTONE_STAIRS.key(),
+                ModBlocks.POLISHED_DARKSTONE.key(),
+                ModBlocks.POLISHED_DARKSTONE_SLAB.key(),
+                ModBlocks.POLISHED_DARKSTONE_STAIRS.key(),
+                ModBlocks.POLISHED_DARKSTONE_PRESSURE_PLATE.key(),
+                ModBlocks.POLISHED_DARKSTONE_BUTTON.key(),
+                ModBlocks.CHISELED_POLISHED_DARKSTONE.key(),
+                ModBlocks.GILDED_CHISELED_POLISHED_DARKSTONE.key(),
+                ModBlocks.POLISHED_DARKSTONE_BRICKS.key(),
+                ModBlocks.POLISHED_DARKSTONE_BRICK_SLAB.key(),
+                ModBlocks.POLISHED_DARKSTONE_BRICK_STAIRS.key(),
+                ModBlocks.CRACKED_POLISHED_DARKSTONE_BRICKS.key(),
+                ModBlocks.ARCANE_POLISHED_DARKSTONE.key(),
+                ModBlocks.ARCANE_POLISHED_DARKSTONE_SLAB.key(),
+                ModBlocks.ARCANE_POLISHED_DARKSTONE_STAIRS.key(),
+                ModBlocks.CHISELED_ARCANE_POLISHED_DARKSTONE.key(),
+                ModBlocks.ARCANE_POLISHED_DARKSTONE_PILLAR.key(),
+                ModBlocks.TILED_POLISHED_DARKSTONE_BRICKS.key(),
+                ModBlocks.CLIBANO_CORE.key(),
+                ModBlocks.CLIBANO_SIDE_HORIZONTAL.key(),
+                ModBlocks.CLIBANO_SIDE_VERTICAL.key(),
+                ModBlocks.CLIBANO_CORNER.key(),
+                ModBlocks.CLIBANO_CENTER.key(),
+                ModBlocks.CLIBANO_MAIN_PART.key(),
+                ModBlocks.DEORUM_LANTERN.key(),
+                ModBlocks.DEORUM_SOUL_LANTERN.key()
             )
             .addTag(ModTags.Blocks.RUNIC_STONES).addTag(ModTags.Blocks.RUNE_BLOCKS)
             .addTag(ModTags.Blocks.ARCANE_CRYSTAL_ORES)
             .addTag(ModTags.Blocks.PEDESTALS)
-        this.tag(BlockTags.MINEABLE_WITH_SHOVEL).add(ModBlocks.SOULLESS_SAND.get(), ModBlocks.MAGICAL_FARMLAND.get())
-        this.tag(BlockTags.SUPPORTS_CROPS).add(ModBlocks.MAGICAL_FARMLAND.get())
-        this.tag(BlockTags.GROWS_CROPS).add(ModBlocks.MAGICAL_FARMLAND.get())
-        this.tag(BlockTags.SUPPORTS_STEM_CROPS).add(ModBlocks.MAGICAL_FARMLAND.get())
-        this.tag(BlockTags.MINEABLE_WITH_HOE).add(ModBlocks.AURUM_LEAVES.get(), ModBlocks.NUGGETY_AURUM_LEAVES.get())
-        this.tag(BlockTags.MINEABLE_WITH_AXE).add(ModBlocks.EDELWOOD_LADDER.get(), ModBlocks.EDELWOOD_BRANCH.get())
+        this.tag(BlockTags.MINEABLE_WITH_SHOVEL).add(ModBlocks.SOULLESS_SAND.key(), ModBlocks.MAGICAL_FARMLAND.key())
+        this.tag(BlockTags.SUPPORTS_CROPS).add(ModBlocks.MAGICAL_FARMLAND.key())
+        this.tag(BlockTags.GROWS_CROPS).add(ModBlocks.MAGICAL_FARMLAND.key())
+        this.tag(BlockTags.SUPPORTS_STEM_CROPS).add(ModBlocks.MAGICAL_FARMLAND.key())
+        this.tag(BlockTags.MINEABLE_WITH_HOE).add(ModBlocks.AURUM_LEAVES.key(), ModBlocks.NUGGETY_AURUM_LEAVES.key())
+        this.tag(BlockTags.MINEABLE_WITH_AXE).add(ModBlocks.EDELWOOD_LADDER.key(), ModBlocks.EDELWOOD_BRANCH.key())
 
         this.tag(BlockTags.NEEDS_DIAMOND_TOOL)
-            .add(ModBlocks.STYGIAN_STEEL_BLOCK.get(), ModBlocks.STELLA_ARCANUM.get(), ModBlocks.STELLARITE_BLOCK.get(), ModBlocks.HEPHAESTUS_FORGE.get())
+            .add(ModBlocks.STYGIAN_STEEL_BLOCK.key(), ModBlocks.STELLA_ARCANUM.key(), ModBlocks.STELLARITE_BLOCK.key(), ModBlocks.HEPHAESTUS_FORGE.key())
             .addTag(ModTags.Blocks.RUNIC_STONES).addTag(ModTags.Blocks.RUNE_BLOCKS)
-        this.tag(BlockTags.NEEDS_IRON_TOOL).add(ModBlocks.DEORUM_BLOCK.get(), ModBlocks.ASTERITE_BLOCK.get()).addTag(ModTags.Blocks.ARCANE_CRYSTAL_ORES)
+        this.tag(BlockTags.NEEDS_IRON_TOOL).add(ModBlocks.DEORUM_BLOCK.key(), ModBlocks.ASTERITE_BLOCK.key()).addTag(ModTags.Blocks.ARCANE_CRYSTAL_ORES)
         this.tag(BlockTags.NEEDS_STONE_TOOL).addTag(ModTags.Blocks.PEDESTALS).add(
-            ModBlocks.DARKSTONE.get(),
-            ModBlocks.DARKSTONE_SLAB.get(),
-            ModBlocks.DARKSTONE_STAIRS.get(),
-            ModBlocks.DARKSTONE_WALL.get(),
-            ModBlocks.POLISHED_DARKSTONE.get(),
-            ModBlocks.POLISHED_DARKSTONE_SLAB.get(),
-            ModBlocks.POLISHED_DARKSTONE_STAIRS.get(),
-            ModBlocks.POLISHED_DARKSTONE_WALL.get(),
-            ModBlocks.POLISHED_DARKSTONE_PRESSURE_PLATE.get(),
-            ModBlocks.POLISHED_DARKSTONE_BUTTON.get(),
-            ModBlocks.CHISELED_POLISHED_DARKSTONE.get(),
-            ModBlocks.GILDED_CHISELED_POLISHED_DARKSTONE.get(),
-            ModBlocks.POLISHED_DARKSTONE_BRICKS.get(),
-            ModBlocks.POLISHED_DARKSTONE_BRICK_SLAB.get(),
-            ModBlocks.POLISHED_DARKSTONE_BRICK_STAIRS.get(),
-            ModBlocks.POLISHED_DARKSTONE_BRICK_WALL.get(),
-            ModBlocks.CRACKED_POLISHED_DARKSTONE_BRICKS.get(),
-            ModBlocks.ARCANE_POLISHED_DARKSTONE.get(),
-            ModBlocks.ARCANE_POLISHED_DARKSTONE_SLAB.get(),
-            ModBlocks.ARCANE_POLISHED_DARKSTONE_STAIRS.get(),
-            ModBlocks.ARCANE_POLISHED_DARKSTONE_WALL.get(),
-            ModBlocks.CHISELED_ARCANE_POLISHED_DARKSTONE.get(),
-            ModBlocks.ARCANE_POLISHED_DARKSTONE_PILLAR.get(),
-            ModBlocks.ASTERITE_DEBRIS.get(),
-            ModBlocks.CLIBANO_CORE.get(),
-            ModBlocks.CLIBANO_SIDE_HORIZONTAL.get(),
-            ModBlocks.CLIBANO_SIDE_VERTICAL.get(),
-            ModBlocks.CLIBANO_CORNER.get(),
-            ModBlocks.CLIBANO_CENTER.get(),
-            ModBlocks.CLIBANO_MAIN_PART.get()
+            ModBlocks.DARKSTONE.key(),
+            ModBlocks.DARKSTONE_SLAB.key(),
+            ModBlocks.DARKSTONE_STAIRS.key(),
+            ModBlocks.DARKSTONE_WALL.key(),
+            ModBlocks.POLISHED_DARKSTONE.key(),
+            ModBlocks.POLISHED_DARKSTONE_SLAB.key(),
+            ModBlocks.POLISHED_DARKSTONE_STAIRS.key(),
+            ModBlocks.POLISHED_DARKSTONE_WALL.key(),
+            ModBlocks.POLISHED_DARKSTONE_PRESSURE_PLATE.key(),
+            ModBlocks.POLISHED_DARKSTONE_BUTTON.key(),
+            ModBlocks.CHISELED_POLISHED_DARKSTONE.key(),
+            ModBlocks.GILDED_CHISELED_POLISHED_DARKSTONE.key(),
+            ModBlocks.POLISHED_DARKSTONE_BRICKS.key(),
+            ModBlocks.POLISHED_DARKSTONE_BRICK_SLAB.key(),
+            ModBlocks.POLISHED_DARKSTONE_BRICK_STAIRS.key(),
+            ModBlocks.POLISHED_DARKSTONE_BRICK_WALL.key(),
+            ModBlocks.CRACKED_POLISHED_DARKSTONE_BRICKS.key(),
+            ModBlocks.ARCANE_POLISHED_DARKSTONE.key(),
+            ModBlocks.ARCANE_POLISHED_DARKSTONE_SLAB.key(),
+            ModBlocks.ARCANE_POLISHED_DARKSTONE_STAIRS.key(),
+            ModBlocks.ARCANE_POLISHED_DARKSTONE_WALL.key(),
+            ModBlocks.CHISELED_ARCANE_POLISHED_DARKSTONE.key(),
+            ModBlocks.ARCANE_POLISHED_DARKSTONE_PILLAR.key(),
+            ModBlocks.ASTERITE_DEBRIS.key(),
+            ModBlocks.CLIBANO_CORE.key(),
+            ModBlocks.CLIBANO_SIDE_HORIZONTAL.key(),
+            ModBlocks.CLIBANO_SIDE_VERTICAL.key(),
+            ModBlocks.CLIBANO_CORNER.key(),
+            ModBlocks.CLIBANO_CENTER.key(),
+            ModBlocks.CLIBANO_MAIN_PART.key()
         )
     }
 }

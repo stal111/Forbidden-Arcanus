@@ -1,7 +1,7 @@
 package com.stal111.forbidden_arcanus.datagen.recipes.builder
 
 import com.stal111.forbidden_arcanus.ForbiddenArcanus
-import net.minecraft.advancements.Criterion
+import net.minecraft.advancements.triggers.Criterion
 import net.minecraft.core.registries.Registries
 import net.minecraft.data.recipes.RecipeBuilder
 import net.minecraft.data.recipes.RecipeOutput

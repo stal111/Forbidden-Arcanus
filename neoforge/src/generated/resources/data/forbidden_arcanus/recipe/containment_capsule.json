@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "key": {
     "#": "minecraft:iron_nugget",
     "E": "forbidden_arcanus:ender_pearl_fragment",

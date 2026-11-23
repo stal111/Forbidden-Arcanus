@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "key": {
     "#": "forbidden_arcanus:deorum_ingot",
     "X": "forbidden_arcanus:dragon_scale"

@@ -281,7 +281,7 @@ class CraftingRecipeProvider(
             it.requires(Tags.Items.MUSHROOMS, Items.NETHER_WART, Items.BOWL, ModItems.BAT_WING)
                 .unlockedBy(ModItems.BAT_WING)
         }
-        this.shapeless(RecipeCategory.MISC, Items.BLACK_DYE, 2, "black_dye") {
+        this.shapeless(RecipeCategory.MISC, Items.DYE.black, 2, "black_dye") {
             it.requires(ModItems.EDELWOOD_OIL).unlockedBy(ModItems.EDELWOOD_OIL)
         }
         this.shapeless(RecipeCategory.MISC, ModItems.ENDER_PEARL_FRAGMENT, 4) {

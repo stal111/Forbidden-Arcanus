@@ -141,7 +141,7 @@ class ModItemModels(val generators: ItemModelGenerators) : ItemModelGenerator(ge
 
         generateQuantumCatcher(ModItems.QUANTUM_CATCHER)
         generateQuantumCatcher(ModItems.BOSS_CATCHER, "boss_catcher")
-        ModItems.DYED_QUANTUM_CATCHERS.forEach { (color, registryEntry) ->
+        ModItems.DYED_QUANTUM_CATCHERS.forEach { color, registryEntry ->
             generateQuantumCatcher(registryEntry, color.serializedName)
         }
 

@@ -8,6 +8,7 @@ import com.stal111.forbidden_arcanus.common.world.feature.config.MeteoriteConfig
 import com.stal111.forbidden_arcanus.core.init.ModBlocks
 import com.stal111.forbidden_arcanus.core.init.world.ModFeatures
 import net.minecraft.core.HolderSet
+import net.minecraft.core.registries.Registries
 import net.minecraft.data.worldgen.BootstrapContext
 import net.minecraft.data.worldgen.placement.PlacementUtils
 import net.minecraft.tags.BlockTags
@@ -18,9 +19,9 @@ import net.minecraft.world.level.block.HugeMushroomBlock
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature
 import net.minecraft.world.level.levelgen.feature.Feature
+import net.minecraft.world.level.levelgen.feature.configurations.CompositeFeatureConfiguration
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration
-import net.minecraft.world.level.levelgen.feature.configurations.SimpleRandomFeatureConfiguration
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration
 import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FancyFoliagePlacer
@@ -103,7 +104,8 @@ object ModConfiguredFeatures : RegistryDataProvider<ConfiguredFeature<*, *>> {
                     FancyFoliagePlacer(
                         ConstantInt.of(2), ConstantInt.of(4), 4
                     ),
-                    TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(4))
+                    TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(4)),
+                    TreeConfiguration.defaultPlaceBelowTreeTrunkProvider(context.lookup(Registries.BIOME))
                 ).ignoreVines().build()
             )
         )
@@ -181,7 +183,7 @@ object ModConfiguredFeatures : RegistryDataProvider<ConfiguredFeature<*, *>> {
             BuiltInFeatures.METEORITE,
             ConfiguredFeature(
                 Feature.SIMPLE_RANDOM_SELECTOR,
-                SimpleRandomFeatureConfiguration(
+                CompositeFeatureConfiguration(
                     HolderSet.direct(
                         PlacementUtils.inlinePlaced(
                             ModFeatures.METEORITE.get(),

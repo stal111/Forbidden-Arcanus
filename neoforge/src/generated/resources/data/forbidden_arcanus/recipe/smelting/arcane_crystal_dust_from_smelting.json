@@ -1,6 +1,5 @@
 {
   "type": "minecraft:smelting",
-  "category": "misc",
   "cookingtime": 150,
   "experience": 0.4,
   "ingredient": "forbidden_arcanus:arcane_crystal",

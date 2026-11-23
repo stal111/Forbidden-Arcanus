@@ -38,7 +38,7 @@ object ModRituals : RegistryDataProvider<Ritual> {
                 minTier(HephaestusForgeTier.THREE)
                 enhancer(BuiltInEnhancers.ELEMENTARIUM)
             }
-            createItem(BuiltInRituals.WHIRLWIND_PRISM, ModItems.WHIRLWIND_PRISM, Blocks.WHITE_WOOL) {
+            createItem(BuiltInRituals.WHIRLWIND_PRISM, ModItems.WHIRLWIND_PRISM, Blocks.WOOL.white) {
                 input(ModItems.BAT_WING)
                 input(Items.FEATHER, 2)
                 input(Items.PHANTOM_MEMBRANE, 3)

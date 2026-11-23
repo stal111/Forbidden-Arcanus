@@ -5,8 +5,8 @@ import com.stal111.forbidden_arcanus.common.item.modifier.BuiltInItemModifiers
 import com.stal111.forbidden_arcanus.common.item.modifier.ItemModifier
 import com.stal111.forbidden_arcanus.common.item.modifier.ItemModifier.DisplaySettings
 import com.stal111.forbidden_arcanus.util.ModTags
-import net.minecraft.advancements.criterion.DataComponentMatchers
-import net.minecraft.advancements.criterion.ItemPredicate
+import net.minecraft.advancements.predicates.DataComponentMatchers
+import net.minecraft.advancements.predicates.ItemPredicate
 import net.minecraft.core.HolderGetter
 import net.minecraft.core.HolderSet
 import net.minecraft.core.component.DataComponentType
