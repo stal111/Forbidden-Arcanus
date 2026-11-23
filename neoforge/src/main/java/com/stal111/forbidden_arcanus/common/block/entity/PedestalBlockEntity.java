@@ -165,7 +165,7 @@ public class PedestalBlockEntity extends BlockEntity implements ItemOwner, Block
 
     @Override
     public Vec3 position() {
-        return this.getBlockPos().getCenter();
+        return Vec3.atCenterOf(this.getBlockPos());
     }
 
     @Override

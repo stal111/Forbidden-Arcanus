@@ -11,17 +11,16 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
 import net.neoforged.neoforge.network.IContainerFactory;
-import net.valhelsia.valhelsia_core.api.common.registry.RegistryClass;
 import net.valhelsia.valhelsia_core.api.common.registry.RegistryEntry;
-import net.valhelsia.valhelsia_core.api.common.registry.helper.MappedRegistryHelper;
+import net.valhelsia.valhelsia_core.api.common.registry.helper.RegistryHelper;
 
 /**
  * @author stal111
  * @since 2021-06-28
  */
-public class ModMenuTypes implements RegistryClass {
+public class ModMenuTypes {
 
-    public static final MappedRegistryHelper<MenuType<?>> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(Registries.MENU);
+    public static final RegistryHelper<MenuType<?>> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(Registries.MENU);
 
     public static final RegistryEntry<MenuType<?>, MenuType<HephaestusForgeMenu>> HEPHAESTUS_FORGE = register("hephaestus_forge", HephaestusForgeMenu::new);
     public static final RegistryEntry<MenuType<?>, MenuType<ClibanoMenu>> CLIBANO = register("clibano", ClibanoMenu::new);

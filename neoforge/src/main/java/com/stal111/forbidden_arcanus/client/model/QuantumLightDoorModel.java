@@ -1,17 +1,13 @@
 package com.stal111.forbidden_arcanus.client.model;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.client.animation.QuantumLightDoorAnimation;
-import com.stal111.forbidden_arcanus.client.renderer.entity.state.QuantumLightDoorRenderState;
 import net.minecraft.client.animation.KeyframeAnimation;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
-import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.AnimationState;
 
@@ -56,10 +52,10 @@ public class QuantumLightDoorModel extends Model<QuantumLightDoorModel.State> {
         this.spawnAnimation.apply(renderState.portal, renderState.ageInTicks);
     }
 
-    public void render(QuantumLightDoorRenderState renderState, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight) {
+//    public void render(QuantumLightDoorRenderState renderState, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight) {
 //        this.setupAnim(renderState);
-        this.renderToBuffer(poseStack, bufferSource.getBuffer(this.renderType(TEXTURE)), packedLight, OverlayTexture.NO_OVERLAY);
-    }
+//        this.renderToBuffer(poseStack, bufferSource.getBuffer(this.renderType(TEXTURE)), packedLight, OverlayTexture.NO_OVERLAY);
+//    }
 
     public record State(AnimationState portal, float ageInTicks) {
     }

@@ -27,11 +27,9 @@ import com.stal111.forbidden_arcanus.core.init.ModBlockEntities;
 import com.stal111.forbidden_arcanus.core.init.ModEntities;
 import com.stal111.forbidden_arcanus.core.init.ModParticles;
 import com.stal111.forbidden_arcanus.core.init.other.ModMenuTypes;
-import com.stal111.forbidden_arcanus.core.init.other.ModWoodTypes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.object.skull.SkullModel;
 import net.minecraft.client.particle.HugeExplosionParticle;
-import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
 import net.neoforged.bus.api.IEventBus;
@@ -110,10 +108,6 @@ public class ClientSetup {
         this.registerCosmetics();
 
         event.enqueueWork(() -> {
-            Sheets.addWoodType(ModWoodTypes.FUNGYSS);
-            Sheets.addWoodType(ModWoodTypes.AURUM);
-            Sheets.addWoodType(ModWoodTypes.EDELWOOD);
-
             //TODO
             //ItemProperties.register(ModItems.FORBIDDENMICON.get(), new ResourceLocation("open"), (stack, world, entity) -> entity != null && ForbiddenmiconItem.isOpen(stack) ? 1.0F : 0.0F);
 //

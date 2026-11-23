@@ -63,7 +63,7 @@ public class BlackHoleBlockEntity extends BlockEntity implements BlockEntityAgeA
     }
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, BlackHoleBlockEntity blockEntity) {
-        Vec3 center = pos.getCenter();
+        Vec3 center = Vec3.atCenterOf(pos);
         List<Entity> entities = level.getEntities(null, new AABB(center, center).inflate(SUCTION_RADIUS)).stream()
                 .filter(entity -> !entity.is(ModTags.EntityTypes.BLACK_HOLE_UNAFFECTED))
                 .filter(entity -> !(entity instanceof ItemEntity itemEntity) || blockEntity.isAffectedItem(itemEntity))
@@ -88,7 +88,7 @@ public class BlackHoleBlockEntity extends BlockEntity implements BlockEntityAgeA
         }
 
         if (blockEntity.storedExperience >= 91) {
-            blockEntity.throwOutItemStack(level, new ItemStack(ModItems.CONDENSED_EXPERIENCE.get()), pos.getCenter());
+            blockEntity.throwOutItemStack(level, new ItemStack(ModItems.CONDENSED_EXPERIENCE.get()), center);
             blockEntity.storedExperience -= 91;
             blockEntity.setChanged();
         }
@@ -111,7 +111,7 @@ public class BlackHoleBlockEntity extends BlockEntity implements BlockEntityAgeA
             });
 
             if (!stack.isEmpty()) {
-                Vec3 center = this.getBlockPos().getCenter();
+                Vec3 center = Vec3.atCenterOf(this.worldPosition);
 
                 serverLevel.sendParticles(new ItemParticleOption(ParticleTypes.ITEM, ItemStackTemplate.fromNonEmptyStack(stack)), center.x(), center.y(), center.z(), 14, 0.2D, 0.2D, 0.2D, 0.05D);
             }

@@ -11,16 +11,15 @@ import com.stal111.forbidden_arcanus.common.world.feature.config.MegaFungyssConf
 import com.stal111.forbidden_arcanus.common.world.feature.config.MeteoriteConfiguration;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.valhelsia.valhelsia_core.api.common.registry.RegistryClass;
 import net.valhelsia.valhelsia_core.api.common.registry.RegistryEntry;
-import net.valhelsia.valhelsia_core.api.common.registry.helper.MappedRegistryHelper;
+import net.valhelsia.valhelsia_core.api.common.registry.helper.RegistryHelper;
 
 /**
  * @author stal111
  */
-public class ModFeatures implements RegistryClass {
+public class ModFeatures {
 
-    public static final MappedRegistryHelper<Feature<?>> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(Registries.FEATURE);
+    public static final RegistryHelper<Feature<?>> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(Registries.FEATURE);
 
     public static final RegistryEntry<Feature<?>, Feature<BigFungyssConfiguration>> BIG_FUNGYSS = HELPER.register("big_fungyss", () -> new BigFungyssFeature(BigFungyssConfiguration.CODEC));
     public static final RegistryEntry<Feature<?>, Feature<MegaFungyssConfiguration>> MEGA_FUNGYSS = HELPER.register("mega_fungyss", () -> new MegaFungyssFeature(MegaFungyssConfiguration.CODEC));

@@ -32,7 +32,7 @@ public record EssencePath(EssenceType essenceType, List<Vector3fc> path) {
     );
 
     public static EssencePath create(EssenceType essenceType, BlockPos start, BlockPos end, RandomSource randomSource) {
-        return new EssencePath(essenceType, calculatePath(start.getCenter(), end.getCenter(), randomSource));
+        return new EssencePath(essenceType, calculatePath(Vec3.atCenterOf(start), Vec3.atCenterOf(end), randomSource));
     }
 
     private static List<Vector3fc> calculatePath(Vec3 start, Vec3 end, RandomSource random) {

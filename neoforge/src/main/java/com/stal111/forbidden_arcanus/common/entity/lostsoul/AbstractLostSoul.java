@@ -73,7 +73,7 @@ public abstract class AbstractLostSoul extends PathfinderMob {
     }
 
     @Override
-    public void knockback(double strength, double x, double z) {
+    public void knockback(double power, double xd, double zd, DamageSource source, float damage, boolean comesFromEffect) {
     }
 
     @Override

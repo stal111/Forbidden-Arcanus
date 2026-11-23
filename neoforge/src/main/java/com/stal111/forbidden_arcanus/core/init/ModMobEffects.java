@@ -6,14 +6,14 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.valhelsia.valhelsia_core.api.common.registry.RegistryEntry;
-import net.valhelsia.valhelsia_core.api.common.registry.helper.MappedRegistryHelper;
+import net.valhelsia.valhelsia_core.api.common.registry.helper.RegistryHelper;
 
 /**
  * @author stal111
  */
 public class ModMobEffects {
 
-    public static final MappedRegistryHelper<MobEffect> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(Registries.MOB_EFFECT);
+    public static final RegistryHelper<MobEffect> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(Registries.MOB_EFFECT);
 
     public static final RegistryEntry<MobEffect, SpectralEyeEffect> SPECTRAL_VISION = HELPER.register("spectral_vision", () -> new SpectralEyeEffect(MobEffectCategory.BENEFICIAL, 745784));
 

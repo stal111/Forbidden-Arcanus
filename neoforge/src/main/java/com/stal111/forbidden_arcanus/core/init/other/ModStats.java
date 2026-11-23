@@ -5,7 +5,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.stats.StatFormatter;
 import net.valhelsia.valhelsia_core.api.common.registry.RegistryEntry;
-import net.valhelsia.valhelsia_core.api.common.registry.helper.MappedRegistryHelper;
+import net.valhelsia.valhelsia_core.api.common.registry.helper.RegistryHelper;
 
 /**
  * @author stal111
@@ -13,7 +13,7 @@ import net.valhelsia.valhelsia_core.api.common.registry.helper.MappedRegistryHel
  */
 public class ModStats {
 
-    public static final MappedRegistryHelper<Identifier> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(Registries.CUSTOM_STAT);
+    public static final RegistryHelper<Identifier> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(Registries.CUSTOM_STAT);
 
     public static final RegistryEntry<Identifier, Identifier> INTERACT_WITH_PEDESTAL = register("interact_with_pedestal", StatFormatter.DEFAULT);
 

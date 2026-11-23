@@ -30,7 +30,6 @@ import net.minecraft.world.item.equipment.ArmorMaterial;
 import net.minecraft.world.item.equipment.ArmorType;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.material.Fluids;
-import net.valhelsia.valhelsia_core.api.common.registry.RegistryClass;
 import net.valhelsia.valhelsia_core.api.common.registry.helper.item.ItemEntrySet;
 import net.valhelsia.valhelsia_core.api.common.registry.helper.item.ItemRegistryEntry;
 import net.valhelsia.valhelsia_core.api.common.registry.helper.item.ItemRegistryHelper;
@@ -45,7 +44,7 @@ import java.util.List;
  * @version 1.19 - 2.1.0
  * @since 2021-01-26
  */
-public class ModItems implements RegistryClass {
+public class ModItems {
 
     public static final ItemRegistryHelper HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getItemHelper();
 

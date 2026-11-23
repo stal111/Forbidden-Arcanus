@@ -10,16 +10,15 @@ import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
-import net.valhelsia.valhelsia_core.api.common.registry.RegistryClass;
 import net.valhelsia.valhelsia_core.api.common.registry.RegistryEntry;
-import net.valhelsia.valhelsia_core.api.common.registry.helper.MappedRegistryHelper;
+import net.valhelsia.valhelsia_core.api.common.registry.helper.RegistryHelper;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Function;
 
-public class ModParticles implements RegistryClass {
+public class ModParticles {
 
-    public static final MappedRegistryHelper<ParticleType<?>> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(Registries.PARTICLE_TYPE);
+    public static final RegistryHelper<ParticleType<?>> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(Registries.PARTICLE_TYPE);
 
     public static final RegistryEntry<ParticleType<?>, SimpleParticleType> SOUL = HELPER.register("soul", () -> new SimpleParticleType(false));
     public static final RegistryEntry<ParticleType<?>, SimpleParticleType> AUREAL_MOTE = HELPER.register("aureal_mote", () -> new SimpleParticleType(false));

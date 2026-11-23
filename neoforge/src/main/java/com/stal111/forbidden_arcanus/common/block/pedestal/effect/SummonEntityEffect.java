@@ -7,6 +7,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.phys.Vec3;
 import net.valhelsia.valhelsia_core.api.common.registry.RegistryEntry;
 import org.jetbrains.annotations.Nullable;
 
@@ -43,7 +44,7 @@ public class SummonEntityEffect<T extends LivingEntity> extends PedestalEffect {
             T entity = this.entityType.get().create(level, null, spawnPos, EntitySpawnReason.MOB_SUMMONED, false, false);
 
             if (entity != null) {
-                entity.lookAt(EntityAnchorArgument.Anchor.EYES, pos.getCenter());
+                entity.lookAt(EntityAnchorArgument.Anchor.EYES, Vec3.atCenterOf(pos));
 
                 level.addFreshEntity(entity);
             }

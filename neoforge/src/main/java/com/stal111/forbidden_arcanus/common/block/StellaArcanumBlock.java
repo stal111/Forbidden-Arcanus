@@ -10,6 +10,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 public class StellaArcanumBlock extends Block {
@@ -22,7 +23,7 @@ public class StellaArcanumBlock extends Block {
     public void playerDestroy(Level level, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack tool) {
         if (tool.getEnchantmentLevel(level.registryAccess().holderOrThrow(Enchantments.SILK_TOUCH)) == 0) {
             DamageSource damageSource = level.damageSources().explosion(null, null);
-            level.explode(null, damageSource, null, pos.getCenter(), BlockConfig.STELLA_ARCANUM_EXPLOSION_RADIUS.get(), false, BlockConfig.STELLA_ARCANUM_BLOCK_DAMAGE.get() ? Level.ExplosionInteraction.BLOCK : Level.ExplosionInteraction.NONE);
+            level.explode(null, damageSource, null, Vec3.atCenterOf(pos), BlockConfig.STELLA_ARCANUM_EXPLOSION_RADIUS.get(), false, BlockConfig.STELLA_ARCANUM_BLOCK_DAMAGE.get() ? Level.ExplosionInteraction.BLOCK : Level.ExplosionInteraction.NONE);
         }
 
         super.playerDestroy(level, player, pos, state, blockEntity, tool);

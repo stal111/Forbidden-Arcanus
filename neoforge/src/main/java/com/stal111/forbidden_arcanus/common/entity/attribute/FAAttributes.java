@@ -6,11 +6,11 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.RangedAttribute;
 import net.neoforged.neoforge.common.PercentageAttribute;
-import net.valhelsia.valhelsia_core.api.common.registry.helper.MappedRegistryHelper;
+import net.valhelsia.valhelsia_core.api.common.registry.helper.RegistryHelper;
 
 public class FAAttributes {
 
-    public static final MappedRegistryHelper<Attribute> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(Registries.ATTRIBUTE);
+    public static final RegistryHelper<Attribute> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(Registries.ATTRIBUTE);
 
     public static final Holder<Attribute> AUREAL_REGENERATION = HELPER.register("generic.aureal_regeneration", () -> new RangedAttribute("attribute.name.generic.aureal_regeneration", 0.0D, 0.0D, Double.MAX_VALUE).setSyncable(true));
     public static final Holder<Attribute> MAGIC_PROTECTION = HELPER.register("generic.magic_protection", () -> new PercentageAttribute("attribute.name.generic.magic_protection", 0.0D, 0.0D, 1.0).setSyncable(true));

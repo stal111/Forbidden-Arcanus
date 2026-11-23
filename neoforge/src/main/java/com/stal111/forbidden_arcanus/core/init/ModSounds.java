@@ -3,17 +3,16 @@ package com.stal111.forbidden_arcanus.core.init;
 import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.sounds.SoundEvent;
-import net.valhelsia.valhelsia_core.api.common.registry.RegistryClass;
 import net.valhelsia.valhelsia_core.api.common.registry.RegistryEntry;
-import net.valhelsia.valhelsia_core.api.common.registry.helper.MappedRegistryHelper;
+import net.valhelsia.valhelsia_core.api.common.registry.helper.RegistryHelper;
 
 /**
  * @author stal111
  * @since 2022-06-12
  */
-public class ModSounds implements RegistryClass {
+public class ModSounds {
 
-    public static final MappedRegistryHelper<SoundEvent> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(Registries.SOUND_EVENT);
+    public static final RegistryHelper<SoundEvent> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(Registries.SOUND_EVENT);
 
     public static final RegistryEntry<SoundEvent, SoundEvent> ENERGY_BALL_LAUNCH = HELPER.register("energy_ball_launch", () -> SoundEvent.createVariableRangeEvent(ForbiddenArcanus.identifier("entity.energy_ball.launch")));
     public static final RegistryEntry<SoundEvent, SoundEvent> ENERGY_BALL_HIT = HELPER.register("energy_ball_hit", () -> SoundEvent.createVariableRangeEvent(ForbiddenArcanus.identifier("entity.energy_ball.hit")));

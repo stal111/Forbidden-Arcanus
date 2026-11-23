@@ -7,7 +7,7 @@ import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.predicate.BlockStatePredicate;
 import net.valhelsia.valhelsia_core.api.common.registry.RegistryEntry;
-import net.valhelsia.valhelsia_core.api.common.registry.helper.MappedRegistryHelper;
+import net.valhelsia.valhelsia_core.api.common.registry.helper.RegistryHelper;
 
 /**
  * @author stal111
@@ -15,7 +15,7 @@ import net.valhelsia.valhelsia_core.api.common.registry.helper.MappedRegistryHel
  */
 public class MundabiturInteractions {
 
-    public static final MappedRegistryHelper<MundabiturInteraction<?>> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(FARegistries.MUNDABITUR_INTERACTION);
+    public static final RegistryHelper<MundabiturInteraction<?>> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(FARegistries.MUNDABITUR_INTERACTION);
 
     public static final RegistryEntry<MundabiturInteraction<?>, ChargeCreeperInteraction> CHARGE_CREEPER = HELPER.register("charge_creeper", ChargeCreeperInteraction::new);
     public static final RegistryEntry<MundabiturInteraction<?>, TransformPatternInteraction> CREATE_HEPHAESTUS_FORGE = HELPER.register("create_hephaestus_forge", () -> new CreateForgeInteraction(BlockStatePredicate.forBlock(Blocks.SMITHING_TABLE), ModBlockPatterns.HEPHAESTUS_PATTERN));

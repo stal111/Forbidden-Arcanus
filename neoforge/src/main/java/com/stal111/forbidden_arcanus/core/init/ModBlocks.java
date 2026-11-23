@@ -33,7 +33,6 @@ import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
-import net.valhelsia.valhelsia_core.api.common.registry.RegistryClass;
 import net.valhelsia.valhelsia_core.api.common.registry.helper.block.*;
 
 import java.util.Optional;
@@ -45,7 +44,7 @@ import java.util.function.Supplier;
  *
  * @author stal111
  */
-public class ModBlocks implements RegistryClass {
+public class ModBlocks {
 
     public static final BlockRegistryHelper HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getBlockHelper();
 
@@ -226,12 +225,12 @@ public class ModBlocks implements RegistryClass {
         public static final SkullRegistryEntry.SkullItemFactory CRACKED_OBSIDIAN_SKULL_ITEM = degradingSkull(() -> CRACKED_OBSIDIAN_SKULL, () -> FRAGMENTED_OBSIDIAN_SKULL);
         public static final SkullRegistryEntry.SkullItemFactory FRAGMENTED_OBSIDIAN_SKULL_ITEM = degradingSkull(() -> FRAGMENTED_OBSIDIAN_SKULL, () -> FADING_OBSIDIAN_SKULL);
         public static final SkullRegistryEntry.SkullItemFactory FADING_OBSIDIAN_SKULL_ITEM = degradingSkull(() -> FADING_OBSIDIAN_SKULL, Items.SKELETON_SKULL.builtInRegistryHolder().key());
-        public static final SkullRegistryEntry.SkullItemFactory AUREALIC_OBSIDIAN_SKULL_ITEM = (skull, wallSkull) ->
+        public static final SkullRegistryEntry.SkullItemFactory AUREALIC_OBSIDIAN_SKULL_ITEM = (skull, wallSkull, properties) ->
                 new ObsidianSkullItem(skull, wallSkull, baseSkullProperties(AUREALIC_OBSIDIAN_SKULL)
                         .rarity(Rarity.UNCOMMON)
                         .component(ModDataComponents.ESSENCE_COST, EssenceCosts.AUREALIC_OBSIDIAN_SKULL)
                         .delayedComponent(ModDataComponents.PREVENTS_DAMAGE.get(), context -> PreventsDamage.fire(context, EquipmentSlotGroup.HEAD, PreventsDamage.HAS_AUREAL_PREDICATE)));
-        public static final SkullRegistryEntry.SkullItemFactory ETERNAL_OBSIDIAN_SKULL_ITEM = (skull, wallSkull) ->
+        public static final SkullRegistryEntry.SkullItemFactory ETERNAL_OBSIDIAN_SKULL_ITEM = (skull, wallSkull, properties) ->
                 new ObsidianSkullItem(skull, wallSkull, baseSkullProperties(ETERNAL_OBSIDIAN_SKULL)
                         .rarity(Rarity.RARE)
                         .delayedComponent(ModDataComponents.PREVENTS_DAMAGE.get(), context -> PreventsDamage.fire(context, EquipmentSlotGroup.HEAD)));
@@ -240,7 +239,7 @@ public class ModBlocks implements RegistryClass {
                 Supplier<SkullRegistryEntry<?, ?>> entry,
                 Supplier<SkullRegistryEntry<?, ?>> next
         ) {
-            return (skull, wallSkull) -> new ObsidianSkullItem(skull, wallSkull, baseSkullProperties(entry.get())
+            return (skull, wallSkull, properties) -> new ObsidianSkullItem(skull, wallSkull, baseSkullProperties(entry.get())
                     .delayedComponent(ModDataComponents.FIRE_DEGRADATION.get(), context -> FireDegradation.obsidianSkull(context, itemKey(next.get())))
                     .delayedComponent(ModDataComponents.PREVENTS_DAMAGE.get(), context -> PreventsDamage.fire(context, EquipmentSlotGroup.HEAD)));
         }
@@ -249,7 +248,7 @@ public class ModBlocks implements RegistryClass {
                 Supplier<SkullRegistryEntry<?, ?>> entry,
                 ResourceKey<Item> nextItem
         ) {
-            return (skull, wallSkull) -> new ObsidianSkullItem(skull, wallSkull, baseSkullProperties(entry.get())
+            return (skull, wallSkull, properties) -> new ObsidianSkullItem(skull, wallSkull, baseSkullProperties(entry.get())
                     .delayedComponent(ModDataComponents.FIRE_DEGRADATION.get(), context -> FireDegradation.obsidianSkull(context, nextItem))
                     .delayedComponent(ModDataComponents.PREVENTS_DAMAGE.get(), context -> PreventsDamage.fire(context, EquipmentSlotGroup.HEAD)));
         }

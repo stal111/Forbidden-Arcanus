@@ -10,7 +10,6 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.MobCategory;
-import net.valhelsia.valhelsia_core.api.common.registry.RegistryClass;
 import net.valhelsia.valhelsia_core.api.common.registry.RegistryEntry;
 import net.valhelsia.valhelsia_core.api.common.registry.helper.EntityRegistryHelper;
 
@@ -21,7 +20,7 @@ import net.valhelsia.valhelsia_core.api.common.registry.helper.EntityRegistryHel
  * @author stal111
  * @version 1.19 - 2.1.0
  */
-public class ModEntities implements RegistryClass {
+public class ModEntities {
 
     public static final EntityRegistryHelper HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(Registries.ENTITY_TYPE);
 

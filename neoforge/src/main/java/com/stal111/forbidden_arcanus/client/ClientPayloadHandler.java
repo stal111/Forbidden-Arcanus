@@ -43,7 +43,7 @@ public final class ClientPayloadHandler {
         if (player.hasContainerOpen() && player.containerMenu instanceof ClibanoMenu menu) {
             menu.getStoredMaterials().insert(payload.material());
 
-            if (this.minecraft.screen instanceof ClibanoScreen screen) {
+            if (this.minecraft.gui.screen() instanceof ClibanoScreen screen) {
                 screen.getMaterialList().updateSlots();
             }
         }

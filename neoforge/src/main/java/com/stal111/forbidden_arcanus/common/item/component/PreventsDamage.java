@@ -5,7 +5,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stal111.forbidden_arcanus.common.advancements.critereon.EssenceValueEntityPredicate;
 import com.stal111.forbidden_arcanus.common.essence.EssenceType;
 import com.stal111.forbidden_arcanus.common.essence.EssenceValue;
-import net.minecraft.advancements.criterion.EntityPredicate;
+import net.minecraft.advancements.predicates.entity.EntityPredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.RegistryCodecs;
@@ -28,7 +28,7 @@ public record PreventsDamage(List<Rule> rules) {
     public static final Codec<PreventsDamage> CODEC = Rule.CODEC.listOf().xmap(PreventsDamage::new, PreventsDamage::rules);
 
     public static final EntityPredicate HAS_AUREAL_PREDICATE = EntityPredicate.Builder.entity()
-            .subPredicate(new EssenceValueEntityPredicate(EssenceValue.of(EssenceType.AUREAL, 1)))
+            .put(EssenceValueEntityPredicate.CODEC, new EssenceValueEntityPredicate(EssenceValue.of(EssenceType.AUREAL, 1)))
             .build();
 
     public PreventsDamage {

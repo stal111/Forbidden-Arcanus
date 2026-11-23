@@ -7,17 +7,16 @@ import com.stal111.forbidden_arcanus.common.item.crafting.EssenceTransformRecipe
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.valhelsia.valhelsia_core.api.common.registry.RegistryClass;
 import net.valhelsia.valhelsia_core.api.common.registry.RegistryEntry;
-import net.valhelsia.valhelsia_core.api.common.registry.helper.MappedRegistryHelper;
+import net.valhelsia.valhelsia_core.api.common.registry.helper.RegistryHelper;
 
 /**
  * @author stal111
  * @since 2023-08-11
  */
-public class ModRecipeTypes implements RegistryClass {
+public class ModRecipeTypes {
 
-    public static final MappedRegistryHelper<RecipeType<?>> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(Registries.RECIPE_TYPE);
+    public static final RegistryHelper<RecipeType<?>> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(Registries.RECIPE_TYPE);
 
     public static final RegistryEntry<RecipeType<?>, RecipeType<ClibanoMeltingRecipe>> CLIBANO_MELTING = registerRecipeType("clibano_melting");
     public static final RegistryEntry<RecipeType<?>, RecipeType<ClibanoAlloyingRecipe>> CLIBANO_ALLOYING = registerRecipeType("clibano_alloying");

@@ -5,7 +5,7 @@ import com.stal111.forbidden_arcanus.core.init.ModEntities;
 import com.stal111.forbidden_arcanus.core.init.ModItems;
 import com.stal111.forbidden_arcanus.core.registry.FARegistries;
 import net.valhelsia.valhelsia_core.api.common.registry.RegistryEntry;
-import net.valhelsia.valhelsia_core.api.common.registry.helper.MappedRegistryHelper;
+import net.valhelsia.valhelsia_core.api.common.registry.helper.RegistryHelper;
 
 /**
  * @author stal111
@@ -13,7 +13,7 @@ import net.valhelsia.valhelsia_core.api.common.registry.helper.MappedRegistryHel
  */
 public class PedestalEffects {
 
-    public static final MappedRegistryHelper<PedestalEffect> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(FARegistries.PEDESTAL_EFFECT);
+    public static final RegistryHelper<PedestalEffect> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(FARegistries.PEDESTAL_EFFECT);
 
     public static final RegistryEntry<PedestalEffect, PedestalEffect> UPDATE_FORGE_INGREDIENTS = HELPER.register("update_forge_ingredients", UpdateForgeIngredientsEffect::new);
     public static final RegistryEntry<PedestalEffect, PedestalEffect> SUMMON_DARK_TRADER = HELPER.register("summon_dark_trader", () -> new SummonEntityEffect<>((level, stack) -> stack.is(ModItems.OMEGA_ARCOIN.get()), ModEntities.DARK_TRADER, 10, false));

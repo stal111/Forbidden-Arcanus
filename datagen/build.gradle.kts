@@ -1,10 +1,10 @@
 plugins {
-    kotlin("jvm") version "2.3.0"
+    kotlin("jvm")
     id("java-library")
     id("eclipse")
     id("idea")
     id("maven-publish")
-    id("net.neoforged.moddev") version "2.0.141"
+    id("net.neoforged.moddev")
 }
 
 val mod_id: String by project
@@ -66,7 +66,9 @@ neoForge {
 dependencies {
     compileOnly(mainProject)
 
-    implementation("net.valhelsia:valhelsia_core-neoforge-${minecraft_version}:${valhelsia_core_version}")
+    if (project.hasProperty("valhelsia_core_version") && (project.property("valhelsia_core_version") as String).isNotBlank()) {
+        implementation("net.valhelsia:valhelsia_core-neoforge:${valhelsia_core_version}")
+    }
 
     implementation(interfaceInjectionData(accessTransformers("net.valhelsia:dataforge:${dataforge_version}")!!)!!)
 }

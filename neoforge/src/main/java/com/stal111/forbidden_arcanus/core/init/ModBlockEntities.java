@@ -9,16 +9,15 @@ import com.stal111.forbidden_arcanus.common.block.entity.desk.WandDeskBlockEntit
 import com.stal111.forbidden_arcanus.common.block.entity.forge.HephaestusForgeBlockEntity;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.valhelsia.valhelsia_core.api.common.registry.RegistryClass;
 import net.valhelsia.valhelsia_core.api.common.registry.RegistryEntry;
-import net.valhelsia.valhelsia_core.api.common.registry.helper.MappedRegistryHelper;
+import net.valhelsia.valhelsia_core.api.common.registry.helper.RegistryHelper;
 
 /**
  * @author stal111
  */
-public class ModBlockEntities implements RegistryClass {
+public class ModBlockEntities {
 
-    public static final MappedRegistryHelper<BlockEntityType<?>> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(Registries.BLOCK_ENTITY_TYPE);
+    public static final RegistryHelper<BlockEntityType<?>> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(Registries.BLOCK_ENTITY_TYPE);
 
     public static final RegistryEntry<BlockEntityType<?>, BlockEntityType<BlackHoleBlockEntity>> BLACK_HOLE = HELPER.register("black_hole", () -> new BlockEntityType<>(BlackHoleBlockEntity::new, ModBlocks.BLACK_HOLE.get()));
     public static final RegistryEntry<BlockEntityType<?>, BlockEntityType<EssenceUtremJarBlockEntity>> ESSENCE_UTREM_JAR = HELPER.register("essence_utrem_jar", () -> new BlockEntityType<>(EssenceUtremJarBlockEntity::new, ModBlocks.ESSENCE_UTREM_JAR.get()));

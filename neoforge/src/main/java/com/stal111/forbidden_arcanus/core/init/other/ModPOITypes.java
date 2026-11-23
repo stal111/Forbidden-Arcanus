@@ -10,9 +10,8 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.valhelsia.valhelsia_core.api.common.registry.RegistryClass;
 import net.valhelsia.valhelsia_core.api.common.registry.RegistryEntry;
-import net.valhelsia.valhelsia_core.api.common.registry.helper.MappedRegistryHelper;
+import net.valhelsia.valhelsia_core.api.common.registry.helper.RegistryHelper;
 
 import java.util.List;
 import java.util.function.Predicate;
@@ -22,9 +21,9 @@ import java.util.function.Supplier;
  * @author stal111
  * @since 2021-07-31
  */
-public class ModPOITypes implements RegistryClass {
+public class ModPOITypes {
 
-    public static final MappedRegistryHelper<PoiType> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(Registries.POINT_OF_INTEREST_TYPE);
+    public static final RegistryHelper<PoiType> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(Registries.POINT_OF_INTEREST_TYPE);
 
     public static final RegistryEntry<PoiType, PoiType> HEPHAESTUS_FORGE = HELPER.register("hephaestus_forge", () -> new PoiType(getStates(ModBlocks.HEPHAESTUS_FORGE.get(), state -> state.getValue(ModBlockStateProperties.ACTIVATED)), 0, 1));
     public static final RegistryEntry<PoiType, PoiType> CLIBANO_MAIN_PART = HELPER.register("clibano_main_part", () -> new PoiType(getStates(ModBlocks.CLIBANO_MAIN_PART.get()), 0, 1));

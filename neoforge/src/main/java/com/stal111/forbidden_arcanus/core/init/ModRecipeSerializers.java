@@ -4,8 +4,7 @@ import com.stal111.forbidden_arcanus.ForbiddenArcanus;
 import com.stal111.forbidden_arcanus.common.item.crafting.*;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.valhelsia.valhelsia_core.api.common.registry.RegistryClass;
-import net.valhelsia.valhelsia_core.api.common.registry.helper.MappedRegistryHelper;
+import net.valhelsia.valhelsia_core.api.common.registry.helper.RegistryHelper;
 
 import java.util.function.Supplier;
 
@@ -13,9 +12,9 @@ import java.util.function.Supplier;
  * @author stal111
  * @since 2023-08-11
  */
-public class ModRecipeSerializers implements RegistryClass {
+public class ModRecipeSerializers {
 
-    public static final MappedRegistryHelper<RecipeSerializer<?>> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(Registries.RECIPE_SERIALIZER);
+    public static final RegistryHelper<RecipeSerializer<?>> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(Registries.RECIPE_SERIALIZER);
 
     public static final Supplier<RecipeSerializer<ApplyModifierRecipe>> APPLY_MODIFIER = HELPER.register("apply_modifier", () -> ApplyModifierRecipe.SERIALIZER);
     public static final Supplier<RecipeSerializer<ClibanoMeltingRecipe>> CLIBANO_MELTING_SERIALIZER = HELPER.register("clibano_melting", () -> ClibanoMeltingRecipe.SERIALIZER);

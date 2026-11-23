@@ -6,7 +6,7 @@ import com.stal111.forbidden_arcanus.common.essence.storage.EssenceStorage;
 import com.stal111.forbidden_arcanus.common.item.modifier.SoulboundInventory;
 import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
-import net.valhelsia.valhelsia_core.api.common.registry.helper.MappedRegistryHelper;
+import net.valhelsia.valhelsia_core.api.common.registry.helper.RegistryHelper;
 
 import java.util.function.Supplier;
 
@@ -16,7 +16,7 @@ import java.util.function.Supplier;
  */
 public class ModAttachmentTypes {
 
-    public static final MappedRegistryHelper<AttachmentType<?>> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(NeoForgeRegistries.Keys.ATTACHMENT_TYPES);
+    public static final RegistryHelper<AttachmentType<?>> HELPER = ForbiddenArcanus.REGISTRY_MANAGER.getHelper(NeoForgeRegistries.Keys.ATTACHMENT_TYPES);
 
     public static final Supplier<AttachmentType<EssenceStorage>> AUREAL = createEssenceStorage(EssenceType.AUREAL);
     public static final Supplier<AttachmentType<EssenceStorage>> ECTOPLASM = createEssenceStorage(EssenceType.ECTOPLASM);

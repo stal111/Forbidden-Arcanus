@@ -40,7 +40,7 @@ public class FlyingLabelOverlay implements GuiLayer {
     public void render(@NotNull GuiGraphicsExtractor guiGraphics, @NotNull DeltaTracker deltaTracker) {
         Minecraft minecraft = Minecraft.getInstance();
 
-        if (minecraft.options.hideGui || minecraft.player == null || minecraft.level == null || minecraft.screen != null) {
+        if (minecraft.gui.hud.isHidden() || minecraft.player == null || minecraft.level == null || minecraft.gui.screen() != null) {
             this.currentAlpha = 0.0F;
             this.lastComponents = List.of();
             return;

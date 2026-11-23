@@ -8,10 +8,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LightningBolt;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.level.Level;
@@ -112,7 +109,7 @@ public class EnergyBall extends Projectile {
 
             entity.hurt(this.level().damageSources().indirectMagic(this, this.shootingEntity), DAMAGE_AMOUNT);
 
-            LightningBolt lightningBolt = new LightningBolt(EntityType.LIGHTNING_BOLT, this.level());
+            LightningBolt lightningBolt = new LightningBolt(EntityTypes.LIGHTNING_BOLT, this.level());
             lightningBolt.setPos(entity.getX(), entity.getY(), entity.getZ());
 
             this.level().addFreshEntity(lightningBolt);

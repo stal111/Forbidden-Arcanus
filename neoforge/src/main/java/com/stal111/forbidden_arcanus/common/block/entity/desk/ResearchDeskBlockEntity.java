@@ -52,7 +52,7 @@ public class ResearchDeskBlockEntity extends BaseContainerBlockEntity implements
 
     public static void clientTick(Level level, BlockPos pos, BlockState state, ResearchDeskBlockEntity blockEntity) {
         Player player = level.getNearestPlayer(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, 4.0D, false);
-        Vec3 center = pos.getCenter();
+        Vec3 center = Vec3.atCenterOf(pos);
 
         blockEntity.bookState = blockEntity.updateBookState(player != null);
 
@@ -142,7 +142,7 @@ public class ResearchDeskBlockEntity extends BaseContainerBlockEntity implements
     }
 
     public float calculateBaseRotation(BlockState state, BlockPos pos) {
-        Vec3 center = pos.getCenter();
+        Vec3 center = Vec3.atCenterOf(pos);
 
         Direction direction = state.getValue(BlockStateProperties.HORIZONTAL_FACING).getClockWise();
         Vec3 offsetPos = center.relative(direction, 1.0D);
